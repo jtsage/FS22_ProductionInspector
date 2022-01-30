@@ -36,7 +36,7 @@ local function init()
 	Mission00.load = Utils.prependedFunction(Mission00.load, load)
 	Mission00.onStartMission = Utils.appendedFunction(Mission00.onStartMission, startMission)
 
-	InGameMenuGameSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuGameSettingsFrame.onFrameOpen, ProductionInspector.initGui)
+	InGameMenuGeneralSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuGeneralSettingsFrame.onFrameOpen, ProductionInspector.initGui)
 
 	FSCareerMissionInfo.saveToXMLFile = Utils.appendedFunction(FSCareerMissionInfo.saveToXMLFile, ProductionInspector.saveSettings) -- Settings are saved live, but we need to do it here too, since the old save directory (with our xml) is now a backup
 end

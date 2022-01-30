@@ -7,8 +7,6 @@
 	<text name="title_productionInspector"  text="Production Inspector" />
 	<text name="setting_productionInspector_Visible" text="HUD SichtbarHUD Sichtbar" />
 	<text name="toolTip_productionInspector_Visible" text="Ist das HUD sichtbar?" />
-	<text name="setting_productionInspector_ShowInputs" text="Eingangspegel anzeigen" />
-	<text name="toolTip_productionInspector_ShowInputs" text="Zeigen Sie jeden Input, den die Produktionsstelle benötigt" />
 	<text name="setting_productionInspector_OnlyOwned" text="Nur besessene Punkte anzeigen" />
 	<text name="toolTip_productionInspector_OnlyOwned" text="Zeigen Sie nur die Produktionspunkte an, die Sie besitzen" />
 	<text name="setting_productionInspector_ShowInactivePoint" text="Inaktive Punkte anzeigen" />

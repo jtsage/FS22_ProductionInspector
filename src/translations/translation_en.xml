@@ -7,8 +7,6 @@
 	<text name="title_productionInspector"  text="Production Inspector" />
 	<text name="setting_productionInspector_Visible" text="HUD Visible" />
 	<text name="toolTip_productionInspector_Visible" text="Is the HUD visible" />
-	<text name="setting_productionInspector_ShowInputs" text="Show Input Levels" />
-	<text name="toolTip_productionInspector_ShowInputs" text="Show each input the production point requires" />
 	<text name="setting_productionInspector_OnlyOwned" text="Show Only Owned Points" />
 	<text name="toolTip_productionInspector_OnlyOwned" text="Show only those productions points that you own" />
 	<text name="setting_productionInspector_ShowInactivePoint" text="Show Inactive Points" />

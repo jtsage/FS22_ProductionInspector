@@ -277,7 +277,7 @@ function ProductionInspector:draw()
 			linesPerEntry = linesPerEntry - 1
 		end
 
-		if #info_text == 0 or not g_productionInspector.isEnabledVisible then
+		if #info_text == 0 or not g_productionInspector.isEnabledVisible or g_sleepManager:getIsSleeping()  then
 			-- we have no entries, hide the overlay and leave
 			-- also if we hid it on purpose
 			self.inspectBox:setVisible(false)
@@ -730,7 +730,7 @@ function ProductionInspector.initGui(self)
 	if not g_productionInspector.createdGUI then -- Skip if we've already done this once
 		g_productionInspector.createdGUI = true
 
-		self.menuOption_DisplayMode = self.checkAutoMotorStart:clone()
+		self.menuOption_DisplayMode = self.checkInvertYLook:clone()
 		self.menuOption_DisplayMode.target = g_productionInspector
 		self.menuOption_DisplayMode.id = "productionInspector_DisplayMode"
 		self.menuOption_DisplayMode:setCallback("onClickCallback", "onMenuOptionChanged_DisplayMode")
@@ -753,7 +753,7 @@ function ProductionInspector.initGui(self)
 		for _, optName in pairs(boolMenuOptions) do
 			local fullName = "menuOption_" .. optName
 
-			self[fullName]           = self.checkAutoMotorStart:clone()
+			self[fullName]           = self.checkInvertYLook:clone()
 			self[fullName]["target"] = g_productionInspector
 			self[fullName]["id"]     = "productionInspector_" .. optName
 			self[fullName]:setCallback("onClickCallback", "onMenuOptionChanged_boolOpt")

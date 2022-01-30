@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+  <translationContributors>DeepL</translationContributors>
+
+  <texts>
+	<text name="input_ProductionInspector_reload_config" text="Konfiguration neu laden" />
+	<text name="title_productionInspector"  text="Production Inspector" />
+	<text name="setting_productionInspector_Visible" text="HUD SichtbarHUD Sichtbar" />
+	<text name="toolTip_productionInspector_Visible" text="Ist das HUD sichtbar?" />
+	<text name="setting_productionInspector_ShowInputs" text="Eingangspegel anzeigen" />
+	<text name="toolTip_productionInspector_ShowInputs" text="Zeigen Sie jeden Input, den die Produktionsstelle benötigt" />
+	<text name="setting_productionInspector_OnlyOwned" text="Nur besessene Punkte anzeigen" />
+	<text name="toolTip_productionInspector_OnlyOwned" text="Zeigen Sie nur die Produktionspunkte an, die Sie besitzen" />
+	<text name="setting_productionInspector_ShowInactivePoint" text="Inaktive Punkte anzeigen" />
+	<text name="toolTip_productionInspector_ShowInactivePoint" text="Anzeige der Produktionspunkte ohne aktive Produktionslinien" />
+	<text name="setting_productionInspector_ShowInactiveProd" text="Inaktive Produktionslinien anzeigen" />
+	<text name="toolTip_productionInspector_ShowInactiveProd" text="Produktionslinien anzeigen, die ausgeschaltet sind" />
+	<text name="setting_productionInspector_ShowPercent" text="Füllungsprozentsätze anzeigen" />
+	<text name="toolTip_productionInspector_ShowPercent" text="Anzeige des Füllstands und eines Prozentsatzes" />
+	<text name="setting_productionInspector_ShowInputs" text="Eingaben anzeigen" />
+	<text name="toolTip_productionInspector_ShowInputs" text="Produktionspunkt Eingangsmaterialien anzeigen" />
+	<text name="setting_productionInspector_ShowOutputs" text="Ausgaben anzeigen" />
+	<text name="toolTip_productionInspector_ShowOutputs" text="Produktionspunkt Ausgangsprodukte anzeigen" />
+	<text name="setting_productionInspector_ShowEmptyOutput" text="Leere Ausgänge anzeigen" />
+	<text name="toolTip_productionInspector_ShowEmptyOutput" text="Anzeige der Ausgangsprodukte des Produktionspunktes, auch wenn diese leer sind" />
+	<text name="setting_productionInspector_TextBold"  text="Fettgedruckte Schrift verwenden" />
+	<text name="toolTip_productionInspector_TextBold"  text="Immer eine fette Schrift in der Anzeige verwenden" />
+	<text name="setting_productionInspector_DisplayMode"  text="Anzeigemodus" />
+	<text name="toolTip_productionInspector_DisplayMode"  text="Modus für die Anzeige der Daten" />
+	<text name="setting_productionInspector_DisplayMode1"  text="Oben links, unter Hilfe" />
+	<text name="setting_productionInspector_DisplayMode2"  text="Oben rechts, unter der Uhr" />
+	<text name="setting_productionInspector_DisplayMode3"  text="Unten links, über Karte" />
+	<text name="setting_productionInspector_DisplayMode4"  text="Unten rechts, über dem Tachometer" />
+  </texts>
+</l10n>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<modDesc descVersion="63">
+    <title>
+        <en>ProductionInspector Production Point Overlay</en>
+        <de>ProductionInspector Produktionspunkt-Overlay</de>
+    </title>
+    <description>
+        <en><![CDATA[ProductionInspector shows your running productions at a glance - input and 
+output levels, and which productions are currently running and their status.  
+
+Default Input Bindings:
+Left Ctrl + Left Alt + Num Pad 8 : Reload configuration file from disk]]></en>
+        <de><![CDATA[ProductionInspector zeigt Ihre laufenden Produktionen auf einen Blick - Input 
+und Output Levels, und welche Produktionen gerade laufen und deren Status.  
+            
+Default Input Bindings:
+Left Ctrl + Left Alt + Num Pad 8 : Konfigurationsdatei von der Festplatte neu laden]]></de>
+    </description>
+    <author>JTSage</author>
+    <version>1.0.0.0</version>
+    <iconFilename>modIcon.dds</iconFilename>
+    <multiplayer supported="true"/>
+    <extraSourceFiles>
+        <sourceFile filename="loader.lua"/>
+    </extraSourceFiles>
+    <l10n filenamePrefix="translations/translation"/>
+
+    <actions>
+        <action name="ProductionInspector_reload_config" category="SYSTEM" axisType="HALF" ignoreComboMask="false" />
+    </actions>
+    <inputBinding>
+        <actionBinding action="ProductionInspector_reload_config">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lalt KEY_KP_8" axisComponent="+" neutralInput="0" index="1" />
+        </actionBinding>
+    </inputBinding>
+</modDesc>

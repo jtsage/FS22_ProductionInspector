@@ -426,7 +426,7 @@ function ProductionInspector:draw()
 
 				for _, outputs in pairs(dText[6]) do
 					local thisFillType = g_fillTypeManager:getFillTypeByIndex(outputs[1])
-					local fillColor    = self:makeFillColor(outputs[4], true)
+					local fillColor    = self:makeFillColor(outputs[4], false)
 
 					if not firstRun then
 						table.insert(thisTextLine, {false, false, false})

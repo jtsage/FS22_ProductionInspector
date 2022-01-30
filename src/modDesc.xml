@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="63">
     <title>
-        <en>ProductionInspector Production Point Overlay</en>
-        <de>ProductionInspector Produktionspunkt-Overlay</de>
+        <en>ProductionInspector</en>
+        <de>ProductionInspector</de>
     </title>
     <description>
         <en><![CDATA[ProductionInspector shows your running productions at a glance - input and 

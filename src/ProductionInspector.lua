@@ -728,10 +728,13 @@ function ProductionInspector.initGui(self)
 	}
 
 	if not g_productionInspector.createdGUI then -- Skip if we've already done this once
+		g_productionInspector.createdGUI = true
+
 		self.menuOption_DisplayMode = self.checkAutoMotorStart:clone()
 		self.menuOption_DisplayMode.target = g_productionInspector
 		self.menuOption_DisplayMode.id = "productionInspector_DisplayMode"
 		self.menuOption_DisplayMode:setCallback("onClickCallback", "onMenuOptionChanged_DisplayMode")
+		self.menuOption_DisplayMode:setDisabled(false)
 
 		local settingTitle = self.menuOption_DisplayMode.elements[4]
 		local toolTip = self.menuOption_DisplayMode.elements[6]
@@ -754,6 +757,7 @@ function ProductionInspector.initGui(self)
 			self[fullName]["target"] = g_productionInspector
 			self[fullName]["id"]     = "productionInspector_" .. optName
 			self[fullName]:setCallback("onClickCallback", "onMenuOptionChanged_boolOpt")
+			self[fullName]:setDisabled(false)
 
 			local settingTitle = self[fullName]["elements"][4]
 			local toolTip      = self[fullName]["elements"][6]

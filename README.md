@@ -18,10 +18,10 @@ No idea.  I left the flag on for now, but I can't imagine it will work flawlessl
 
 ## Features
 
-* Display all (enterable) vehicles or just those with the motor running
-* Show speed for vehicles
-* Show is the vehicle is AI or user controlled
-* Show fill level of the vehicle
+* Display owned or all production facilities on the map and what they are doing
+* Show fill levels for the inputs
+* And the outputs
+* And which production lines are running (and what their status is)
 
 ## Default Input Bindings
 

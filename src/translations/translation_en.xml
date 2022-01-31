@@ -3,33 +3,33 @@
   <translationContributors>JTSage</translationContributors>
 
   <texts>
-	<text name="input_ProductionInspector_reload_config" text="Reload configuration" />
-	<text name="title_productionInspector"  text="Production Inspector" />
-	<text name="setting_productionInspector_Visible" text="HUD Visible" />
-	<text name="toolTip_productionInspector_Visible" text="Is the HUD visible" />
-	<text name="setting_productionInspector_OnlyOwned" text="Show Only Owned Points" />
-	<text name="toolTip_productionInspector_OnlyOwned" text="Show only those productions points that you own" />
+	<text name="input_ProductionInspector_reload_config"       text="Reload configuration" />
+	<text name="title_productionInspector"                     text="Production Inspector" />
+	<text name="setting_productionInspector_Visible"           text="HUD Visible" />
+	<text name="toolTip_productionInspector_Visible"           text="When enabled, the overlay is shown" />
+	<text name="setting_productionInspector_OnlyOwned"         text="Show Only Owned Points" />
+	<text name="toolTip_productionInspector_OnlyOwned"         text="When enabled, limit display to only those production facilities you own" />
 	<text name="setting_productionInspector_ShowInactivePoint" text="Show Inactive Points" />
-	<text name="toolTip_productionInspector_ShowInactivePoint" text="Show those production points with no active production lines" />
-	<text name="setting_productionInspector_ShowInactiveProd" text="Show Inactive Production Lines" />
-	<text name="toolTip_productionInspector_ShowInactiveProd" text="Show productions lines that are toggled off" />
-	<text name="setting_productionInspector_ShowPercent" text="Show Fill Percentages" />
-	<text name="toolTip_productionInspector_ShowPercent" text="Show the fill level and a percentage" />
-	<text name="setting_productionInspector_ShowInputs" text="Show Inputs" />
-	<text name="toolTip_productionInspector_ShowInputs" text="Show production point input materials" />
-	<text name="setting_productionInspector_ShowOutputs" text="Show Outputs" />
-	<text name="toolTip_productionInspector_ShowOutputs" text="Show production point output products" />
-	<text name="setting_productionInspector_ShowEmptyOutput" text="Show Empty Outputs" />
-	<text name="toolTip_productionInspector_ShowEmptyOutput" text="Show production point output products, even if they are empty" />
-	<text name="setting_productionInspector_ShortEmptyOutput" text="Shorten Empty Inputs" />
-	<text name="toolTip_productionInspector_ShortEmptyOutput" text="Show empty inputs as a double dash (--) instead of 0 (0%)" />
-	<text name="setting_productionInspector_TextBold"  text="Use Bold Font" />
-	<text name="toolTip_productionInspector_TextBold"  text="Always use a bold font in the display" />
-	<text name="setting_productionInspector_DisplayMode"  text="Display Mode" />
-	<text name="toolTip_productionInspector_DisplayMode"  text="Mode to use to display data" />
-	<text name="setting_productionInspector_DisplayMode1"  text="Top Left, Under Help" />
-	<text name="setting_productionInspector_DisplayMode2"  text="Top Right, Under Clock" />
-	<text name="setting_productionInspector_DisplayMode3"  text="Bottom Left, Above Map" />
-	<text name="setting_productionInspector_DisplayMode4"  text="Bottom Right, Above Speedometer" />
+	<text name="toolTip_productionInspector_ShowInactivePoint" text="When enabled, show production facilities with no running production lines" />
+	<text name="setting_productionInspector_ShowInactiveProd"  text="Show Inactive Production Lines" />
+	<text name="toolTip_productionInspector_ShowInactiveProd"  text="When enabled, show production lines that are inactive" />
+	<text name="setting_productionInspector_ShowPercent"       text="Show Fill Percentages" />
+	<text name="toolTip_productionInspector_ShowPercent"       text="When enabled, show the percentage of the fill level" />
+	<text name="setting_productionInspector_ShowInputs"        text="Show Inputs" />
+	<text name="toolTip_productionInspector_ShowInputs"        text="When enabled, show production facility input materials" />
+	<text name="setting_productionInspector_ShowOutputs"       text="Show Outputs" />
+	<text name="toolTip_productionInspector_ShowOutputs"       text="When enabled, show production facility output products" />
+	<text name="setting_productionInspector_ShowEmptyOutput"   text="Show Empty Outputs" />
+	<text name="toolTip_productionInspector_ShowEmptyOutput"   text="When enabled, show production facility output products, even if they are empty" />
+	<text name="setting_productionInspector_ShortEmptyOutput"  text="Shorten Empty Inputs" />
+	<text name="toolTip_productionInspector_ShortEmptyOutput"  text="When enabled, show empty input products as a double dash (--) instead of 0 (0%)" />
+	<text name="setting_productionInspector_TextBold"          text="Use Bold Font" />
+	<text name="toolTip_productionInspector_TextBold"          text="When enabled, use a bold font for the entire display" />
+	<text name="setting_productionInspector_DisplayMode"       text="Display Mode" />
+	<text name="toolTip_productionInspector_DisplayMode"       text="Where to show the overlay on screen" />
+	<text name="setting_productionInspector_DisplayMode1"      text="Top Left, Under Help" />
+	<text name="setting_productionInspector_DisplayMode2"      text="Top Right, Under Clock" />
+	<text name="setting_productionInspector_DisplayMode3"      text="Bottom Left, Above Map" />
+	<text name="setting_productionInspector_DisplayMode4"      text="Bottom Right, Above Speedometer" />
   </texts>
 </l10n>

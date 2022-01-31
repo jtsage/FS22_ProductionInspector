@@ -17,7 +17,6 @@ ProductionInspector.displayMode5Y   = 0.2
 ProductionInspector.debugMode       = true
 
 ProductionInspector.isEnabledVisible           = true
-ProductionInspector.isEnabledShowInputs        = true
 ProductionInspector.isEnabledOnlyOwned         = true
 ProductionInspector.isEnabledShowInactivePoint = false
 ProductionInspector.isEnabledShowInactiveProd  = false
@@ -135,7 +134,6 @@ function ProductionInspector:new(mission, i18n, modDirectory, modName)
 		{"displayMode5Y", "float"},
 		{"debugMode", "bool"},
 		{"isEnabledVisible", "bool"},
-		{"isEnabledShowInputs", "bool"},
 		{"isEnabledOnlyOwned", "bool"},
 		{"isEnabledShowInactivePoint", "bool"},
 		{"isEnabledShowInactiveProd", "bool"},
@@ -349,9 +347,9 @@ function ProductionInspector:draw()
 			local firstRun      = true
 
 			if dText[2] then
-				table.insert(thisTextLine, {"colorPointOwned", dText[1], false})
+				table.insert(thisTextLine, {"colorPointOwned", dText[1], false, true})
 			else
-				table.insert(thisTextLine, {"colorPointNotOwned", dText[1], false})
+				table.insert(thisTextLine, {"colorPointNotOwned", dText[1], false, true})
 			end
 
 			dispTextY, dispTextW = self:renderLine(thisTextLine, dispTextX, dispTextY, dispTextW)
@@ -486,6 +484,12 @@ function ProductionInspector:renderLine(thisTextLine, dispTextX, dispTextY, disp
 
 	if ( g_productionInspector.displayMode % 2 ~= 0 ) then
 		for _, thisLine in ipairs(thisTextLine) do
+			if thisLine[4] ~= nil and thisLine[4] then
+				setTextBold(true)
+			else
+				setTextBold(g_productionInspector.isEnabledTextBold)
+			end
+
 			if thisLine[1] == false then
 				fullTextSoFar = self:renderSep(dispTextX, dispTextY, fullTextSoFar)
 			elseif thisLine[1] == "rawFillColor" then
@@ -498,6 +502,12 @@ function ProductionInspector:renderLine(thisTextLine, dispTextX, dispTextY, disp
 		end
 	else
 		for i = #thisTextLine, 1, -1 do
+			if thisTextLine[i][4] ~= nil and thisTextLine[i][4] then
+				setTextBold(true)
+			else
+				setTextBold(g_productionInspector.isEnabledTextBold)
+			end
+
 			if thisTextLine[i][1] == false then
 				fullTextSoFar = self:renderSep(dispTextX, dispTextY, fullTextSoFar)
 			elseif thisTextLine[i][1] == "rawFillColor" then
@@ -733,8 +743,8 @@ end
 
 function ProductionInspector.initGui(self)
 	local boolMenuOptions = {
-		"Visible", "ShowInputs", "OnlyOwned", "ShowInactivePoint", "ShowInactiveProd",
-		"ShowPercent", "ShowInputs", "ShowOutputs", "ShowEmptyOutput", "ShortEmptyOutput", "TextBold"
+		"Visible", "OnlyOwned", "ShowInactivePoint", "ShowInactiveProd", "ShowPercent",
+		"ShowInputs", "ShowOutputs", "ShowEmptyOutput", "ShortEmptyOutput", "TextBold"
 	}
 
 	if not g_productionInspector.createdGUI then -- Skip if we've already done this once

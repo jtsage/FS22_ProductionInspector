@@ -1,19 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="63">
     <title>
-        <en>ProductionInspector</en>
-        <de>ProductionInspector</de>
+        <en>Production Inspector</en>
+        <de>Produktions Inspektor</de>
     </title>
     <description>
-        <en><![CDATA[ProductionInspector shows your running productions at a glance - input and 
-output levels, and which productions are currently running and their status.  
+        <en><![CDATA[Production Inspector shows your running productions at a glance
+
+Options:
+ - Show input materials and their fill levels
+ - Show output products and their fill levels
+ - Show production lines and their status
 
 Default Input Bindings:
 Left Ctrl + Left Alt + Num Pad 8 : Reload configuration file from disk]]></en>
-        <de><![CDATA[ProductionInspector zeigt Ihre laufenden Produktionen auf einen Blick - Input 
-und Output Levels, und welche Produktionen gerade laufen und deren Status.  
-            
-Default Input Bindings:
+        <de><![CDATA[Production Inspector zeigt Ihre laufenden Produktionen auf einen Blick
+
+Optionen:
+ - Anzeige der Eingangsmaterialien und ihrer Füllstände
+ - Anzeige der Ausgangsprodukte und ihrer Füllstände
+ - Anzeige der Produktionslinien und ihres Status
+
+ Standard-Eingabebindungen:
 Left Ctrl + Left Alt + Num Pad 8 : Konfigurationsdatei von der Festplatte neu laden]]></de>
     </description>
     <author>JTSage</author>

@@ -21,6 +21,8 @@
 	<text name="toolTip_productionInspector_ShowOutputs" text="Show production point output products" />
 	<text name="setting_productionInspector_ShowEmptyOutput" text="Show Empty Outputs" />
 	<text name="toolTip_productionInspector_ShowEmptyOutput" text="Show production point output products, even if they are empty" />
+	<text name="setting_productionInspector_ShortEmptyOutput" text="Shorten Empty Inputs" />
+	<text name="toolTip_productionInspector_ShortEmptyOutput" text="Show empty inputs as a double dash (--) instead of 0 (0%)" />
 	<text name="setting_productionInspector_TextBold"  text="Use Bold Font" />
 	<text name="toolTip_productionInspector_TextBold"  text="Always use a bold font in the display" />
 	<text name="setting_productionInspector_DisplayMode"  text="Display Mode" />

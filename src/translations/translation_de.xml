@@ -21,6 +21,8 @@
 	<text name="toolTip_productionInspector_ShowOutputs" text="Produktionspunkt Ausgangsprodukte anzeigen" />
 	<text name="setting_productionInspector_ShowEmptyOutput" text="Leere Ausgänge anzeigen" />
 	<text name="toolTip_productionInspector_ShowEmptyOutput" text="Anzeige der Ausgangsprodukte des Produktionspunktes, auch wenn diese leer sind" />
+	<text name="setting_productionInspector_ShortEmptyOutput" text="Leere Eingänge kürzen" />
+	<text name="toolTip_productionInspector_ShortEmptyOutput" text="Leere Eingaben als Doppelstrich (--) anstelle von 0 (0%) anzeigen" />
 	<text name="setting_productionInspector_TextBold"  text="Fettgedruckte Schrift verwenden" />
 	<text name="toolTip_productionInspector_TextBold"  text="Immer eine fette Schrift in der Anzeige verwenden" />
 	<text name="setting_productionInspector_DisplayMode"  text="Anzeigemodus" />

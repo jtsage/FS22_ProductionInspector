@@ -25,6 +25,7 @@ ProductionInspector.isEnabledShowPercent       = true
 ProductionInspector.isEnabledShowInputs        = true
 ProductionInspector.isEnabledShowOutputs       = true
 ProductionInspector.isEnabledShowEmptyOutput   = false
+ProductionInspector.isEnabledShortEmptyOutput  = true
 
 ProductionInspector.setValueTimerFrequency  = 60
 ProductionInspector.setValueTextMarginX     = 15
@@ -40,9 +41,11 @@ ProductionInspector.colorFillType      = {0.700, 0.700, 0.700, 1}
 ProductionInspector.colorCaption       = {0.550, 0.550, 0.550, 1}
 ProductionInspector.colorSep           = {1.000, 1.000, 1.000, 1}
 ProductionInspector.colorEmpty         = {0.830, 0.019, 0.033, 1}
+ProductionInspector.colorEmptyInput    = {1.000, 0.200, 0.200, 1}
 
 ProductionInspector.setStringTextSep         = " | "
 ProductionInspector.setStringTextIndent      = "    "
+ProductionInspector.setStringTextEmptyInput  = "--"
 
 function ProductionInspector:new(mission, i18n, modDirectory, modName)
 	local self = setmetatable({}, ProductionInspector_mt)
@@ -140,6 +143,7 @@ function ProductionInspector:new(mission, i18n, modDirectory, modName)
 		{"isEnabledShowInputs", "bool"},
 		{"isEnabledShowOutputs", "bool"},
 		{"isEnabledShowEmptyOutput", "bool"},
+		{"isEnabledShortEmptyOutput", "bool"},
 		{"setValueTimerFrequency", "int"},
 		{"setValueTextMarginX", "int"},
 		{"setValueTextMarginY", "int"},
@@ -153,8 +157,10 @@ function ProductionInspector:new(mission, i18n, modDirectory, modName)
 		{"colorCaption", "color"},
 		{"colorSep", "color"},
 		{"colorEmpty", "color"},
+		{"colorEmptyInput", "color"},
 		{"setStringTextSep", "string"},
-		{"setStringTextIndent", "string"}
+		{"setStringTextIndent", "string"},
+		{"setStringTextEmptyInput", "string"}
 	}
 
 	return self
@@ -398,9 +404,13 @@ function ProductionInspector:draw()
 						firstRun = false
 					end 
 					table.insert(thisTextLine, {"colorFillType", thisFillType.title .. ": ", false})
-					table.insert(thisTextLine, {"rawFillColor", tostring(inputs[2]), fillColor})
-					if g_productionInspector.isEnabledShowPercent then
-						table.insert(thisTextLine, {"rawFillColor", " (" .. tostring(inputs[4]) ..  "%)", fillColor})
+					if ( inputs[2] == 0 and g_productionInspector.isEnabledShortEmptyOutput ) then
+						table.insert(thisTextLine, {"colorEmptyInput", g_productionInspector.setStringTextEmptyInput, false})
+					else
+						table.insert(thisTextLine, {"rawFillColor", tostring(inputs[2]), fillColor})
+						if g_productionInspector.isEnabledShowPercent then
+							table.insert(thisTextLine, {"rawFillColor", " (" .. tostring(inputs[4]) ..  "%)", fillColor})
+						end
 					end
 				end
 
@@ -724,7 +734,7 @@ end
 function ProductionInspector.initGui(self)
 	local boolMenuOptions = {
 		"Visible", "ShowInputs", "OnlyOwned", "ShowInactivePoint", "ShowInactiveProd",
-		"ShowPercent", "ShowInputs", "ShowOutputs", "ShowEmptyOutput", "TextBold"
+		"ShowPercent", "ShowInputs", "ShowOutputs", "ShowEmptyOutput", "ShortEmptyOutput", "TextBold"
 	}
 
 	if not g_productionInspector.createdGUI then -- Skip if we've already done this once

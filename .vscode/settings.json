@@ -59,6 +59,7 @@
 		"TextElement",
 		"g_productionInspector",
 		"source",
-		"ProductionPoint"
+		"ProductionPoint",
+		"g_sleepManager"
 	]
 }

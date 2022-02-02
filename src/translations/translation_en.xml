@@ -4,6 +4,7 @@
 
   <texts>
 	<text name="input_ProductionInspector_reload_config"       text="Reload configuration" />
+	<text name="input_ProductionInspector_toggle_visible"      text="Toggle Display On/Off" />
 	<text name="title_productionInspector"                     text="Production Inspector" />
 	<text name="setting_productionInspector_Visible"           text="HUD Visible" />
 	<text name="toolTip_productionInspector_Visible"           text="When enabled, the overlay is shown" />

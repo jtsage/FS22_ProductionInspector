@@ -13,7 +13,13 @@ Options:
  - Show production lines and their status
 
 Default Input Bindings:
-Left Ctrl + Left Alt + Num Pad 8 : Reload configuration file from disk]]></en>
+Left Ctrl + Left Alt + Num Pad 8 : Reload configuration file from disk
+
+Changelog:
+
+v1.0.0.1
+ - Add keybind to toggle HUD on and off
+ ]]></en>
         <de><![CDATA[Production Inspector zeigt Ihre laufenden Produktionen auf einen Blick
 
 Optionen:
@@ -22,10 +28,16 @@ Optionen:
  - Anzeige der Produktionslinien und ihres Status
 
  Standard-Eingabebindungen:
-Left Ctrl + Left Alt + Num Pad 8 : Konfigurationsdatei von der Festplatte neu laden]]></de>
+Left Ctrl + Left Alt + Num Pad 8 : Konfigurationsdatei von der Festplatte neu laden
+
+Changelog:
+
+v1.0.0.1
+ - Keybind hinzufügen, um HUD ein- und auszuschalten
+ ]]></de>
     </description>
     <author>JTSage</author>
-    <version>1.0.0.0</version>
+    <version>1.0.0.1</version>
     <iconFilename>modIcon.dds</iconFilename>
     <multiplayer supported="true"/>
     <extraSourceFiles>
@@ -35,10 +47,14 @@ Left Ctrl + Left Alt + Num Pad 8 : Konfigurationsdatei von der Festplatte neu la
 
     <actions>
         <action name="ProductionInspector_reload_config" category="SYSTEM" axisType="HALF" ignoreComboMask="false" />
+        <action name="ProductionInspector_toggle_visible" category="SYSTEM" axisType="HALF" ignoreComboMask="false" />
     </actions>
     <inputBinding>
         <actionBinding action="ProductionInspector_reload_config">
             <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lalt KEY_KP_8" axisComponent="+" neutralInput="0" index="1" />
+        </actionBinding>
+        <actionBinding action="ProductionInspector_toggle_visible">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lalt KEY_KP_7" axisComponent="+" neutralInput="0" index="1" />
         </actionBinding>
     </inputBinding>
 </modDesc>

@@ -484,11 +484,7 @@ function ProductionInspector:renderLine(thisTextLine, dispTextX, dispTextY, disp
 
 	if ( g_productionInspector.displayMode % 2 ~= 0 ) then
 		for _, thisLine in ipairs(thisTextLine) do
-			if thisLine[4] ~= nil and thisLine[4] then
-				setTextBold(true)
-			else
-				setTextBold(g_productionInspector.isEnabledTextBold)
-			end
+			-- future note: thisLine[4] is not nil and is true for the facility name
 
 			if thisLine[1] == false then
 				fullTextSoFar = self:renderSep(dispTextX, dispTextY, fullTextSoFar)
@@ -502,11 +498,7 @@ function ProductionInspector:renderLine(thisTextLine, dispTextX, dispTextY, disp
 		end
 	else
 		for i = #thisTextLine, 1, -1 do
-			if thisTextLine[i][4] ~= nil and thisTextLine[i][4] then
-				setTextBold(true)
-			else
-				setTextBold(g_productionInspector.isEnabledTextBold)
-			end
+			-- future note: thisTextLine[i][4] is not nil and is true for the facility name
 
 			if thisTextLine[i][1] == false then
 				fullTextSoFar = self:renderSep(dispTextX, dispTextY, fullTextSoFar)
@@ -731,6 +723,9 @@ function ProductionInspector:registerActionEvents()
 	local _, reloadConfig = g_inputBinding:registerActionEvent('ProductionInspector_reload_config', self,
 		ProductionInspector.actionReloadConfig, false, true, false, true)
 	g_inputBinding:setActionEventTextVisibility(reloadConfig, false)
+	local _, toggleVisible = g_inputBinding:registerActionEvent('ProductionInspector_toggle_visible', self,
+		ProductionInspector.actionToggleVisible, false, true, false, true)
+	g_inputBinding:setActionEventTextVisibility(toggleVisible, false)
 end
 
 function ProductionInspector:actionReloadConfig()
@@ -739,6 +734,14 @@ function ProductionInspector:actionReloadConfig()
 		print("~~" .. thisModEnviroment.myName .." :: reload settings from disk")
 	end
 	thisModEnviroment:loadSettings()
+end
+
+function ProductionInspector:actionToggleVisible()
+	local thisModEnviroment = getfenv(0)["g_productionInspector"]
+	if ( thisModEnviroment.debugMode ) then
+		print("~~" .. thisModEnviroment.myName .." :: toggle display on/off")
+	end
+	thisModEnviroment.isEnabledVisible = (not thisModEnviroment.isEnabledVisible)
 end
 
 function ProductionInspector.initGui(self)

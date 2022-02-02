@@ -1,5 +1,7 @@
 # FS22_ProductionInspector
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/jtsage/FS22_ProductionInspector) ![GitHub all releases](https://img.shields.io/github/downloads/jtsage/FS22_ProductionInspector/total)
+
 <p align="left">
   <img src="https://github.com/jtsage/FS22_ProductionInspector/raw/main/modIcon.png">
 </p>

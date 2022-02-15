@@ -27,7 +27,8 @@ No idea.  I left the flag on for now, but I can't imagine it will work flawlessl
 
 ## Default Input Bindings
 
-* `Left Ctrl` + `Left Alt` + `Num Pad 9` : Reload configuration file from disk
+* `Left Ctrl` + `Left Alt` + `Num Pad 8` : Reload configuration file from disk
+* `Left Ctrl` + `Left Alt` + `Num Pad 7` : Toggle display on and off
 
 ## Options
 
@@ -62,11 +63,14 @@ Fill type levels are color coded from empty (green) to full (red) unless it is a
 * __colorPointOwned__ - Color for owned production points
 * __colorPointNotOwned__ - Color for not owned production points
 * __colorProdName__ - Color for production line name
-* __colorStatus__ - Color for production line status
 * __colorFillType__ - Color for fill type names
 * __colorCaption__ - Color for captions (Input: Output: Productions:)
 * __colorSep__ - Color for seperator
 * __colorEmpty__ - Color for empty input / output / production lines
+* __colorStatusInactive__ - Color for production line status when inactive
+* __colorStatusRunning__ - Color for production line status when running
+* __colorStatusMissing__ - Color for production line status when missing materials
+* __colorStatusNoSpace__ - Color for production line status when full
 
 ### text
 

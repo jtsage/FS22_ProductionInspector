@@ -35,16 +35,27 @@ ProductionInspector.isEnabledTextBold       = false
 ProductionInspector.colorPointOwned    = {0.182, 0.493, 0.875, 1}
 ProductionInspector.colorPointNotOwned = {0.738, 0.738, 0.738, 1}
 ProductionInspector.colorProdName      = {0.991, 0.399, 0.038, 1}
-ProductionInspector.colorStatus        = {1.000, 1.000, 1.000, 1}
 ProductionInspector.colorFillType      = {0.700, 0.700, 0.700, 1}
 ProductionInspector.colorCaption       = {0.550, 0.550, 0.550, 1}
 ProductionInspector.colorSep           = {1.000, 1.000, 1.000, 1}
 ProductionInspector.colorEmpty         = {0.830, 0.019, 0.033, 1}
 ProductionInspector.colorEmptyInput    = {1.000, 0.200, 0.200, 1}
 
+ProductionInspector.colorStatusInactive = {0.600, 0.600, 0.600, 1}
+ProductionInspector.colorStatusRunning  = {1.000, 1.000, 1.000, 1}
+ProductionInspector.colorStatusMissing  = {1.000, 0.200, 0.200, 1}
+ProductionInspector.colorStatusNoSpace  = {1.000, 0.200, 0.200, 1}
+
 ProductionInspector.setStringTextSep         = " | "
 ProductionInspector.setStringTextIndent      = "    "
 ProductionInspector.setStringTextEmptyInput  = "--"
+
+ProductionInspector.statusColorsMap = {
+	[ProductionPoint.PROD_STATUS.INACTIVE]        = "colorStatusInactive",
+	[ProductionPoint.PROD_STATUS.RUNNING]         = "colorStatusRunning",
+	[ProductionPoint.PROD_STATUS.MISSING_INPUTS]  = "colorStatusMissing",
+	[ProductionPoint.PROD_STATUS.NO_OUTPUT_SPACE] = "colorStatusNoSpace"
+}
 
 function ProductionInspector:new(mission, i18n, modDirectory, modName)
 	local self = setmetatable({}, ProductionInspector_mt)
@@ -150,12 +161,15 @@ function ProductionInspector:new(mission, i18n, modDirectory, modName)
 		{"colorPointOwned", "color"},
 		{"colorPointNotOwned", "color"},
 		{"colorProdName", "color"},
-		{"colorStatus", "color"},
 		{"colorFillType", "color"},
 		{"colorCaption", "color"},
 		{"colorSep", "color"},
 		{"colorEmpty", "color"},
 		{"colorEmptyInput", "color"},
+		{"colorStatusInactive", "color"},
+		{"colorStatusRunning", "color"},
+		{"colorStatusMissing", "color"},
+		{"colorStatusNoSpace", "color"},
 		{"setStringTextSep", "string"},
 		{"setStringTextIndent", "string"},
 		{"setStringTextEmptyInput", "string"}
@@ -224,6 +238,7 @@ function ProductionInspector:updateProductions()
 				for _, thisProcess in ipairs(thisProd.productions) do
 					local prRunning   = thisProd:getIsProductionEnabled(thisProcess.id)
 					local prStatus    = thisProd:getProductionStatus(thisProcess.id)
+					local prStatusCol = g_productionInspector.statusColorsMap[prStatus] or "colorStatusInactive"
 					local prStatusTxt = g_i18n:getText(ProductionPoint.PROD_STATUS_TO_L10N[prStatus]) or "unknown"
 
 					if not weAreWorkingHere and prRunning then
@@ -232,9 +247,9 @@ function ProductionInspector:updateProductions()
 					end
 
 					if prRunning or g_productionInspector.isEnabledShowInactiveProd then
-						table.insert(procTable, {thisProcess.name, prRunning, prStatusTxt})
+						table.insert(procTable, {thisProcess.name, prRunning, prStatusTxt, prStatusCol})
 					end
-					
+
 				end
 			end
 
@@ -370,7 +385,7 @@ function ProductionInspector:draw()
 				end
 
 				table.insert(thisTextLine, {"colorProdName", lines[1] .. ": ", false})
-				table.insert(thisTextLine, {"colorStatus", lines[3], false})
+				table.insert(thisTextLine, {lines[4], lines[3], false})
 			end
 
 			if firstRun then

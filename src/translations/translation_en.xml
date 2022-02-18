@@ -18,6 +18,8 @@
 	<text name="toolTip_productionInspector_ShowPercent"       text="When enabled, show the percentage of the fill level" />
 	<text name="setting_productionInspector_ShowInputs"        text="Show Inputs" />
 	<text name="toolTip_productionInspector_ShowInputs"        text="When enabled, show production facility input materials" />
+	<text name="setting_productionInspector_ShowEmptyInput"    text="Show Empty Inputs" />
+	<text name="toolTip_productionInspector_ShowEmptyInput"    text="When enabled, show production facility input materials, even if they are empty" />
 	<text name="setting_productionInspector_ShowOutputs"       text="Show Outputs" />
 	<text name="toolTip_productionInspector_ShowOutputs"       text="When enabled, show production facility output products" />
 	<text name="setting_productionInspector_ShowEmptyOutput"   text="Show Empty Outputs" />

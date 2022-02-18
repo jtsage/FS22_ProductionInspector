@@ -20,6 +20,9 @@ Changelog:
 
 v1.0.0.1
  - Add keybind to toggle HUD on and off
+
+v1.0.0.2
+ - Add option to hide empty input materials
  ]]></en>
         <de><![CDATA[Production Inspector zeigt Ihre laufenden Produktionen auf einen Blick
 
@@ -36,10 +39,12 @@ Changelog:
 
 v1.0.0.1
  - Keybind hinzufügen, um HUD ein- und auszuschalten
+ v1.0.0.2
+ - Option zum Ausblenden leerer Eingabematerialien hinzufügen
  ]]></de>
     </description>
     <author>JTSage</author>
-    <version>1.0.0.1</version>
+    <version>1.0.0.2</version>
     <iconFilename>modIcon.dds</iconFilename>
     <multiplayer supported="true"/>
     <extraSourceFiles>

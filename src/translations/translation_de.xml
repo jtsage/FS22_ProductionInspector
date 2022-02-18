@@ -18,6 +18,8 @@
 	<text name="toolTip_productionInspector_ShowPercent"       text="Wenn aktiviert, wird der Prozentsatz des Füllstandes angezeigt." />
 	<text name="setting_productionInspector_ShowInputs"        text="Eingaben anzeigen" />
 	<text name="toolTip_productionInspector_ShowInputs"        text="Wenn diese Option aktiviert ist, werden die Eingangsmaterialien der Produktionsanlage angezeigt." />
+	<text name="setting_productionInspector_ShowEmptyInput"    text="Leere Eingaben anzeigen" />
+	<text name="toolTip_productionInspector_ShowEmptyInput"    text="Wenn aktiviert, werden die Eingangsmaterialien der Produktionsanlage angezeigt, auch wenn sie leer sind." />
 	<text name="setting_productionInspector_ShowOutputs"       text="Ausgaben anzeigen" />
 	<text name="toolTip_productionInspector_ShowOutputs"       text="Wenn diese Option aktiviert ist, werden die Ausgangsprodukte der Produktionsanlage angezeigt." />
 	<text name="setting_productionInspector_ShowEmptyOutput"   text="Leere Ausgänge anzeigen" />

@@ -24,6 +24,7 @@ ProductionInspector.isEnabledShowPercent       = true
 ProductionInspector.isEnabledShowInputs        = true
 ProductionInspector.isEnabledShowOutputs       = true
 ProductionInspector.isEnabledShowEmptyOutput   = false
+ProductionInspector.isEnabledShowEmptyInput    = true
 ProductionInspector.isEnabledShortEmptyOutput  = true
 
 ProductionInspector.setValueTimerFrequency  = 60
@@ -151,6 +152,7 @@ function ProductionInspector:new(mission, i18n, modDirectory, modName)
 		{"isEnabledShowPercent", "bool"},
 		{"isEnabledShowInputs", "bool"},
 		{"isEnabledShowOutputs", "bool"},
+		{"isEnabledShowEmptyInput", "bool"},
 		{"isEnabledShowEmptyOutput", "bool"},
 		{"isEnabledShortEmptyOutput", "bool"},
 		{"setValueTimerFrequency", "int"},
@@ -220,7 +222,9 @@ function ProductionInspector:updateProductions()
 				local fillCap   = thisProd.storage:getCapacity(fillType)
 				local fillPerc  = math.ceil((fillLevel / fillCap) * 100)
 
-				table.insert(inputTable, { fillType, math.ceil(fillLevel), fillCap, fillPerc })
+				if ( fillLevel > 0 or g_productionInspector.isEnabledShowEmptyInput ) then
+					table.insert(inputTable, { fillType, math.ceil(fillLevel), fillCap, fillPerc })
+				end
 			end
 
 			for x = 1, #thisProd.outputFillTypeIdsArray do
@@ -762,7 +766,7 @@ end
 function ProductionInspector.initGui(self)
 	local boolMenuOptions = {
 		"Visible", "OnlyOwned", "ShowInactivePoint", "ShowInactiveProd", "ShowPercent",
-		"ShowInputs", "ShowOutputs", "ShowEmptyOutput", "ShortEmptyOutput", "TextBold"
+		"ShowInputs", "ShowEmptyInput", "ShowOutputs", "ShowEmptyOutput", "ShortEmptyOutput", "TextBold"
 	}
 
 	if not g_productionInspector.createdGUI then -- Skip if we've already done this once

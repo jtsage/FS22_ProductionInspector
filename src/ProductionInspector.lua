@@ -807,6 +807,7 @@ function ProductionInspector:actionToggleVisible()
 		print("~~" .. thisModEnviroment.myName .." :: toggle display on/off")
 	end
 	thisModEnviroment.isEnabledVisible = (not thisModEnviroment.isEnabledVisible)
+	thisModEnviroment:saveSettings()
 end
 
 function ProductionInspector.initGui(self)

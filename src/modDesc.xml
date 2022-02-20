@@ -26,10 +26,11 @@ v1.0.0.2
 
 v1.0.0.3
  - Separate percentage and fill level for input and output, add options for each
- - Save config when using the visibility toggle key
 
 v1.0.0.4
  - Add optional indicators for output product destination (selling, storing, or distributing)
+ - Save config when using the visibility toggle key
+ - Hide on construction screen
  ]]></en>
         <de><![CDATA[Production Inspector zeigt Ihre laufenden Produktionen auf einen Blick
 
@@ -53,6 +54,7 @@ v1.0.0.3
 v1.0.0.4
  - Fügen Sie optionale Indikatoren für den Bestimmungsort des Ausgangsprodukts (Verkauf, Lagerung oder Verteilung) hinzu.
  - Speichern der Konfiguration bei Verwendung der Sichtbarkeitsumschalttaste
+ - Auf dem Konstruktionsbildschirm ausblenden
  ]]></de>
     </description>
     <author>JTSage</author>

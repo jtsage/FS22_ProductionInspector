@@ -15,6 +15,7 @@ local function load(mission)
 	if mission:getIsClient() then
 		addModEventListener(modEnvironment)
 		FSBaseMission.registerActionEvents = Utils.appendedFunction(FSBaseMission.registerActionEvents, ProductionInspector.registerActionEvents);
+		FSBaseMission.onToggleConstructionScreen = Utils.prependedFunction(FSBaseMission.onToggleConstructionScreen, ProductionInspector.openConstructionScreen)
 	end
 end
 

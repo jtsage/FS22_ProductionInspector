@@ -304,6 +304,11 @@ function ProductionInspector:updateProductions()
 	self.display_data = {unpack(new_data_table)}
 end
 
+function ProductionInspector:openConstructionScreen()
+	-- hack for construction screen showing blank box.
+	g_productionInspector.inspectBox:setVisible(false)
+end
+
 function ProductionInspector:draw()
 	if not self.isClient then
 		return

@@ -26,6 +26,7 @@ v1.0.0.2
 
 v1.0.0.3
  - Separate percentage and fill level for input and output, add options for each
+ - Save config when using the visibility toggle key
 
 v1.0.0.4
  - Add optional indicators for output product destination (selling, storing, or distributing)
@@ -51,6 +52,7 @@ v1.0.0.3
  - Getrennter Prozentsatz und Füllstand für Eingabe und Ausgabe, Optionen für beide hinzufügen
 v1.0.0.4
  - Fügen Sie optionale Indikatoren für den Bestimmungsort des Ausgangsprodukts (Verkauf, Lagerung oder Verteilung) hinzu.
+ - Speichern der Konfiguration bei Verwendung der Sichtbarkeitsumschalttaste
  ]]></de>
     </description>
     <author>JTSage</author>

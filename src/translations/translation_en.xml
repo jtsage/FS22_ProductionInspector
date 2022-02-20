@@ -32,6 +32,8 @@
 	<text name="toolTip_productionInspector_ShowEmptyOutput"   text="When enabled, show production facility output products, even if they are empty" />
 	<text name="setting_productionInspector_ShortEmptyOutput"  text="Shorten Empty Inputs" />
 	<text name="toolTip_productionInspector_ShortEmptyOutput"  text="When enabled, show empty input products as a double dash (--) instead of 0 (0%)" />
+	<text name="setting_productionInspector_ShowOutputMode"    text="Show Output Mode" />
+	<text name="toolTip_productionInspector_ShowOutputMode"    text="When enabled, show output destination (default: up arrow as selling, down arrow as storing, right arrow as distributing)" />
 	<text name="setting_productionInspector_TextBold"          text="Use Bold Font" />
 	<text name="toolTip_productionInspector_TextBold"          text="When enabled, use a bold font for the entire display" />
 	<text name="setting_productionInspector_DisplayMode"       text="Display Mode" />

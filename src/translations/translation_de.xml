@@ -32,6 +32,8 @@
 	<text name="toolTip_productionInspector_ShowEmptyOutput"   text="Wenn diese Option aktiviert ist, werden die Ausgangsprodukte der Produktionsanlage angezeigt, auch wenn sie leer sind." />
 	<text name="setting_productionInspector_ShortEmptyOutput"  text="Leere Eingänge kürzen" />
 	<text name="toolTip_productionInspector_ShortEmptyOutput"  text="Wenn aktiviert, werden leere Eingabeprodukte als Doppelstrich (--) anstelle von 0 (0%) angezeigt." />
+	<text name="setting_productionInspector_ShowOutputMode"    text="Ausgabemodus anzeigen" />
+	<text name="toolTip_productionInspector_ShowOutputMode"    text="Wenn aktiviert, wird das Ausgabeziel angezeigt (Standard: Pfeil nach oben für Verkauf, Pfeil nach unten für Speicherung, Pfeil nach rechts für Verteilung)" />
 	<text name="setting_productionInspector_TextBold"          text="Fettgedruckte Schrift verwenden" />
 	<text name="toolTip_productionInspector_TextBold"          text="Wenn aktiviert, wird für die gesamte Anzeige eine fette Schrift verwendet." />
 	<text name="setting_productionInspector_DisplayMode"       text="Anzeigemodus" />

@@ -26,6 +26,9 @@ v1.0.0.2
 
 v1.0.0.3
  - Separate percentage and fill level for input and output, add options for each
+
+v1.0.0.4
+ - Add optional indicators for output product destination (selling, storing, or distributing)
  ]]></en>
         <de><![CDATA[Production Inspector zeigt Ihre laufenden Produktionen auf einen Blick
 
@@ -46,10 +49,12 @@ v1.0.0.2
  - Option zum Ausblenden leerer Eingabematerialien hinzufügen
 v1.0.0.3
  - Getrennter Prozentsatz und Füllstand für Eingabe und Ausgabe, Optionen für beide hinzufügen
+v1.0.0.4
+ - Fügen Sie optionale Indikatoren für den Bestimmungsort des Ausgangsprodukts (Verkauf, Lagerung oder Verteilung) hinzu.
  ]]></de>
     </description>
     <author>JTSage</author>
-    <version>1.0.0.2</version>
+    <version>1.0.0.4</version>
     <iconFilename>modIcon.dds</iconFilename>
     <multiplayer supported="true"/>
     <extraSourceFiles>

@@ -29,6 +29,7 @@ ProductionInspector.isEnabledShowOutputs       = true
 ProductionInspector.isEnabledShowEmptyOutput   = false
 ProductionInspector.isEnabledShowEmptyInput    = true
 ProductionInspector.isEnabledShortEmptyOutput  = true
+ProductionInspector.isEnabledShowOutputMode    = true
 
 ProductionInspector.setValueTimerFrequency  = 60
 ProductionInspector.setValueTextMarginX     = 15
@@ -53,12 +54,21 @@ ProductionInspector.colorStatusNoSpace  = {1.000, 0.200, 0.200, 1}
 ProductionInspector.setStringTextSep         = " | "
 ProductionInspector.setStringTextIndent      = "    "
 ProductionInspector.setStringTextEmptyInput  = "--"
+ProductionInspector.setStringTextSelling     = "↑"
+ProductionInspector.setStringTextStoring     = "↓"
+ProductionInspector.setStringTextDistribute  = "→"
 
 ProductionInspector.statusColorsMap = {
 	[ProductionPoint.PROD_STATUS.INACTIVE]        = "colorStatusInactive",
 	[ProductionPoint.PROD_STATUS.RUNNING]         = "colorStatusRunning",
 	[ProductionPoint.PROD_STATUS.MISSING_INPUTS]  = "colorStatusMissing",
 	[ProductionPoint.PROD_STATUS.NO_OUTPUT_SPACE] = "colorStatusNoSpace"
+}
+
+ProductionInspector.outputModeMap = {
+	[ProductionPoint.OUTPUT_MODE.KEEP]         = "setStringTextStoring",
+	[ProductionPoint.OUTPUT_MODE.DIRECT_SELL]  = "setStringTextSelling",
+	[ProductionPoint.OUTPUT_MODE.AUTO_DELIVER] = "setStringTextDistribute",
 }
 
 function ProductionInspector:new(mission, i18n, modDirectory, modName)
@@ -161,6 +171,7 @@ function ProductionInspector:new(mission, i18n, modDirectory, modName)
 		{"isEnabledShowEmptyInput", "bool"},
 		{"isEnabledShowEmptyOutput", "bool"},
 		{"isEnabledShortEmptyOutput", "bool"},
+		{"isEnabledShowOutputMode", "bool"},
 		{"setValueTimerFrequency", "int"},
 		{"setValueTextMarginX", "int"},
 		{"setValueTextMarginY", "int"},
@@ -180,7 +191,10 @@ function ProductionInspector:new(mission, i18n, modDirectory, modName)
 		{"colorStatusNoSpace", "color"},
 		{"setStringTextSep", "string"},
 		{"setStringTextIndent", "string"},
-		{"setStringTextEmptyInput", "string"}
+		{"setStringTextEmptyInput", "string"},
+		{"setStringTextSelling", "string"},
+		{"setStringTextStoring", "string"},
+		{"setStringTextDistribute", "string"},
 	}
 
 	return self
@@ -238,9 +252,10 @@ function ProductionInspector:updateProductions()
 				local fillLevel = thisProd.storage:getFillLevel(fillType)
 				local fillCap   = thisProd.storage:getCapacity(fillType)
 				local fillPerc  = math.ceil((fillLevel / fillCap) * 100)
+				local fillDest  = thisProd:getOutputDistributionMode(fillType)
 
 				if ( fillLevel > 0 or g_productionInspector.isEnabledShowEmptyOutput) then
-					table.insert(outputTable, { fillType, math.ceil(fillLevel), fillCap, fillPerc })
+					table.insert(outputTable, { fillType, math.ceil(fillLevel), fillCap, fillPerc, fillDest })
 				end
 			end
 
@@ -425,7 +440,7 @@ function ProductionInspector:draw()
 						table.insert(thisTextLine, {false, false, false})
 					else
 						firstRun = false
-					end 
+					end
 					table.insert(thisTextLine, {"colorFillType", thisFillType.title .. ": ", false})
 
 					if ( inputs[2] == 0 and g_productionInspector.isEnabledShortEmptyOutput ) then
@@ -474,7 +489,16 @@ function ProductionInspector:draw()
 					else
 						firstRun = false
 					end
-					table.insert(thisTextLine, {"colorFillType", thisFillType.title .. ": ", false})
+
+					local fillTypeString = thisFillType.title
+
+					if g_productionInspector.isEnabledShowOutputMode then
+						fillTypeString = fillTypeString .. " " .. g_productionInspector[g_productionInspector.outputModeMap[outputs[5]]] .. " "
+					else
+						fillTypeString = fillTypeString .. ": "
+					end
+
+					table.insert(thisTextLine, {"colorFillType", fillTypeString, false})
 
 					if g_productionInspector.isEnabledShowOutFillLevel then
 						table.insert(thisTextLine, {"rawFillColor", tostring(outputs[2]), fillColor})
@@ -789,7 +813,7 @@ function ProductionInspector.initGui(self)
 	local boolMenuOptions = {
 		"Visible", "OnlyOwned", "ShowInactivePoint", "ShowInactiveProd",
 		"ShowInputs", "ShowEmptyInput", "ShortEmptyOutput", "ShowInPercent", "ShowInFillLevel",
-		"ShowOutputs", "ShowEmptyOutput", "ShowOutPercent", "ShowOutFillLevel",
+		"ShowOutputs", "ShowEmptyOutput", "ShowOutPercent", "ShowOutFillLevel", "ShowOutputMode",
 		"TextBold"
 	}
 

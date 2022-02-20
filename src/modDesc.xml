@@ -19,10 +19,13 @@ Left Ctrl + Left Alt + Num Pad 7 : Toggle display on and off
 Changelog:
 
 v1.0.0.1
- - Add keybind to toggle HUD on and off
+ - Add key bind to toggle HUD on and off
 
 v1.0.0.2
  - Add option to hide empty input materials
+
+v1.0.0.3
+ - Separate percentage and fill level for input and output, add options for each
  ]]></en>
         <de><![CDATA[Production Inspector zeigt Ihre laufenden Produktionen auf einen Blick
 
@@ -39,8 +42,10 @@ Changelog:
 
 v1.0.0.1
  - Keybind hinzufügen, um HUD ein- und auszuschalten
- v1.0.0.2
+v1.0.0.2
  - Option zum Ausblenden leerer Eingabematerialien hinzufügen
+v1.0.0.3
+ - Getrennter Prozentsatz und Füllstand für Eingabe und Ausgabe, Optionen für beide hinzufügen
  ]]></de>
     </description>
     <author>JTSage</author>

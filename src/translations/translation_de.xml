@@ -14,8 +14,14 @@
 	<text name="toolTip_productionInspector_ShowInactivePoint" text="Wenn diese Option aktiviert ist, werden Produktionsanlagen ohne laufende Produktionslinien angezeigt." />
 	<text name="setting_productionInspector_ShowInactiveProd"  text="Inaktive Produktionslinien anzeigen" />
 	<text name="toolTip_productionInspector_ShowInactiveProd"  text="Wenn aktiviert, werden Produktionslinien angezeigt, die inaktiv sind." />
-	<text name="setting_productionInspector_ShowPercent"       text="Füllungsprozentsätze anzeigen" />
-	<text name="toolTip_productionInspector_ShowPercent"       text="Wenn aktiviert, wird der Prozentsatz des Füllstandes angezeigt." />
+	<text name="setting_productionInspector_ShowOutPercent"    text="Prozentuale Füllung der Ausgabe anzeigen" />
+	<text name="toolTip_productionInspector_ShowOutPercent"    text="Wenn aktiviert, wird der Prozentsatz der Füllung des Ausgangsprodukts angezeigt." />
+	<text name="setting_productionInspector_ShowOutFillLevel"  text="Füllstand der Ausgabe anzeigen" />
+	<text name="toolTip_productionInspector_ShowOutFillLevel"  text="Wenn diese Funktion aktiviert ist, wird der Füllstand der Ausgabe in Litern angezeigt." />
+	<text name="setting_productionInspector_ShowInPercent"     text="Prozentuale Füllung der Eingabe anzeigen" />
+	<text name="toolTip_productionInspector_ShowInPercent"     text="Wenn diese Option aktiviert ist, wird der prozentuale Füllstand des eingegebenen Materials angezeigt." />
+	<text name="setting_productionInspector_ShowInFillLevel"   text="Eingabefüllstand anzeigen" />
+	<text name="toolTip_productionInspector_ShowInFillLevel"   text="Wenn aktiviert, wird der Eingangsfüllstand in Litern angezeigt." />
 	<text name="setting_productionInspector_ShowInputs"        text="Eingaben anzeigen" />
 	<text name="toolTip_productionInspector_ShowInputs"        text="Wenn diese Option aktiviert ist, werden die Eingangsmaterialien der Produktionsanlage angezeigt." />
 	<text name="setting_productionInspector_ShowEmptyInput"    text="Leere Eingaben anzeigen" />

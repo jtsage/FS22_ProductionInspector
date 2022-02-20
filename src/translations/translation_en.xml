@@ -14,8 +14,14 @@
 	<text name="toolTip_productionInspector_ShowInactivePoint" text="When enabled, show production facilities with no running production lines" />
 	<text name="setting_productionInspector_ShowInactiveProd"  text="Show Inactive Production Lines" />
 	<text name="toolTip_productionInspector_ShowInactiveProd"  text="When enabled, show production lines that are inactive" />
-	<text name="setting_productionInspector_ShowPercent"       text="Show Fill Percentages" />
-	<text name="toolTip_productionInspector_ShowPercent"       text="When enabled, show the percentage of the fill level" />
+	<text name="setting_productionInspector_ShowOutPercent"    text="Show Output Fill Percentage " />
+	<text name="toolTip_productionInspector_ShowOutPercent"    text="When enabled, show percentage of output prouduct fill" />
+	<text name="setting_productionInspector_ShowOutFillLevel"  text="Show Output Fill Level" />
+	<text name="toolTip_productionInspector_ShowOutFillLevel"  text="When enabled, show output fill level in liters" />
+	<text name="setting_productionInspector_ShowInPercent"     text="Show Input Fill Percentage" />
+	<text name="toolTip_productionInspector_ShowInPercent"     text="When enabled, show percentage of input material fill level" />
+	<text name="setting_productionInspector_ShowInFillLevel"   text="Show Input Fill Level" />
+	<text name="toolTip_productionInspector_ShowInFillLevel"   text="When enabled, show input fill level in liters" />
 	<text name="setting_productionInspector_ShowInputs"        text="Show Inputs" />
 	<text name="toolTip_productionInspector_ShowInputs"        text="When enabled, show production facility input materials" />
 	<text name="setting_productionInspector_ShowEmptyInput"    text="Show Empty Inputs" />

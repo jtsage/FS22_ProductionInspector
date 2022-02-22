@@ -14,7 +14,7 @@ ProductionInspector.displayMode     = 1 -- 1: top left, 2: top right (default), 
 ProductionInspector.displayMode5X   = 0.2
 ProductionInspector.displayMode5Y   = 0.2
 
-ProductionInspector.debugMode       = true
+ProductionInspector.debugMode       = false
 
 ProductionInspector.isEnabledVisible           = true
 ProductionInspector.isEnabledOnlyOwned         = true

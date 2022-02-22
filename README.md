@@ -28,11 +28,11 @@ No idea.  I left the flag on for now, but I can't imagine it will work flawlessl
 ## Default Input Bindings
 
 * `Left Ctrl` + `Left Alt` + `Num Pad 8` : Reload configuration file from disk
-* `Left Ctrl` + `Left Alt` + `Num Pad 7` : Toggle display on and off
+* `Left Alt` + `Num Pad 8` : Toggle display on and off
 
 ## Options
 
-All options are set via a xml file your savegame folder - simpleInspector.xml
+All options are set via a xml file in `modSettings/FS22_ProductionInspector/savegame##/productionInspector.xml`
 
 Most view options can be set in the in-game settings menu (scroll down)
 
@@ -51,10 +51,16 @@ Most view options can be set in the in-game settings menu (scroll down)
 * __isEnabledOnlyOwned__ - Show only owned production points
 * __isEnabledShowInactivePoint__ - Show inactive production points
 * __isEnabledShowInactiveProd__ - Show inactive production lines
-* __isEnabledShowPercent__ - Show fill percentages
 * __isEnabledShowInputs__ - Show inputs
 * __isEnabledShowOutputs__ - Show outputs
 * __isEnabledShowEmptyOutput__ - Show outputs when empty
+* __isEnabledShowOutPercent__ - Show output level percentages
+* __isEnabledShowOutFillLevel__ - Show output level fill (liters)
+* __isEnabledShowInPercent__ -  Show input level percentages
+* __isEnabledShowInFillLevel__ - Show input level fill (liters)
+* __isEnabledShowEmptyInput__ -  Show empty inputs
+* __isEnabledShortEmptyOutput__ -  Shorten display of empty outputs
+* __isEnabledShowOutputMode__ -  Show output destination marker
 
 ### colors
 
@@ -79,6 +85,9 @@ Fill type levels are color coded from empty (green) to full (red) unless it is a
 * __setValueTextMarginX__ - text margin height, default "15"
 * __setValueTextMarginY__ - text margin width, default "10"
 * __setValueTextSize__ - text size, default "12"
+* __setStringTextSelling__ - text string for output mode selling , default "↑"
+* __setStringTextStoring__ - text string for output mode storing, default "↓"
+* __setStringTextDistribute__ - text string for output mode distributing, default "→"
 
 ### dev, debug and extras
 

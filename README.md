@@ -61,6 +61,7 @@ Most view options can be set in the in-game settings menu (scroll down)
 * __isEnabledShowEmptyInput__ -  Show empty inputs
 * __isEnabledShortEmptyOutput__ -  Shorten display of empty outputs
 * __isEnabledShowOutputMode__ -  Show output destination marker
+* __isEnabledMaxProductions__ - Limit to this number of productions in the HUD (0 = unlimited)
 
 ### colors
 
@@ -88,6 +89,7 @@ Fill type levels are color coded from empty (green) to full (red) unless it is a
 * __setStringTextSelling__ - text string for output mode selling , default "↑"
 * __setStringTextStoring__ - text string for output mode storing, default "↓"
 * __setStringTextDistribute__ - text string for output mode distributing, default "→"
+* __setTotalMaxProductions__ - maximum number of productions available in the settings menu, default 40.
 
 ### dev, debug and extras
 

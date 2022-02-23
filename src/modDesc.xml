@@ -11,6 +11,7 @@ Options:
  - Show input materials and their fill levels
  - Show output products and their fill levels
  - Show production lines and their status
+ - Add an underscore to the production point name to hide it from the HUD (_)
 
 Default Input Bindings:
 Left Ctrl + Left Alt + Num Pad 8 : Reload configuration file from disk
@@ -33,6 +34,10 @@ v1.0.0.4
  - Hide on construction screen
 v1.0.0.5
  - Change default key binds
+v1.0.0.6
+ - Add sorting by name
+ - Add hiding of productions with a name that ends in an underscore ("_")
+ - Add "max productions" configuration option
  ]]></en>
         <de><![CDATA[Production Inspector zeigt Ihre laufenden Produktionen auf einen Blick
 
@@ -40,6 +45,7 @@ Optionen:
  - Anzeige der Eingangsmaterialien und ihrer Füllstände
  - Anzeige der Ausgangsprodukte und ihrer Füllstände
  - Anzeige der Produktionslinien und ihres Status
+ - Fügen Sie dem Namen des Produktionspunktes einen Unterstrich hinzu, um ihn aus dem HUD auszublenden (_)
 
  Standard-Eingabebindungen:
 Left Ctrl + Left Alt + Num Pad 8 : Konfigurationsdatei von der Festplatte neu laden
@@ -59,10 +65,14 @@ v1.0.0.4
  - Auf dem Konstruktionsbildschirm ausblenden
 v1.0.0.5
  - Standardtastenbelegungen ändern
+ v1.0.0.6
+ - Sortierung nach Namen hinzufügen
+ - Ausblenden von Produktionen mit einem Namen, der mit einem Unterstrich ("_") endet, hinzufügen
+ - Hinzufügen der Konfigurationsoption "max productions
  ]]></de>
     </description>
     <author>JTSage</author>
-    <version>1.0.0.5</version>
+    <version>1.0.0.6</version>
     <iconFilename>modIcon.dds</iconFilename>
     <multiplayer supported="true"/>
     <extraSourceFiles>

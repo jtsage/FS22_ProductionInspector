@@ -30,11 +30,13 @@ ProductionInspector.isEnabledShowEmptyOutput   = false
 ProductionInspector.isEnabledShowEmptyInput    = true
 ProductionInspector.isEnabledShortEmptyOutput  = true
 ProductionInspector.isEnabledShowOutputMode    = true
+ProductionInspector.isEnabledMaxProductions    = 0
 
 ProductionInspector.setValueTimerFrequency  = 60
 ProductionInspector.setValueTextMarginX     = 15
 ProductionInspector.setValueTextMarginY     = 10
 ProductionInspector.setValueTextSize        = 12
+ProductionInspector.setTotalMaxProductions  = 40
 ProductionInspector.isEnabledTextBold       = false
 
 ProductionInspector.colorPointOwned    = {0.182, 0.493, 0.875, 1}
@@ -159,6 +161,7 @@ function ProductionInspector:new(mission, i18n, modDirectory, modName)
 		{"displayMode5Y", "float"},
 		{"debugMode", "bool"},
 		{"isEnabledVisible", "bool"},
+		{"isEnabledMaxProductions", "int"},
 		{"isEnabledOnlyOwned", "bool"},
 		{"isEnabledShowInactivePoint", "bool"},
 		{"isEnabledShowInactiveProd", "bool"},
@@ -195,6 +198,7 @@ function ProductionInspector:new(mission, i18n, modDirectory, modName)
 		{"setStringTextSelling", "string"},
 		{"setStringTextStoring", "string"},
 		{"setStringTextDistribute", "string"},
+		{"setTotalMaxProductions", "int"}
 	}
 
 	return self
@@ -224,9 +228,22 @@ end
 function ProductionInspector:updateProductions()
 	local new_data_table = {}
 
+	
 	if g_currentMission ~= nil and g_currentMission.productionChainManager ~= nil then
+		local sortOrder = {}
+		local function sorter(a,b) return a[2] < b[2] end
+
 		for v=1, #g_currentMission.productionChainManager.productionPoints do
-			local thisProd = g_currentMission.productionChainManager.productionPoints[v]
+			local thisProdName = g_currentMission.productionChainManager.productionPoints[v]:getName()
+			if ( string.sub(thisProdName, -1) ~= "_") then
+				table.insert(sortOrder, {v, thisProdName})
+			end
+		end
+
+		table.sort(sortOrder, sorter)
+
+		for _, sortEntry in ipairs(sortOrder) do
+			local thisProd = g_currentMission.productionChainManager.productionPoints[sortEntry[1]]
 
 			local ownedBy          = thisProd:getOwnerFarmId()
 			local isMine           = ownedBy == self.mission:getFarmId()
@@ -338,7 +355,13 @@ function ProductionInspector:draw()
 		else
 			-- we have entries, lets get the overall height of the box and unhide
 			self.inspectBox:setVisible(true)
-			dispTextH = self.inspectText.size * ( #info_text * linesPerEntry )
+
+			if ( g_productionInspector.isEnabledMaxProductions == 0 or #info_text <= g_productionInspector.isEnabledMaxProductions ) then
+				dispTextH = self.inspectText.size * ( #info_text * linesPerEntry )
+			else
+				dispTextH = self.inspectText.size * (g_productionInspector.isEnabledMaxProductions * linesPerEntry )
+			end
+
 			overlayH = dispTextH + ( 2 * self.inspectText.marginHeight)
 		end
 
@@ -387,149 +410,155 @@ function ProductionInspector:draw()
 		self.inspectText.posX = dispTextX
 		self.inspectText.posY = dispTextY
 
+		local currentProdCount = 0
+
 		for _, dText in pairs(info_text) do
-			local thisTextLine  = {}
-			local firstRun      = true
+			if ( g_productionInspector.isEnabledMaxProductions == 0 or currentProdCount < g_productionInspector.isEnabledMaxProductions ) then
+				currentProdCount    = currentProdCount + 1
+				print("thisprod#:" .. tostring(currentProdCount) .. " max:" .. tostring(g_productionInspector.isEnabledMaxProductions))
+				local thisTextLine  = {}
+				local firstRun      = true
 
-			if dText[2] then
-				table.insert(thisTextLine, {"colorPointOwned", dText[1], false, true})
-			else
-				table.insert(thisTextLine, {"colorPointNotOwned", dText[1], false, true})
-			end
-
-			dispTextY, dispTextW = self:renderLine(thisTextLine, dispTextX, dispTextY, dispTextW)
-
-			thisTextLine = {}
-			firstRun     = true
-
-			if ( g_productionInspector.displayMode % 2 ~= 0 ) then
-				table.insert(thisTextLine, {"colorPointOwned", g_productionInspector.setStringTextIndent, false})
-			end
-			table.insert(thisTextLine, {"colorCaption", g_i18n:getText("ui_productions_production") .. " - ", false})
-
-			for _, lines in pairs(dText[7]) do
-				if not firstRun then
-					table.insert(thisTextLine, {false, false, false})
+				if dText[2] then
+					table.insert(thisTextLine, {"colorPointOwned", dText[1], false, true})
 				else
-					firstRun = false
+					table.insert(thisTextLine, {"colorPointNotOwned", dText[1], false, true})
 				end
 
-				table.insert(thisTextLine, {"colorProdName", lines[1] .. ": ", false})
-				table.insert(thisTextLine, {lines[4], lines[3], false})
-			end
+				dispTextY, dispTextW = self:renderLine(thisTextLine, dispTextX, dispTextY, dispTextW)
 
-			if firstRun then
-				table.insert(thisTextLine, {"colorEmpty", g_i18n:getText("ui_none"), false})
-			end
-
-			if ( g_productionInspector.displayMode % 2 == 0 ) then
-				table.insert(thisTextLine, {"colorPointOwned", g_productionInspector.setStringTextIndent, false})
-			end
-
-			dispTextY, dispTextW = self:renderLine(thisTextLine, dispTextX, dispTextY, dispTextW)
-
-			if g_productionInspector.isEnabledShowInputs then
 				thisTextLine = {}
 				firstRun     = true
 
 				if ( g_productionInspector.displayMode % 2 ~= 0 ) then
 					table.insert(thisTextLine, {"colorPointOwned", g_productionInspector.setStringTextIndent, false})
 				end
-				table.insert(thisTextLine, {"colorCaption", g_i18n:getText("ui_productions_incomingMaterials") .. " - ", false})
+				table.insert(thisTextLine, {"colorCaption", g_i18n:getText("ui_productions_production") .. " - ", false})
 
-				for _, inputs in pairs(dText[5]) do
-					local thisFillType = g_fillTypeManager:getFillTypeByIndex(inputs[1])
-					local fillColor    = self:makeFillColor(inputs[4], true)
-
+				for _, lines in pairs(dText[7]) do
 					if not firstRun then
 						table.insert(thisTextLine, {false, false, false})
 					else
 						firstRun = false
 					end
-					table.insert(thisTextLine, {"colorFillType", thisFillType.title .. ": ", false})
 
-					if ( inputs[2] == 0 and g_productionInspector.isEnabledShortEmptyOutput ) then
-						table.insert(thisTextLine, {"colorEmptyInput", g_productionInspector.setStringTextEmptyInput, false})
-					else
-						if g_productionInspector.isEnabledShowInFillLevel then
-							table.insert(thisTextLine, {"rawFillColor", tostring(inputs[2]), fillColor})
+					table.insert(thisTextLine, {"colorProdName", lines[1] .. ": ", false})
+					table.insert(thisTextLine, {lines[4], lines[3], false})
+				end
+
+				if firstRun then
+					table.insert(thisTextLine, {"colorEmpty", g_i18n:getText("ui_none"), false})
+				end
+
+				if ( g_productionInspector.displayMode % 2 == 0 ) then
+					table.insert(thisTextLine, {"colorPointOwned", g_productionInspector.setStringTextIndent, false})
+				end
+
+				dispTextY, dispTextW = self:renderLine(thisTextLine, dispTextX, dispTextY, dispTextW)
+
+				if g_productionInspector.isEnabledShowInputs then
+					thisTextLine = {}
+					firstRun     = true
+
+					if ( g_productionInspector.displayMode % 2 ~= 0 ) then
+						table.insert(thisTextLine, {"colorPointOwned", g_productionInspector.setStringTextIndent, false})
+					end
+					table.insert(thisTextLine, {"colorCaption", g_i18n:getText("ui_productions_incomingMaterials") .. " - ", false})
+
+					for _, inputs in pairs(dText[5]) do
+						local thisFillType = g_fillTypeManager:getFillTypeByIndex(inputs[1])
+						local fillColor    = self:makeFillColor(inputs[4], true)
+
+						if not firstRun then
+							table.insert(thisTextLine, {false, false, false})
+						else
+							firstRun = false
 						end
+						table.insert(thisTextLine, {"colorFillType", thisFillType.title .. ": ", false})
 
-						if g_productionInspector.isEnabledShowInPercent then
+						if ( inputs[2] == 0 and g_productionInspector.isEnabledShortEmptyOutput ) then
+							table.insert(thisTextLine, {"colorEmptyInput", g_productionInspector.setStringTextEmptyInput, false})
+						else
 							if g_productionInspector.isEnabledShowInFillLevel then
-								table.insert(thisTextLine, {"rawFillColor", " (" .. tostring(inputs[4]) ..  "%)", fillColor})
-							else
-								table.insert(thisTextLine, {"rawFillColor", tostring(inputs[4]) ..  "%", fillColor})
+								table.insert(thisTextLine, {"rawFillColor", tostring(inputs[2]), fillColor})
+							end
+
+							if g_productionInspector.isEnabledShowInPercent then
+								if g_productionInspector.isEnabledShowInFillLevel then
+									table.insert(thisTextLine, {"rawFillColor", " (" .. tostring(inputs[4]) ..  "%)", fillColor})
+								else
+									table.insert(thisTextLine, {"rawFillColor", tostring(inputs[4]) ..  "%", fillColor})
+								end
 							end
 						end
 					end
-				end
 
-				if firstRun then
-					table.insert(thisTextLine, {"colorEmpty", g_i18n:getText("ui_none"), false})
-				end
-
-				if g_productionInspector.displayMode % 2 == 0 then
-					table.insert(thisTextLine, {"colorPointOwned", g_productionInspector.setStringTextIndent, false})
-				end
-
-				dispTextY, dispTextW = self:renderLine(thisTextLine, dispTextX, dispTextY, dispTextW)
-			end
-
-			if g_productionInspector.isEnabledShowOutputs then
-				thisTextLine = {}
-				firstRun     = true
-
-				if ( g_productionInspector.displayMode % 2 ~= 0 ) then
-					table.insert(thisTextLine, {"colorPointOwned", g_productionInspector.setStringTextIndent, false})
-				end
-				table.insert(thisTextLine, {"colorCaption", g_i18n:getText("ui_productions_outgoingProducts") .. " - ", false})
-
-				for _, outputs in pairs(dText[6]) do
-					local thisFillType = g_fillTypeManager:getFillTypeByIndex(outputs[1])
-					local fillColor    = self:makeFillColor(outputs[4], false)
-
-					if not firstRun then
-						table.insert(thisTextLine, {false, false, false})
-					else
-						firstRun = false
+					if firstRun then
+						table.insert(thisTextLine, {"colorEmpty", g_i18n:getText("ui_none"), false})
 					end
 
-					local fillTypeString = thisFillType.title
-
-					if g_productionInspector.isEnabledShowOutputMode then
-						fillTypeString = fillTypeString .. " " .. g_productionInspector[g_productionInspector.outputModeMap[outputs[5]]] .. " "
-					else
-						fillTypeString = fillTypeString .. ": "
+					if g_productionInspector.displayMode % 2 == 0 then
+						table.insert(thisTextLine, {"colorPointOwned", g_productionInspector.setStringTextIndent, false})
 					end
 
-					table.insert(thisTextLine, {"colorFillType", fillTypeString, false})
+					dispTextY, dispTextW = self:renderLine(thisTextLine, dispTextX, dispTextY, dispTextW)
+				end
 
-					if g_productionInspector.isEnabledShowOutFillLevel then
-						table.insert(thisTextLine, {"rawFillColor", tostring(outputs[2]), fillColor})
+				if g_productionInspector.isEnabledShowOutputs then
+					thisTextLine = {}
+					firstRun     = true
+
+					if ( g_productionInspector.displayMode % 2 ~= 0 ) then
+						table.insert(thisTextLine, {"colorPointOwned", g_productionInspector.setStringTextIndent, false})
 					end
+					table.insert(thisTextLine, {"colorCaption", g_i18n:getText("ui_productions_outgoingProducts") .. " - ", false})
 
-					if g_productionInspector.isEnabledShowOutPercent then
-						if g_productionInspector.isEnabledShowOutFillLevel then
-							table.insert(thisTextLine, {"rawFillColor", " (" .. tostring(outputs[4]) ..  "%)", fillColor})
+					for _, outputs in pairs(dText[6]) do
+						local thisFillType = g_fillTypeManager:getFillTypeByIndex(outputs[1])
+						local fillColor    = self:makeFillColor(outputs[4], false)
+
+						if not firstRun then
+							table.insert(thisTextLine, {false, false, false})
 						else
-							table.insert(thisTextLine, {"rawFillColor", tostring(outputs[4]) ..  "%", fillColor})
+							firstRun = false
+						end
+
+						local fillTypeString = thisFillType.title
+
+						if g_productionInspector.isEnabledShowOutputMode then
+							fillTypeString = fillTypeString .. " " .. g_productionInspector[g_productionInspector.outputModeMap[outputs[5]]] .. " "
+						else
+							fillTypeString = fillTypeString .. ": "
+						end
+
+						table.insert(thisTextLine, {"colorFillType", fillTypeString, false})
+
+						if g_productionInspector.isEnabledShowOutFillLevel then
+							table.insert(thisTextLine, {"rawFillColor", tostring(outputs[2]), fillColor})
+						end
+
+						if g_productionInspector.isEnabledShowOutPercent then
+							if g_productionInspector.isEnabledShowOutFillLevel then
+								table.insert(thisTextLine, {"rawFillColor", " (" .. tostring(outputs[4]) ..  "%)", fillColor})
+							else
+								table.insert(thisTextLine, {"rawFillColor", tostring(outputs[4]) ..  "%", fillColor})
+							end
 						end
 					end
+
+					if firstRun then
+						table.insert(thisTextLine, {"colorEmpty", g_i18n:getText("ui_none"), false})
+					end
+
+					if g_productionInspector.displayMode % 2 == 0 then
+						table.insert(thisTextLine, {"colorPointOwned", g_productionInspector.setStringTextIndent, false})
+					end
+
+					dispTextY, dispTextW = self:renderLine(thisTextLine, dispTextX, dispTextY, dispTextW)
 				end
 
-				if firstRun then
-					table.insert(thisTextLine, {"colorEmpty", g_i18n:getText("ui_none"), false})
-				end
-
-				if g_productionInspector.displayMode % 2 == 0 then
-					table.insert(thisTextLine, {"colorPointOwned", g_productionInspector.setStringTextIndent, false})
-				end
-
-				dispTextY, dispTextW = self:renderLine(thisTextLine, dispTextX, dispTextY, dispTextW)
+				dispTextY = dispTextY - ( self.inspectText.size / 2 )
 			end
-
-			dispTextY = dispTextY - ( self.inspectText.size / 2 )
 		end
 
 		-- update overlay background
@@ -845,6 +874,26 @@ function ProductionInspector.initGui(self)
 		settingTitle:setText(g_i18n:getText("setting_productionInspector_DisplayMode"))
 		toolTip:setText(g_i18n:getText("toolTip_productionInspector_DisplayMode"))
 
+		self.menuOption_MaxProductions = self.checkInvertYLook:clone()
+		self.menuOption_MaxProductions.target = g_productionInspector
+		self.menuOption_MaxProductions.id = "productionInspector_isEnabledMaxProductions"
+		self.menuOption_MaxProductions:setCallback("onClickCallback", "onMenuOptionChanged_isEnabledMaxProductions")
+		self.menuOption_MaxProductions:setDisabled(false)
+
+		settingTitle = self.menuOption_MaxProductions.elements[4]
+		toolTip = self.menuOption_MaxProductions.elements[6]
+
+		local numRange = {g_i18n:getText("ui_no")}
+
+		for i=1, g_productionInspector.setTotalMaxProductions do
+			table.insert(numRange, tostring(i))
+		end
+
+		self.menuOption_MaxProductions:setTexts(numRange)
+
+		settingTitle:setText(g_i18n:getText("setting_productionInspector_MaxProductions"))
+		toolTip:setText(g_i18n:getText("toolTip_productionInspector_MaxProductions"))
+
 
 		for _, optName in pairs(boolMenuOptions) do
 			local fullName = "menuOption_" .. optName
@@ -870,6 +919,7 @@ function ProductionInspector.initGui(self)
 
 		self.boxLayout:addElement(title)
 		self.boxLayout:addElement(self.menuOption_DisplayMode)
+		self.boxLayout:addElement(self.menuOption_MaxProductions)
 		for _, value in ipairs(boolMenuOptions) do
 			local thisOption = "menuOption_" .. value
 			self.boxLayout:addElement(self[thisOption])
@@ -877,6 +927,8 @@ function ProductionInspector.initGui(self)
 	end
 
 	self.menuOption_DisplayMode:setState(g_productionInspector.displayMode)
+	self.menuOption_MaxProductions:setState(g_productionInspector.isEnabledMaxProductions + 1)
+
 	for _, value in ipairs(boolMenuOptions) do
 		local thisMenuOption = "menuOption_" .. value
 		local thisRealOption = "isEnabled" .. value
@@ -886,6 +938,11 @@ end
 
 function ProductionInspector:onMenuOptionChanged_DisplayMode(state)
 	self.displayMode = state
+	ProductionInspector:saveSettings()
+end
+
+function ProductionInspector:onMenuOptionChanged_isEnabledMaxProductions(state)
+	self.isEnabledMaxProductions = state - 1
 	ProductionInspector:saveSettings()
 end
 

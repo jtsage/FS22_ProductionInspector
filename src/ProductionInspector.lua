@@ -228,7 +228,6 @@ end
 function ProductionInspector:updateProductions()
 	local new_data_table = {}
 
-	
 	if g_currentMission ~= nil and g_currentMission.productionChainManager ~= nil then
 		local sortOrder = {}
 		local function sorter(a,b) return a[2] < b[2] end
@@ -415,7 +414,6 @@ function ProductionInspector:draw()
 		for _, dText in pairs(info_text) do
 			if ( g_productionInspector.isEnabledMaxProductions == 0 or currentProdCount < g_productionInspector.isEnabledMaxProductions ) then
 				currentProdCount    = currentProdCount + 1
-				print("thisprod#:" .. tostring(currentProdCount) .. " max:" .. tostring(g_productionInspector.isEnabledMaxProductions))
 				local thisTextLine  = {}
 				local firstRun      = true
 

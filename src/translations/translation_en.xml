@@ -10,6 +10,8 @@
 	<text name="toolTip_productionInspector_Visible"           text="When enabled, the overlay is shown" />
 	<text name="setting_productionInspector_MaxProductions"    text="Limit Number of Productions Shown" />
 	<text name="toolTip_productionInspector_MaxProductions"    text="Limit to this number of productions (or no limit)" />
+	<text name="setting_productionInspector_TextSize"          text="Font Size" />
+	<text name="toolTip_productionInspector_TextSize"          text="Font Size for display, in relative pixels." />
 	<text name="setting_productionInspector_OnlyOwned"         text="Show Only Owned Points" />
 	<text name="toolTip_productionInspector_OnlyOwned"         text="When enabled, limit display to only those production facilities you own" />
 	<text name="setting_productionInspector_ShowInactivePoint" text="Show Inactive Points" />

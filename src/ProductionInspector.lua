@@ -60,6 +60,8 @@ ProductionInspector.setStringTextSelling     = "↑"
 ProductionInspector.setStringTextStoring     = "↓"
 ProductionInspector.setStringTextDistribute  = "→"
 
+ProductionInspector.menuTextSizes = { 8, 10, 12, 14, 16 }
+
 ProductionInspector.statusColorsMap = {
 	[ProductionPoint.PROD_STATUS.INACTIVE]        = "colorStatusInactive",
 	[ProductionPoint.PROD_STATUS.RUNNING]         = "colorStatusRunning",
@@ -813,6 +815,8 @@ function ProductionInspector:loadSettings()
 		end
 
 		delete(xmlFile)
+		-- Adjust text size
+		g_productionInspector.inspectText.size = g_productionInspector.gameInfoDisplay:scalePixelToScreenHeight(g_productionInspector.setValueTextSize)
 	end
 end
 
@@ -915,17 +919,47 @@ function ProductionInspector.initGui(self)
 		title:applyProfile("settingsMenuSubtitle", true)
 		title:setText(g_i18n:getText("title_productionInspector"))
 
+
+		self.menuOption_TextSize = self.checkInvertYLook:clone()
+		self.menuOption_TextSize.target = g_productionInspector
+		self.menuOption_TextSize.id = "productionInspector_setValueTextSize"
+		self.menuOption_TextSize:setCallback("onClickCallback", "onMenuOptionChanged_setValueTextSize")
+		self.menuOption_TextSize:setDisabled(false)
+
+		settingTitle = self.menuOption_TextSize.elements[4]
+		toolTip = self.menuOption_TextSize.elements[6]
+
+		local textSizeTexts = {}
+		for _, size in ipairs(g_productionInspector.menuTextSizes) do
+			table.insert(textSizeTexts, tostring(size) .. " px")
+		end
+		self.menuOption_TextSize:setTexts(textSizeTexts)
+
+		settingTitle:setText(g_i18n:getText("setting_productionInspector_TextSize"))
+		toolTip:setText(g_i18n:getText("toolTip_productionInspector_TextSize"))
+
+
 		self.boxLayout:addElement(title)
 		self.boxLayout:addElement(self.menuOption_DisplayMode)
 		self.boxLayout:addElement(self.menuOption_MaxProductions)
+
 		for _, value in ipairs(boolMenuOptions) do
 			local thisOption = "menuOption_" .. value
 			self.boxLayout:addElement(self[thisOption])
 		end
+		self.boxLayout:addElement(self.menuOption_TextSize)
 	end
 
 	self.menuOption_DisplayMode:setState(g_productionInspector.displayMode)
 	self.menuOption_MaxProductions:setState(g_productionInspector.isEnabledMaxProductions + 1)
+
+	local textSizeState = 3 -- backup value for it set odd in the xml.
+	for idx, textSize in ipairs(g_productionInspector.menuTextSizes) do
+		if g_productionInspector.setValueTextSize == textSize then
+			textSizeState = idx
+		end
+	end
+	self.menuOption_TextSize:setState(textSizeState)
 
 	for _, value in ipairs(boolMenuOptions) do
 		local thisMenuOption = "menuOption_" .. value
@@ -941,6 +975,12 @@ end
 
 function ProductionInspector:onMenuOptionChanged_isEnabledMaxProductions(state)
 	self.isEnabledMaxProductions = state - 1
+	ProductionInspector:saveSettings()
+end
+
+function ProductionInspector:onMenuOptionChanged_setValueTextSize(state)
+	self.setValueTextSize = g_productionInspector.menuTextSizes[state]
+	self.inspectText.size = self.gameInfoDisplay:scalePixelToScreenHeight(self.setValueTextSize)
 	ProductionInspector:saveSettings()
 end
 

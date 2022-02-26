@@ -10,6 +10,8 @@
 	<text name="toolTip_productionInspector_Visible"           text="Wenn aktiviert, wird das Overlay angezeigt" />
 	<text name="setting_productionInspector_MaxProductions"    text="Begrenzung der Anzahl der gezeigten Produktionen" />
 	<text name="toolTip_productionInspector_MaxProductions"    text="Begrenzung auf diese Anzahl von Produktionen (oder keine Begrenzung)" />
+	<text name="setting_productionInspector_TextSize"          text="Font Size" />
+	<text name="toolTip_productionInspector_TextSize"          text="Schriftgröße für die Anzeige, in relativen Pixeln." />
 	<text name="setting_productionInspector_OnlyOwned"         text="Nur besessene Punkte anzeigen" />
 	<text name="toolTip_productionInspector_OnlyOwned"         text="Wenn aktiviert, beschränken Sie die Anzeige auf die Produktionsstätten, die Ihnen gehören." />
 	<text name="setting_productionInspector_ShowInactivePoint" text="Inaktive Punkte anzeigen" />

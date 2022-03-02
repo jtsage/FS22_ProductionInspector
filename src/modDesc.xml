@@ -21,13 +21,10 @@ Changelog:
 
 v1.0.0.1
  - Add key bind to toggle HUD on and off
-
 v1.0.0.2
  - Add option to hide empty input materials
-
 v1.0.0.3
  - Separate percentage and fill level for input and output, add options for each
-
 v1.0.0.4
  - Add optional indicators for output product destination (selling, storing, or distributing)
  - Save config when using the visibility toggle key
@@ -41,6 +38,8 @@ v1.0.0.6
 v1.0.0.7
  - Fix loading of text size from xml
  - Add menu option to change text size
+v1.0.0.8
+ - Bugfix: text was still visibile when HUD was toggled off
  ]]></en>
         <de><![CDATA[Production Inspector zeigt Ihre laufenden Produktionen auf einen Blick
 
@@ -75,10 +74,12 @@ v1.0.0.5
  v1.0.0.7
  - Fixes Laden der Textgröße aus xml
  - Menüoption zum Ändern der Textgröße hinzufügen
+ v1.0.0.8
+ - Bugfix: Der Text war noch sichtbar, wenn das HUD ausgeschaltet war.
  ]]></de>
     </description>
     <author>JTSage</author>
-    <version>1.0.0.7</version>
+    <version>1.0.0.8</version>
     <iconFilename>modIcon.dds</iconFilename>
     <multiplayer supported="true"/>
     <extraSourceFiles>

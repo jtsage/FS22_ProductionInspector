@@ -10,33 +10,47 @@ local ProductionInspector_mt = Class(ProductionInspector)
 
 
 -- default options
-ProductionInspector.displayMode     = 1 -- 1: top left, 2: top right (default), 3: bot left, 4: bot right, 5: custom
-ProductionInspector.displayMode5X   = 0.2
-ProductionInspector.displayMode5Y   = 0.2
+ProductionInspector.displayModeProd = 1
+ProductionInspector.displayModeAnim = 1
+ProductionInspector.displayModeSilo = 1
 
-ProductionInspector.debugMode       = false
+ProductionInspector.debugMode       = true
 
-ProductionInspector.isEnabledVisible           = true
-ProductionInspector.isEnabledOnlyOwned         = true
-ProductionInspector.isEnabledShowInactivePoint = false
-ProductionInspector.isEnabledShowInactiveProd  = false
-ProductionInspector.isEnabledShowOutPercent    = true
-ProductionInspector.isEnabledShowOutFillLevel  = true
-ProductionInspector.isEnabledShowInPercent     = true
-ProductionInspector.isEnabledShowInFillLevel   = true
-ProductionInspector.isEnabledShowInputs        = true
-ProductionInspector.isEnabledShowOutputs       = true
-ProductionInspector.isEnabledShowEmptyOutput   = false
-ProductionInspector.isEnabledShowEmptyInput    = true
-ProductionInspector.isEnabledShortEmptyOutput  = true
-ProductionInspector.isEnabledShowOutputMode    = true
-ProductionInspector.isEnabledMaxProductions    = 0
+ProductionInspector.isEnabledProdVisible        = true
+ProductionInspector.isEnabledAnimVisible        = true
+ProductionInspector.isEnabledSiloVisible        = true
+
+ProductionInspector.isEnabledProdOnlyOwned     = true
+ProductionInspector.isEnabledProdInactivePoint = false
+ProductionInspector.isEnabledProdInactiveProd  = false
+ProductionInspector.isEnabledProdOutPercent    = true
+ProductionInspector.isEnabledProdOutFillLevel  = true
+ProductionInspector.isEnabledProdInPercent     = true
+ProductionInspector.isEnabledProdInFillLevel   = true
+ProductionInspector.isEnabledProdInputs        = true
+ProductionInspector.isEnabledProdOutputs       = true
+ProductionInspector.isEnabledProdEmptyOutput   = false
+ProductionInspector.isEnabledProdEmptyInput    = true
+ProductionInspector.isEnabledProdShortEmptyOut = true
+ProductionInspector.isEnabledProdOutputMode    = true
+ProductionInspector.isEnabledProdMax           = 0
+
+ProductionInspector.isEnabledAnimCount         = true
+ProductionInspector.isEnabledAnimFood          = true
+ProductionInspector.isEnabledAnimFoodTypes     = true
+ProductionInspector.isEnabledAnimProductivity  = true
+ProductionInspector.isEnabledAnimReproduction  = true
+ProductionInspector.isEnabledAnimPuberty       = true
+ProductionInspector.isEnabledAnimHealth        = true
+ProductionInspector.isEnabledAnimOutputs       = true
 
 ProductionInspector.setValueTimerFrequency  = 60
 ProductionInspector.setValueTextMarginX     = 15
 ProductionInspector.setValueTextMarginY     = 10
 ProductionInspector.setValueTextSize        = 12
 ProductionInspector.setTotalMaxProductions  = 40
+ProductionInspector.setTotalMaxAnimals      = 40
+ProductionInspector.setTotalMaxSilos        = 10
 ProductionInspector.isEnabledTextBold       = false
 
 ProductionInspector.colorPointOwned    = {0.182, 0.493, 0.875, 1}
@@ -47,6 +61,9 @@ ProductionInspector.colorCaption       = {0.550, 0.550, 0.550, 1}
 ProductionInspector.colorSep           = {1.000, 1.000, 1.000, 1}
 ProductionInspector.colorEmpty         = {0.830, 0.019, 0.033, 1}
 ProductionInspector.colorEmptyInput    = {1.000, 0.200, 0.200, 1}
+ProductionInspector.colorAniHome       = {0.182, 0.493, 0.875, 1}
+ProductionInspector.colorAniData       = {0.850, 0.850, 0.850, 1}
+ProductionInspector.colorSep           = {1.000, 1.000, 1.000, 1}
 
 ProductionInspector.colorStatusInactive = {0.600, 0.600, 0.600, 1}
 ProductionInspector.colorStatusRunning  = {1.000, 1.000, 1.000, 1}
@@ -79,9 +96,9 @@ function ProductionInspector:new(mission, i18n, modDirectory, modName)
 	local self = setmetatable({}, ProductionInspector_mt)
 
 	self.myName            = "ProductionInspector"
-	self.isServer          = mission:getIsServer()
+	--self.isServer          = mission:getIsServer()
 	self.isClient          = mission:getIsClient()
-	self.isMPGame          = g_currentMission.missionDynamicInfo.isMultiplayer
+	--self.isMPGame          = g_currentMission.missionDynamicInfo.isMultiplayer
 	self.mission           = mission
 	self.i18n              = i18n
 	self.modDirectory      = modDirectory
@@ -100,7 +117,9 @@ function ProductionInspector:new(mission, i18n, modDirectory, modName)
 	self.version        = getXMLString(modDesc, "modDesc.version");
 	delete(modDesc)
 
-	self.display_data = { }
+	self.display_data_prod = { }
+	self.display_data_anim = { }
+	self.display_data_silo = { }
 
 	self.fill_color_CB = {
 		{ 1.00, 0.76, 0.04, 1 },
@@ -158,49 +177,64 @@ function ProductionInspector:new(mission, i18n, modDirectory, modName)
 	}
 
 	self.settingsNames = {
-		{"displayMode", "int"},
-		{"displayMode5X", "float"},
-		{"displayMode5Y", "float"},
-		{"debugMode", "bool"},
-		{"isEnabledVisible", "bool"},
-		{"isEnabledMaxProductions", "int"},
-		{"isEnabledOnlyOwned", "bool"},
-		{"isEnabledShowInactivePoint", "bool"},
-		{"isEnabledShowInactiveProd", "bool"},
-		{"isEnabledShowOutPercent", "bool"},
-		{"isEnabledShowOutFillLevel", "bool"},
-		{"isEnabledShowInPercent", "bool"},
-		{"isEnabledShowInFillLevel", "bool"},
-		{"isEnabledShowInputs", "bool"},
-		{"isEnabledShowOutputs", "bool"},
-		{"isEnabledShowEmptyInput", "bool"},
-		{"isEnabledShowEmptyOutput", "bool"},
-		{"isEnabledShortEmptyOutput", "bool"},
-		{"isEnabledShowOutputMode", "bool"},
-		{"setValueTimerFrequency", "int"},
-		{"setValueTextMarginX", "int"},
-		{"setValueTextMarginY", "int"},
-		{"setValueTextSize", "int"},
-		{"isEnabledTextBold", "bool"},
-		{"colorPointOwned", "color"},
-		{"colorPointNotOwned", "color"},
-		{"colorProdName", "color"},
-		{"colorFillType", "color"},
-		{"colorCaption", "color"},
-		{"colorSep", "color"},
-		{"colorEmpty", "color"},
-		{"colorEmptyInput", "color"},
-		{"colorStatusInactive", "color"},
-		{"colorStatusRunning", "color"},
-		{"colorStatusMissing", "color"},
-		{"colorStatusNoSpace", "color"},
-		{"setStringTextSep", "string"},
-		{"setStringTextIndent", "string"},
-		{"setStringTextEmptyInput", "string"},
-		{"setStringTextSelling", "string"},
-		{"setStringTextStoring", "string"},
-		{"setStringTextDistribute", "string"},
-		{"setTotalMaxProductions", "int"}
+		{"displayModeProd", "bool" },
+		{"displayModeAnim", "bool" },
+		{"displayModeSilo", "bool" },
+		{"debugMode", "bool" },
+		{"isEnabledProdVisible", "bool" },
+		{"isEnabledAnimVisible", "bool" },
+		{"isEnabledSiloVisible", "bool" },
+		{"isEnabledProdOnlyOwned", "bool" },
+		{"isEnabledProdInactivePoint", "bool" },
+		{"isEnabledProdInactiveProd", "bool" },
+		{"isEnabledProdOutPercent", "bool" },
+		{"isEnabledProdOutFillLevel", "bool" },
+		{"isEnabledProdInPercent", "bool" },
+		{"isEnabledProdInFillLevel", "bool" },
+		{"isEnabledProdInputs", "bool" },
+		{"isEnabledProdOutputs", "bool" },
+		{"isEnabledProdEmptyOutput", "bool" },
+		{"isEnabledProdEmptyInput", "bool" },
+		{"isEnabledProdShortEmptyOut", "bool" },
+		{"isEnabledProdOutputMode", "bool" },
+		{"isEnabledProdMax", "bool" },
+		{"isEnabledAnimCount", "bool" },
+		{"isEnabledAnimFood", "bool" },
+		{"isEnabledAnimFoodTypes", "bool" },
+		{"isEnabledAnimProductivity", "bool" },
+		{"isEnabledAnimReproduction", "bool" },
+		{"isEnabledAnimPuberty", "bool" },
+		{"isEnabledAnimHealth", "bool" },
+		{"isEnabledAnimOutputs", "bool" },
+		{"setValueTimerFrequency", "int" },
+		{"setValueTextMarginX", "int" },
+		{"setValueTextMarginY", "int" },
+		{"setValueTextSize", "int" },
+		{"setTotalMaxProductions", "int" },
+		{"setTotalMaxAnimals", "int" },
+		{"setTotalMaxSilos", "int" },
+		{"isEnabledTextBold", "bool" },
+		{"colorPointOwned", "color" },
+		{"colorPointNotOwned", "color" },
+		{"colorProdName", "color" },
+		{"colorFillType", "color" },
+		{"colorCaption", "color" },
+		{"colorSep", "color" },
+		{"colorEmpty", "color" },
+		{"colorEmptyInput", "color" },
+		{"colorAniHome", "color" },
+		{"colorAniData", "color" },
+		{"colorSep", "color" },
+		{"colorStatusInactive", "color" },
+		{"colorStatusRunning", "color" },
+		{"colorStatusMissing", "color" },
+		{"colorStatusNoSpace", "color" },
+		{"setStringTextSep", "string" },
+		{"setStringTextIndent", "string" },
+		{"setStringTextEmptyInput", "string" },
+		{"setStringTextSelling", "string" },
+		{"setStringTextStoring", "string" },
+		{"setStringTextDistribute", "string" },
 	}
 
 	return self
@@ -319,7 +353,7 @@ function ProductionInspector:updateProductions()
 		end
 	end
 
-	self.display_data = {unpack(new_data_table)}
+	self.display_data_prod = {unpack(new_data_table)}
 end
 
 function ProductionInspector:openConstructionScreen()

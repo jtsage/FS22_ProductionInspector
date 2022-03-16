@@ -89,14 +89,22 @@ v1.0.0.5
 
     <actions>
         <action name="ProductionInspector_reload_config" category="SYSTEM" axisType="HALF" ignoreComboMask="false" />
-        <action name="ProductionInspector_toggle_visible" category="SYSTEM" axisType="HALF" ignoreComboMask="false" />
+        <action name="ProductionInspector_toggle_prod_visible" category="SYSTEM" axisType="HALF" ignoreComboMask="false" />
+        <action name="ProductionInspector_toggle_anim_visible" category="SYSTEM" axisType="HALF" ignoreComboMask="false" />
+        <action name="ProductionInspector_toggle_silo_visible" category="SYSTEM" axisType="HALF" ignoreComboMask="false" />
     </actions>
     <inputBinding>
         <actionBinding action="ProductionInspector_reload_config">
             <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lalt KEY_KP_8" axisComponent="+" neutralInput="0" index="1" />
         </actionBinding>
-        <actionBinding action="ProductionInspector_toggle_visible">
+        <actionBinding action="ProductionInspector_toggle_prod_visible">
             <binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_KP_8" axisComponent="+" neutralInput="0" index="1" />
+        </actionBinding>
+        <actionBinding action="ProductionInspector_toggle_anim_visible">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_KP_7" axisComponent="+" neutralInput="0" index="1" />
+        </actionBinding>
+        <actionBinding action="ProductionInspector_toggle_silo_visible">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_KP_6" axisComponent="+" neutralInput="0" index="1" />
         </actionBinding>
     </inputBinding>
 </modDesc>

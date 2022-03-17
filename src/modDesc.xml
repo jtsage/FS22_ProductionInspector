@@ -5,17 +5,25 @@
         <de>Produktions Inspektor</de>
     </title>
     <description>
-        <en><![CDATA[Production Inspector shows your running productions at a glance
+        <en><![CDATA[Production Inspector shows your productions, animals, and/or storage silos at a glance
 
 Options:
- - Show input materials and their fill levels
+ - Show input materials and their fill levels for production facilities
+ - Show output products and their fill levels for production facilities
+ - Show production lines and their status in production facilities
+ - Show number of animals and space left
+ - Show food levels (total and individual)
  - Show output products and their fill levels
- - Show production lines and their status
- - Add an underscore to the production point name to hide it from the HUD (_)
+ - Show animal health average, breeding average, and immature animal percentage
+ - Show silo fill percentage, and what is in it.
+ - Add an underscore to a production point, animal pen, or silo name to hide it from the HUD (_)
+ - HUD elements can be shown, hidden and positioned individually.  When in the same position, they will stack.
 
 Default Input Bindings:
 Left Ctrl + Left Alt + Num Pad 8 : Reload configuration file from disk
-Left Alt + Num Pad 8 : Toggle display on and off
+Left Alt + Num Pad 8 : Toggle production display on and off
+Left Alt + Num Pad 7 : Toggle animal display on and off
+Left Alt + Num Pad 6 : Toggle silo display on and off
 
 Changelog:
 
@@ -40,18 +48,30 @@ v1.0.0.7
  - Add menu option to change text size
 v1.0.0.8
  - Bugfix: text was still visibile when HUD was toggled off
+v1.1.0.0
+ - Add AnimalInspector and newly created Silo HUD to this inspector
+ - Expanded settings menu to accomodate 3 different HUD options
+ - Add 2 more keybinds to toggle HUD elements individually
  ]]></en>
-        <de><![CDATA[Production Inspector zeigt Ihre laufenden Produktionen auf einen Blick
+        <de><![CDATA[Production Inspector zeigt Ihre Produktionen, Tiere und/oder Lagersilos auf einen Blick
 
 Optionen:
- - Anzeige der Eingangsmaterialien und ihrer Füllstände
- - Anzeige der Ausgangsprodukte und ihrer Füllstände
- - Anzeige der Produktionslinien und ihres Status
- - Fügen Sie dem Namen des Produktionspunktes einen Unterstrich hinzu, um ihn aus dem HUD auszublenden (_)
+ - Anzeige der Eingangsmaterialien und ihrer Füllstände für Produktionsanlagen
+ - Anzeige der Ausgangsprodukte und deren Füllstände für Produktionsanlagen
+ - Anzeige von Produktionslinien und deren Status in Produktionsanlagen
+ - Anzeige der Anzahl der Tiere und des verbleibenden Platzes
+ - Nahrungsmittelbestände anzeigen (gesamt und einzeln)
+ - Anzeige der Ausgangsprodukte und deren Füllstände
+ - Anzeige des durchschnittlichen Gesundheitszustands der Tiere, des Zuchtdurchschnitts und des Anteils unreifer Tiere
+ - Zeigt den Prozentsatz der Silofüllung und den Inhalt des Silos an.
+ - Fügen Sie einen Unterstrich an einen Produktionspunkt, eine Tierbucht oder einen Silonamen an, um ihn aus dem HUD auszublenden (_)
+ - HUD-Elemente können individuell ein- und ausgeblendet und positioniert werden.  Wenn sie sich an der gleichen Position befinden, werden sie gestapelt.
 
  Standard-Eingabebindungen:
 Left Ctrl + Left Alt + Num Pad 8 : Konfigurationsdatei von der Festplatte neu laden
-Left Alt + Num Pad 8 : Anzeige ein- und ausschalten
+Left Alt + Num Pad 8 : Produktionsanzeige ein- und ausschalten
+Left Alt + Num Pad 7 : Tieranzeige ein- und ausschalten
+Left Alt + Num Pad 6 : Siloanzeige ein- und ausschalten
 
 Changelog:
 
@@ -67,19 +87,23 @@ v1.0.0.4
  - Auf dem Konstruktionsbildschirm ausblenden
 v1.0.0.5
  - Standardtastenbelegungen ändern
- v1.0.0.6
+v1.0.0.6
  - Sortierung nach Namen hinzufügen
  - Ausblenden von Produktionen mit einem Namen, der mit einem Unterstrich ("_") endet, hinzufügen
  - Hinzufügen der Konfigurationsoption "max productions
- v1.0.0.7
+v1.0.0.7
  - Fixes Laden der Textgröße aus xml
  - Menüoption zum Ändern der Textgröße hinzufügen
- v1.0.0.8
+v1.0.0.8
  - Bugfix: Der Text war noch sichtbar, wenn das HUD ausgeschaltet war.
+v1.1.0.0
+ - Hinzufügen des AnimalInspector und des neu erstellten Silo-HUD zu diesem Inspektor
+ - Erweitertes Einstellungsmenü, um 3 verschiedene HUD-Optionen unterzubringen
+ - Hinzufügen von 2 weiteren Tastenkombinationen, um HUD-Elemente einzeln umzuschalten
  ]]></de>
     </description>
     <author>JTSage</author>
-    <version>1.0.0.8</version>
+    <version>1.1.0.0</version>
     <iconFilename>modIcon.dds</iconFilename>
     <multiplayer supported="true"/>
     <extraSourceFiles>

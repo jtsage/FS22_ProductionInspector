@@ -6,7 +6,9 @@
   <img src="https://github.com/jtsage/FS22_ProductionInspector/raw/main/modIcon.png">
 </p>
 
-First I did the vehicle one.  Then I thought it might be nice to have productions on screen too.
+First I did the vehicle one.  Then I thought it might be nice to have productions on screen too.  Then there was an animal one, but it was too much so - BIG NEWS:
+
+ProductionInspector now includes AnimalInspector and the conceived, but never released SiloInspector
 
 ## Note about the ZIP in the repo
 

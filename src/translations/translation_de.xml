@@ -4,44 +4,86 @@
 
   <texts>
 	<text name="input_ProductionInspector_reload_config"       text="Konfiguration neu laden" />
-	<text name="input_ProductionInspector_toggle_visible"      text="Display ein-/ausschalten" />
-	<text name="title_productionInspector"                     text="Produktions Inspektor" />
-	<text name="setting_productionInspector_Visible"           text="HUD Sichtbar" />
-	<text name="toolTip_productionInspector_Visible"           text="Wenn aktiviert, wird das Overlay angezeigt" />
-	<text name="setting_productionInspector_MaxProductions"    text="Begrenzung der Anzahl der gezeigten Produktionen" />
-	<text name="toolTip_productionInspector_MaxProductions"    text="Begrenzung auf diese Anzahl von Produktionen (oder keine Begrenzung)" />
-	<text name="setting_productionInspector_TextSize"          text="Schriftgröße" />
+	<text name="input_ProductionInspector_toggle_prod_visible" text="Produktionsanzeige ein/aus schalten" />
+	<text name="input_ProductionInspector_toggle_anim_visible" text="Tieranzeige ein-/ausschalten" />
+	<text name="input_ProductionInspector_toggle_silo_visible" text="Siloanzeige ein-/ausschalten" />
+
+	<text name="hud_productionInspector_avgHealth"             text="Durchschnittliche Gesundheit" />
+	<text name="hud_productionInspector_avgBreed"              text="Durchschnittliche Fortpflanzung" />
+	<text name="hud_productionInspector_tooYoung"              text="Unterhalb des Reproduktionsalters" />
+	
+	<text name="title_productionInspector"                     text="Produktionsinspektor" />
+	
+	<text name="setting_productionInspector_ProdVisible"       text="Produktionen HUD Sichtbar" />
+	<text name="toolTip_productionInspector_ProdVisible"       text="Wenn diese Option aktiviert ist, wird das Overlay des Produktionspunkts angezeigt." />
+	<text name="setting_productionInspector_AnimVisible"       text="Tiere HUD Sichtbar" />
+	<text name="toolTip_productionInspector_AnimVisible"       text="Wenn diese Option aktiviert ist, wird das Overlay mit den Tierinformationen angezeigt." />
+	<text name="setting_productionInspector_SiloVisible"       text="Silos HUD Sichtbar" />
+	<text name="toolTip_productionInspector_SiloVisible"       text="Wenn aktiviert, wird das Silo-Overlay angezeigt" />
+
+	<text name="setting_productionInspector_ProdMax"           text="Begrenzung der Anzahl der gezeigten Produktionen" />
+	<text name="toolTip_productionInspector_ProdMax"           text="Begrenzung auf diese Anzahl von Produktionen (oder keine Begrenzung)" />
+	<text name="setting_productionInspector_AnimMax"           text="Begrenzung der Anzahl der gezeigten Tierbuchten" />
+	<text name="toolTip_productionInspector_AnimMax"           text="Begrenzung auf diese Anzahl von Tierbuchten (oder keine Begrenzung)" />
+	<text name="setting_productionInspector_SiloMax"           text="Begrenzung der Anzahl der abgebildeten Silos" />
+	<text name="toolTip_productionInspector_SiloMax"           text="Begrenzung auf diese Anzahl von Silos (oder keine Begrenzung)" />
+
+	<text name="setting_productionInspector_AnimCount"         text="Tierzahl anzeigen" />
+	<text name="toolTip_productionInspector_AnimCount"         text="Wenn diese Option aktiviert ist, werden die Anzahl der Tiere und der Gesamtplatz für die Tiere angezeigt." />
+	<text name="setting_productionInspector_AnimFood"          text="Tierfutter anzeigen Insgesamt" />
+	<text name="toolTip_productionInspector_AnimFood"          text="Wenn diese Option aktiviert ist, wird die insgesamt verfügbare Nahrung als Prozentsatz angezeigt." />
+	<text name="setting_productionInspector_AnimFoodTypes"     text="Tierfutterarten anzeigen" />
+	<text name="toolTip_productionInspector_AnimFoodTypes"     text="Wenn diese Option aktiviert ist, werden die einzelnen Lebensmittelarten getrennt angezeigt." />
+	<text name="setting_productionInspector_AnimProductivity"  text="Produktivität der Tiere anzeigen" />
+	<text name="toolTip_productionInspector_AnimProductivity"  text="Wenn aktiviert, durchschnittliche Produktivität anzeigen" />
+	<text name="setting_productionInspector_AnimReproduction"  text="Durchschnittliche Tierfortpflanzung anzeigen" />
+	<text name="toolTip_productionInspector_AnimReproduction"  text="Wenn aktiviert, wird die durchschnittliche Reproduktion von Tieren im Zuchtalter angezeigt." />
+	<text name="setting_productionInspector_AnimOutputs"       text="Tierische Produkte und Extras anzeigen" />
+	<text name="toolTip_productionInspector_AnimOutputs"       text="Wenn aktiviert, werden Ausgangsprodukte und zusätzliche Eingänge (z. B. Stroh) angezeigt." />
+	<text name="setting_productionInspector_AnimPuberty"       text="Unreife Tiere anzeigen" />
+	<text name="toolTip_productionInspector_AnimPuberty"       text="Wenn diese Option aktiviert ist, wird der Prozentsatz unreifer (nicht zuchtfähiger) Tiere angezeigt." />
+	<text name="setting_productionInspector_AnimHealth"        text="Durchschnittliche Tiergesundheit anzeigen" />
+	<text name="toolTip_productionInspector_AnimHealth"        text="Wenn aktiviert, wird der durchschnittliche Gesundheitszustand der Tiere angezeigt." />
+	
+	<text name="setting_productionInspector_ProdOnlyOwned"     text="Nur besessene Punkte anzeigen" />
+	<text name="toolTip_productionInspector_ProdOnlyOwned"     text="Wenn aktiviert, beschränken Sie die Anzeige auf die Produktionsstätten, die Ihnen gehören." />
+	<text name="setting_productionInspector_ProdInactivePoint" text="Inaktive Punkte anzeigen" />
+	<text name="toolTip_productionInspector_ProdInactivePoint" text="Wenn diese Option aktiviert ist, werden Produktionsanlagen ohne laufende Produktionslinien angezeigt." />
+	<text name="setting_productionInspector_ProdInactiveProd"  text="Inaktive Produktionslinien anzeigen" />
+	<text name="toolTip_productionInspector_ProdInactiveProd"  text="Wenn aktiviert, werden Produktionslinien angezeigt, die inaktiv sind." />
+	<text name="setting_productionInspector_ProdOutPercent"    text="Prozentsatz der Ausgabefüllung anzeigen" />
+	<text name="toolTip_productionInspector_ProdOutPercent"    text="Wenn diese Option aktiviert ist, wird der prozentuale Anteil der Produktionspunkte an der Füllung des Ausgangsprodukts angezeigt." />
+	<text name="setting_productionInspector_ProdOutFillLevel"  text="Ausgabe-Füllstand anzeigen" />
+	<text name="toolTip_productionInspector_ProdOutFillLevel"  text="Wenn diese Funktion aktiviert ist, wird der Füllstand des Produktionspunkts in Litern angezeigt." />
+	<text name="setting_productionInspector_ProdInPercent"     text="Eingabefüllungsprozentsatz anzeigen" />
+	<text name="toolTip_productionInspector_ProdInPercent"     text="Wenn diese Option aktiviert ist, wird der Prozentsatz des Füllgrads des Eingangsmaterials am Produktionspunkt angezeigt." />
+	<text name="setting_productionInspector_ProdInFillLevel"   text="Eingabe-Füllstand anzeigen" />
+	<text name="toolTip_productionInspector_ProdInFillLevel"   text="Wenn diese Funktion aktiviert ist, wird der Füllstand des Produktionspunkts in Litern angezeigt." />
+	<text name="setting_productionInspector_ProdInputs"        text="Eingaben anzeigen" />
+	<text name="toolTip_productionInspector_ProdInputs"        text="Wenn diese Option aktiviert ist, werden die Eingangsmaterialien der Produktionsanlage angezeigt." />
+	<text name="setting_productionInspector_ProdEmptyInput"    text="Leere Eingaben anzeigen" />
+	<text name="toolTip_productionInspector_ProdEmptyInput"    text="Wenn diese Option aktiviert ist, werden die Eingangsmaterialien der Produktionsanlage angezeigt, auch wenn sie leer sind." />
+	<text name="setting_productionInspector_ProdOutputs"       text="Ausgaben anzeigen" />
+	<text name="toolTip_productionInspector_ProdOutputs"       text="Wenn diese Option aktiviert ist, werden die Ausgangsprodukte der Produktionsanlage angezeigt." />
+	<text name="setting_productionInspector_ProdEmptyOutput"   text="Leere Ausgänge anzeigen" />
+	<text name="toolTip_productionInspector_ProdEmptyOutput"   text="Wenn diese Option aktiviert ist, werden die Ausgangsprodukte der Produktionsanlage angezeigt, auch wenn sie leer sind." />
+	<text name="setting_productionInspector_ProdShortEmptyOut" text="Leere Eingänge kürzen" />
+	<text name="toolTip_productionInspector_ProdShortEmptyOut" text="Wenn aktiviert, werden leere Eingabeprodukte als Doppelstrich (--) anstelle von 0 (0%) angezeigt." />
+	<text name="setting_productionInspector_ProdOutputMode"    text="Ausgabemodus anzeigen" />
+	<text name="toolTip_productionInspector_ProdOutputMode"    text="Wenn aktiviert, wird das Ausgabeziel angezeigt (Standard: Pfeil nach oben für Verkauf, Pfeil nach unten für Speicherung, Pfeil nach rechts für Verteilung)" />
+
+	<text name="setting_productionInspector_TextSize"          text="Font Size" />
 	<text name="toolTip_productionInspector_TextSize"          text="Schriftgröße für die Anzeige, in relativen Pixeln." />
-	<text name="setting_productionInspector_OnlyOwned"         text="Nur besessene Punkte anzeigen" />
-	<text name="toolTip_productionInspector_OnlyOwned"         text="Wenn aktiviert, beschränken Sie die Anzeige auf die Produktionsstätten, die Ihnen gehören." />
-	<text name="setting_productionInspector_ShowInactivePoint" text="Inaktive Punkte anzeigen" />
-	<text name="toolTip_productionInspector_ShowInactivePoint" text="Wenn diese Option aktiviert ist, werden Produktionsanlagen ohne laufende Produktionslinien angezeigt." />
-	<text name="setting_productionInspector_ShowInactiveProd"  text="Inaktive Produktionslinien anzeigen" />
-	<text name="toolTip_productionInspector_ShowInactiveProd"  text="Wenn aktiviert, werden Produktionslinien angezeigt, die inaktiv sind." />
-	<text name="setting_productionInspector_ShowOutPercent"    text="Prozentuale Füllung der Ausgabe anzeigen" />
-	<text name="toolTip_productionInspector_ShowOutPercent"    text="Wenn aktiviert, wird der Prozentsatz der Füllung des Ausgangsprodukts angezeigt." />
-	<text name="setting_productionInspector_ShowOutFillLevel"  text="Füllstand der Ausgabe anzeigen" />
-	<text name="toolTip_productionInspector_ShowOutFillLevel"  text="Wenn diese Funktion aktiviert ist, wird der Füllstand der Ausgabe in Litern angezeigt." />
-	<text name="setting_productionInspector_ShowInPercent"     text="Prozentuale Füllung der Eingabe anzeigen" />
-	<text name="toolTip_productionInspector_ShowInPercent"     text="Wenn diese Option aktiviert ist, wird der prozentuale Füllstand des eingegebenen Materials angezeigt." />
-	<text name="setting_productionInspector_ShowInFillLevel"   text="Eingabefüllstand anzeigen" />
-	<text name="toolTip_productionInspector_ShowInFillLevel"   text="Wenn aktiviert, wird der Eingangsfüllstand in Litern angezeigt." />
-	<text name="setting_productionInspector_ShowInputs"        text="Eingaben anzeigen" />
-	<text name="toolTip_productionInspector_ShowInputs"        text="Wenn diese Option aktiviert ist, werden die Eingangsmaterialien der Produktionsanlage angezeigt." />
-	<text name="setting_productionInspector_ShowEmptyInput"    text="Leere Eingaben anzeigen" />
-	<text name="toolTip_productionInspector_ShowEmptyInput"    text="Wenn aktiviert, werden die Eingangsmaterialien der Produktionsanlage angezeigt, auch wenn sie leer sind." />
-	<text name="setting_productionInspector_ShowOutputs"       text="Ausgaben anzeigen" />
-	<text name="toolTip_productionInspector_ShowOutputs"       text="Wenn diese Option aktiviert ist, werden die Ausgangsprodukte der Produktionsanlage angezeigt." />
-	<text name="setting_productionInspector_ShowEmptyOutput"   text="Leere Ausgänge anzeigen" />
-	<text name="toolTip_productionInspector_ShowEmptyOutput"   text="Wenn diese Option aktiviert ist, werden die Ausgangsprodukte der Produktionsanlage angezeigt, auch wenn sie leer sind." />
-	<text name="setting_productionInspector_ShortEmptyOutput"  text="Leere Eingänge kürzen" />
-	<text name="toolTip_productionInspector_ShortEmptyOutput"  text="Wenn aktiviert, werden leere Eingabeprodukte als Doppelstrich (--) anstelle von 0 (0%) angezeigt." />
-	<text name="setting_productionInspector_ShowOutputMode"    text="Ausgabemodus anzeigen" />
-	<text name="toolTip_productionInspector_ShowOutputMode"    text="Wenn aktiviert, wird das Ausgabeziel angezeigt (Standard: Pfeil nach oben für Verkauf, Pfeil nach unten für Speicherung, Pfeil nach rechts für Verteilung)" />
 	<text name="setting_productionInspector_TextBold"          text="Fettgedruckte Schrift verwenden" />
 	<text name="toolTip_productionInspector_TextBold"          text="Wenn aktiviert, wird für die gesamte Anzeige eine fette Schrift verwendet." />
-	<text name="setting_productionInspector_DisplayMode"       text="Anzeigemodus" />
-	<text name="toolTip_productionInspector_DisplayMode"       text="Wo das Overlay auf dem Bildschirm angezeigt werden soll" />
+
+	<text name="setting_productionInspector_DisplayModeProd"   text="Anzeigemodus - Produktionen" />
+	<text name="toolTip_productionInspector_DisplayModeProd"   text="Wo das Overlay auf dem Bildschirm angezeigt werden soll" />
+	<text name="setting_productionInspector_DisplayModeAnim"   text="Anzeigemodus - Tiere" />
+	<text name="toolTip_productionInspector_DisplayModeAnim"   text="Wo das Overlay auf dem Bildschirm angezeigt werden soll" />
+	<text name="setting_productionInspector_DisplayModeSilo"   text="Anzeigemodus - Silos" />
+	<text name="toolTip_productionInspector_DisplayModeSilo"   text="Wo das Overlay auf dem Bildschirm angezeigt werden soll" />
+
 	<text name="setting_productionInspector_DisplayMode1"      text="Oben links, unter Hilfe" />
 	<text name="setting_productionInspector_DisplayMode2"      text="Oben rechts, unter der Uhr" />
 	<text name="setting_productionInspector_DisplayMode3"      text="Unten links, über Karte" />

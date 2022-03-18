@@ -20,9 +20,9 @@ ProductionInspector.isEnabledProdVisible        = true
 ProductionInspector.isEnabledAnimVisible        = false
 ProductionInspector.isEnabledSiloVisible        = false
 
-ProductionInspector.isEnabledForceProdJustify   = 0
-ProductionInspector.isEnabledForceAnimJustify   = 0
-ProductionInspector.isEnabledForceSiloJustify   = 0
+ProductionInspector.isEnabledForceProdJustify   = 1
+ProductionInspector.isEnabledForceAnimJustify   = 1
+ProductionInspector.isEnabledForceSiloJustify   = 1
 
 ProductionInspector.isEnabledProdOnlyOwned     = true
 ProductionInspector.isEnabledProdInactivePoint = false

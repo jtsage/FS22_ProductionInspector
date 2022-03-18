@@ -21,6 +21,13 @@
 	<text name="setting_productionInspector_SiloVisible"       text="Silos HUD Sichtbar" />
 	<text name="toolTip_productionInspector_SiloVisible"       text="Wenn aktiviert, wird das Silo-Overlay angezeigt" />
 
+	<text name="setting_productionInspector_ForceProdJustify"  text="Force Productions Textbegründung" />
+	<text name="toolTip_productionInspector_ForceProdJustify"  text="Erzwingt die Darstellung von Text links- oder rechtsbündig, die Voreinstellung basiert auf der Platzierung" />
+	<text name="setting_productionInspector_ForceAnimJustify"  text="Force Animals Textbegründung" />
+	<text name="toolTip_productionInspector_ForceAnimJustify"  text="Erzwingt die Darstellung von Text links- oder rechtsbündig, die Voreinstellung basiert auf der Platzierung" />
+	<text name="setting_productionInspector_ForceSiloJustify"  text="Silos erzwingen Textbegründung" />
+	<text name="toolTip_productionInspector_ForceSiloJustify"  text="Erzwingt die Darstellung von Text links- oder rechtsbündig, die Voreinstellung basiert auf der Platzierung" />
+
 	<text name="setting_productionInspector_ProdMax"           text="Begrenzung der Anzahl der gezeigten Produktionen" />
 	<text name="toolTip_productionInspector_ProdMax"           text="Begrenzung auf diese Anzahl von Produktionen (oder keine Begrenzung)" />
 	<text name="setting_productionInspector_AnimMax"           text="Begrenzung der Anzahl der gezeigten Tierbuchten" />

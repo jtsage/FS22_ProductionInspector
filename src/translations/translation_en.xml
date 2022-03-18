@@ -21,6 +21,13 @@
 	<text name="setting_productionInspector_SiloVisible"       text="Silos HUD Visible" />
 	<text name="toolTip_productionInspector_SiloVisible"       text="When enabled, the silo overlay is shown" />
 
+	<text name="setting_productionInspector_ForceProdJustify"  text="Force Productions Text Justification" />
+	<text name="toolTip_productionInspector_ForceProdJustify"  text="Force rendering of text left or right justified, default is based on placement" />
+	<text name="setting_productionInspector_ForceAnimJustify"  text="Force Animals Text Justification" />
+	<text name="toolTip_productionInspector_ForceAnimJustify"  text="Force rendering of text left or right justified, default is based on placement" />
+	<text name="setting_productionInspector_ForceSiloJustify"  text="Force Silos Text Justification" />
+	<text name="toolTip_productionInspector_ForceSiloJustify"  text="Force rendering of text left or right justified, default is based on placement" />
+
 	<text name="setting_productionInspector_ProdMax"           text="Limit Number of Productions Shown" />
 	<text name="toolTip_productionInspector_ProdMax"           text="Limit to this number of productions (or no limit)" />
 	<text name="setting_productionInspector_AnimMax"           text="Limit Number of Animal Pens Shown" />

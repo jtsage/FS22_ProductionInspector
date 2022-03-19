@@ -535,7 +535,7 @@ function ProductionInspector:buildSeperator(doSeperate, currentLineTable, curren
 	if doSeperate then
 		currentLineTable, currentLineText = self:buildLine(currentLineTable, currentLineText, "colorSep", g_productionInspector.setStringTextSep)
 	end
-	return doSeperate, currentLineTable, currentLineText
+	return true, currentLineTable, currentLineText
 end
 
 function ProductionInspector:buildLine(currentLineTable, currentLineText, newColor, newText)

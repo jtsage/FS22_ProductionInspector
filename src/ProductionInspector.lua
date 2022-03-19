@@ -295,10 +295,19 @@ function ProductionInspector:updateSilos()
 
 		for _, sortEntry in ipairs(sortOrder) do
 			local thisSilo         = theseSilos[sortEntry[1]]
-			local rawFillLevels    = thisSilo:getFillLevels()
+			local rawFillLevels    = {}
 			local cleanFillLevels  = {}
 			local capacity         = 0
 			local totalFill        = 0
+			local spec             = thisSilo.spec_silo
+
+			for _,storage in pairs(spec.loadingStation:getSourceStorages()) do
+				capacity = capacity + storage.capacity
+			end
+
+			for fillType, fillLevel in pairs(spec.loadingStation:getAllFillLevels(myFarmID)) do
+				rawFillLevels[fillType] = (rawFillLevels[fillType] or 0) + fillLevel
+			end
 
 			for fillType, fillLevel in pairs(rawFillLevels) do
 				if fillLevel > 0 then
@@ -306,10 +315,6 @@ function ProductionInspector:updateSilos()
 					table.insert(cleanFillLevels, {fillType, roundFillLevel})
 					totalFill = totalFill + roundFillLevel
 				end
-			end
-
-			for _, storage in ipairs(thisSilo.spec_silo.storages) do
-				capacity = capacity + storage:getCapacity()
 			end
 
 			table.insert(new_data_table, {

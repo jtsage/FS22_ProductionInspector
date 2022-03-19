@@ -772,7 +772,7 @@ function ProductionInspector:buildDisplay_prod()
 							if g_productionInspector.isEnabledProdInFillLevel then
 								levelString = levelString .. " (" .. tostring(inputs[4]) .. "%)"
 							else
-								levelString = levelString .. tostring(inputs[4])
+								levelString = levelString .. tostring(inputs[4]) .. "%"
 							end
 						end
 						currentLine, currentText = self:buildLine(currentLine, currentText, fillColor, levelString)
@@ -823,7 +823,7 @@ function ProductionInspector:buildDisplay_prod()
 						if g_productionInspector.isEnabledProdOutFillLevel then
 							levelString = levelString .. " (" .. tostring(outputs[4]) .. "%)"
 						else
-							levelString = levelString .. tostring(outputs[4])
+							levelString = levelString .. tostring(outputs[4]) .. "%"
 						end
 					end
 					currentLine, currentText = self:buildLine(currentLine, currentText, fillColor, levelString)

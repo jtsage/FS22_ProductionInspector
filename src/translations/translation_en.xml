@@ -4,44 +4,93 @@
 
   <texts>
 	<text name="input_ProductionInspector_reload_config"       text="Reload configuration" />
-	<text name="input_ProductionInspector_toggle_visible"      text="Toggle Display On/Off" />
+	<text name="input_ProductionInspector_toggle_prod_visible" text="Toggle Production Display On/Off" />
+	<text name="input_ProductionInspector_toggle_anim_visible" text="Toggle Animal Display On/Off" />
+	<text name="input_ProductionInspector_toggle_silo_visible" text="Toggle Silo Display On/Off" />
+
+	<text name="hud_productionInspector_avgHealth"             text="Average Health" />
+	<text name="hud_productionInspector_avgBreed"              text="Average Reproduction" />
+	<text name="hud_productionInspector_tooYoung"              text="Below Reproduction Age" />
+	
 	<text name="title_productionInspector"                     text="Production Inspector" />
-	<text name="setting_productionInspector_Visible"           text="HUD Visible" />
-	<text name="toolTip_productionInspector_Visible"           text="When enabled, the overlay is shown" />
-	<text name="setting_productionInspector_MaxProductions"    text="Limit Number of Productions Shown" />
-	<text name="toolTip_productionInspector_MaxProductions"    text="Limit to this number of productions (or no limit)" />
+	
+	<text name="setting_productionInspector_ProdVisible"       text="Productions HUD Visible" />
+	<text name="toolTip_productionInspector_ProdVisible"       text="When enabled, the production point overlay is shown" />
+	<text name="setting_productionInspector_AnimVisible"       text="Animals HUD Visible" />
+	<text name="toolTip_productionInspector_AnimVisible"       text="When enabled, the animal information overlay is shown" />
+	<text name="setting_productionInspector_SiloVisible"       text="Silos HUD Visible" />
+	<text name="toolTip_productionInspector_SiloVisible"       text="When enabled, the silo overlay is shown" />
+
+	<text name="setting_productionInspector_ForceProdJustify"  text="Force Productions Text Justification" />
+	<text name="toolTip_productionInspector_ForceProdJustify"  text="Force rendering of text left or right justified, default is based on placement" />
+	<text name="setting_productionInspector_ForceAnimJustify"  text="Force Animals Text Justification" />
+	<text name="toolTip_productionInspector_ForceAnimJustify"  text="Force rendering of text left or right justified, default is based on placement" />
+	<text name="setting_productionInspector_ForceSiloJustify"  text="Force Silos Text Justification" />
+	<text name="toolTip_productionInspector_ForceSiloJustify"  text="Force rendering of text left or right justified, default is based on placement" />
+
+	<text name="setting_productionInspector_ProdMax"           text="Limit Number of Productions Shown" />
+	<text name="toolTip_productionInspector_ProdMax"           text="Limit to this number of productions (or no limit)" />
+	<text name="setting_productionInspector_AnimMax"           text="Limit Number of Animal Pens Shown" />
+	<text name="toolTip_productionInspector_AnimMax"           text="Limit to this number of animal pens (or no limit)" />
+	<text name="setting_productionInspector_SiloMax"           text="Limit Number of Silos Shown" />
+	<text name="toolTip_productionInspector_SiloMax"           text="Limit to this number of silos (or no limit)" />
+
+	<text name="setting_productionInspector_AnimCount"         text="Show Animal Count" />
+	<text name="toolTip_productionInspector_AnimCount"         text="When enabled, show number of animals and total space for animals " />
+	<text name="setting_productionInspector_AnimFood"          text="Show Animal Food Total" />
+	<text name="toolTip_productionInspector_AnimFood"          text="When enabled, show total food available as a percentage" />
+	<text name="setting_productionInspector_AnimFoodTypes"     text="Show Animal Food Types" />
+	<text name="toolTip_productionInspector_AnimFoodTypes"     text="When enabled, show individual food types sperately" />
+	<text name="setting_productionInspector_AnimProductivity"  text="Show Animal Productivity" />
+	<text name="toolTip_productionInspector_AnimProductivity"  text="When enabled, show average productivity" />
+	<text name="setting_productionInspector_AnimReproduction"  text="Show Average Animal Reproduction" />
+	<text name="toolTip_productionInspector_AnimReproduction"  text="When enabled, show average reproduction of breeding age animals" />
+	<text name="setting_productionInspector_AnimOutputs"       text="Show Animal Products and Extras" />
+	<text name="toolTip_productionInspector_AnimOutputs"       text="When enabled, show output products and extra inputs (e.g. straw)" />
+	<text name="setting_productionInspector_AnimPuberty"       text="Show Immature Animals" />
+	<text name="toolTip_productionInspector_AnimPuberty"       text="When enabled, show percentage of immature (non breeding age) animals" />
+	<text name="setting_productionInspector_AnimHealth"        text="Show Average Animal Health" />
+	<text name="toolTip_productionInspector_AnimHealth"        text="When enabled, show average health of animals" />
+	
+	<text name="setting_productionInspector_ProdOnlyOwned"     text="Show Only Owned Points" />
+	<text name="toolTip_productionInspector_ProdOnlyOwned"     text="When enabled, limit display to only those production facilities you own" />
+	<text name="setting_productionInspector_ProdInactivePoint" text="Show Inactive Points" />
+	<text name="toolTip_productionInspector_ProdInactivePoint" text="When enabled, show production facilities with no running production lines" />
+	<text name="setting_productionInspector_ProdInactiveProd"  text="Show Inactive Production Lines" />
+	<text name="toolTip_productionInspector_ProdInactiveProd"  text="When enabled, show production lines that are inactive" />
+	<text name="setting_productionInspector_ProdOutPercent"    text="Show Output Fill Percentage " />
+	<text name="toolTip_productionInspector_ProdOutPercent"    text="When enabled, show production point percentage of output prouduct fill" />
+	<text name="setting_productionInspector_ProdOutFillLevel"  text="Show Output Fill Level" />
+	<text name="toolTip_productionInspector_ProdOutFillLevel"  text="When enabled, show production point output fill level in liters" />
+	<text name="setting_productionInspector_ProdInPercent"     text="Show Input Fill Percentage" />
+	<text name="toolTip_productionInspector_ProdInPercent"     text="When enabled, show production point percentage of input material fill level" />
+	<text name="setting_productionInspector_ProdInFillLevel"   text="Show Input Fill Level" />
+	<text name="toolTip_productionInspector_ProdInFillLevel"   text="When enabled, show production point input fill level in liters" />
+	<text name="setting_productionInspector_ProdInputs"        text="Show Inputs" />
+	<text name="toolTip_productionInspector_ProdInputs"        text="When enabled, show production facility input materials" />
+	<text name="setting_productionInspector_ProdEmptyInput"    text="Show Empty Inputs" />
+	<text name="toolTip_productionInspector_ProdEmptyInput"    text="When enabled, show production facility input materials, even if they are empty" />
+	<text name="setting_productionInspector_ProdOutputs"       text="Show Outputs" />
+	<text name="toolTip_productionInspector_ProdOutputs"       text="When enabled, show production facility output products" />
+	<text name="setting_productionInspector_ProdEmptyOutput"   text="Show Empty Outputs" />
+	<text name="toolTip_productionInspector_ProdEmptyOutput"   text="When enabled, show production facility output products, even if they are empty" />
+	<text name="setting_productionInspector_ProdShortEmptyOut" text="Shorten Empty Inputs" />
+	<text name="toolTip_productionInspector_ProdShortEmptyOut" text="When enabled, show empty input products as a double dash (--) instead of 0 (0%)" />
+	<text name="setting_productionInspector_ProdOutputMode"    text="Show Output Mode" />
+	<text name="toolTip_productionInspector_ProdOutputMode"    text="When enabled, show output destination (default: up arrow as selling, down arrow as storing, right arrow as distributing)" />
+
 	<text name="setting_productionInspector_TextSize"          text="Font Size" />
 	<text name="toolTip_productionInspector_TextSize"          text="Font Size for display, in relative pixels." />
-	<text name="setting_productionInspector_OnlyOwned"         text="Show Only Owned Points" />
-	<text name="toolTip_productionInspector_OnlyOwned"         text="When enabled, limit display to only those production facilities you own" />
-	<text name="setting_productionInspector_ShowInactivePoint" text="Show Inactive Points" />
-	<text name="toolTip_productionInspector_ShowInactivePoint" text="When enabled, show production facilities with no running production lines" />
-	<text name="setting_productionInspector_ShowInactiveProd"  text="Show Inactive Production Lines" />
-	<text name="toolTip_productionInspector_ShowInactiveProd"  text="When enabled, show production lines that are inactive" />
-	<text name="setting_productionInspector_ShowOutPercent"    text="Show Output Fill Percentage " />
-	<text name="toolTip_productionInspector_ShowOutPercent"    text="When enabled, show percentage of output prouduct fill" />
-	<text name="setting_productionInspector_ShowOutFillLevel"  text="Show Output Fill Level" />
-	<text name="toolTip_productionInspector_ShowOutFillLevel"  text="When enabled, show output fill level in liters" />
-	<text name="setting_productionInspector_ShowInPercent"     text="Show Input Fill Percentage" />
-	<text name="toolTip_productionInspector_ShowInPercent"     text="When enabled, show percentage of input material fill level" />
-	<text name="setting_productionInspector_ShowInFillLevel"   text="Show Input Fill Level" />
-	<text name="toolTip_productionInspector_ShowInFillLevel"   text="When enabled, show input fill level in liters" />
-	<text name="setting_productionInspector_ShowInputs"        text="Show Inputs" />
-	<text name="toolTip_productionInspector_ShowInputs"        text="When enabled, show production facility input materials" />
-	<text name="setting_productionInspector_ShowEmptyInput"    text="Show Empty Inputs" />
-	<text name="toolTip_productionInspector_ShowEmptyInput"    text="When enabled, show production facility input materials, even if they are empty" />
-	<text name="setting_productionInspector_ShowOutputs"       text="Show Outputs" />
-	<text name="toolTip_productionInspector_ShowOutputs"       text="When enabled, show production facility output products" />
-	<text name="setting_productionInspector_ShowEmptyOutput"   text="Show Empty Outputs" />
-	<text name="toolTip_productionInspector_ShowEmptyOutput"   text="When enabled, show production facility output products, even if they are empty" />
-	<text name="setting_productionInspector_ShortEmptyOutput"  text="Shorten Empty Inputs" />
-	<text name="toolTip_productionInspector_ShortEmptyOutput"  text="When enabled, show empty input products as a double dash (--) instead of 0 (0%)" />
-	<text name="setting_productionInspector_ShowOutputMode"    text="Show Output Mode" />
-	<text name="toolTip_productionInspector_ShowOutputMode"    text="When enabled, show output destination (default: up arrow as selling, down arrow as storing, right arrow as distributing)" />
 	<text name="setting_productionInspector_TextBold"          text="Use Bold Font" />
 	<text name="toolTip_productionInspector_TextBold"          text="When enabled, use a bold font for the entire display" />
-	<text name="setting_productionInspector_DisplayMode"       text="Display Mode" />
-	<text name="toolTip_productionInspector_DisplayMode"       text="Where to show the overlay on screen" />
+
+	<text name="setting_productionInspector_DisplayModeProd"   text="Display Mode - Productions" />
+	<text name="toolTip_productionInspector_DisplayModeProd"   text="Where to show the overlay on screen" />
+	<text name="setting_productionInspector_DisplayModeAnim"   text="Display Mode - Animals" />
+	<text name="toolTip_productionInspector_DisplayModeAnim"   text="Where to show the overlay on screen" />
+	<text name="setting_productionInspector_DisplayModeSilo"   text="Display Mode - Silos" />
+	<text name="toolTip_productionInspector_DisplayModeSilo"   text="Where to show the overlay on screen" />
+
 	<text name="setting_productionInspector_DisplayMode1"      text="Top Left, Under Help" />
 	<text name="setting_productionInspector_DisplayMode2"      text="Top Right, Under Clock" />
 	<text name="setting_productionInspector_DisplayMode3"      text="Bottom Left, Above Map" />

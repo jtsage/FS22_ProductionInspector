@@ -60,6 +60,8 @@
 		"g_productionInspector",
 		"source",
 		"ProductionPoint",
-		"g_sleepManager"
+		"g_sleepManager",
+		"AnimalType",
+		"g_noHudModeEnabled"
 	]
 }

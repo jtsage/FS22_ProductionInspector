@@ -1680,17 +1680,17 @@ function ProductionInspector:onMenuOptionChanged_DisplayModeSilo(state)
 end
 
 function ProductionInspector:onMenuOptionChanged_ProdMax(state)
-	self.isEnabledMaxProductions = state - 1
+	self.isEnabledProdMax = state - 1
 	ProductionInspector:saveSettings()
 end
 
 function ProductionInspector:onMenuOptionChanged_AnimMax(state)
-	self.isEnabledMaxAnimals = state - 1
+	self.isEnabledAnimMax = state - 1
 	ProductionInspector:saveSettings()
 end
 
 function ProductionInspector:onMenuOptionChanged_SiloMax(state)
-	self.isEnabledMaxSilos = state - 1
+	self.isEnabledSiloMax = state - 1
 	ProductionInspector:saveSettings()
 end
 

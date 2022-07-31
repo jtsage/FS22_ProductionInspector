@@ -83,6 +83,7 @@ ProductionInspector.setStringTextEmptyInput  = "--"
 ProductionInspector.setStringTextSelling     = "↑"
 ProductionInspector.setStringTextStoring     = "↓"
 ProductionInspector.setStringTextDistribute  = "→"
+ProductionInspector.setStringTextRealStore   = "←"
 
 ProductionInspector.menuTextSizes = { 8, 10, 12, 14, 16 }
 
@@ -97,6 +98,7 @@ ProductionInspector.outputModeMap = {
 	[ProductionPoint.OUTPUT_MODE.KEEP]         = "setStringTextStoring",
 	[ProductionPoint.OUTPUT_MODE.DIRECT_SELL]  = "setStringTextSelling",
 	[ProductionPoint.OUTPUT_MODE.AUTO_DELIVER] = "setStringTextDistribute",
+	[3]                                        = "setStringTextRealStore",
 }
 
 ProductionInspector.lastCoords = {
@@ -251,6 +253,7 @@ function ProductionInspector:new(mission, i18n, modDirectory, modName)
 		{"setStringTextSelling", "string" },
 		{"setStringTextStoring", "string" },
 		{"setStringTextDistribute", "string" },
+		{"setStringTextRealStore", "string"}
 	}
 
 	return self

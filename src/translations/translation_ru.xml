@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+  <translationContributors>nagor</translationContributors>
+
+  <texts>
+	<text name="input_ProductionInspector_reload_config"       text="Перезагрузить конфигурацию" />
+	<text name="input_ProductionInspector_toggle_prod_visible" text="Дисплей производств Вкл/Выкл" />
+	<text name="input_ProductionInspector_toggle_anim_visible" text="Дисплей животных Вкл/Выкл" />
+	<text name="input_ProductionInspector_toggle_silo_visible" text="Дисплей хранилищ Вкл/Выкл" />
+
+	<text name="hud_productionInspector_avgHealth"             text="Среднее здоровье" />
+	<text name="hud_productionInspector_avgBreed"              text="Среднее воспроизводство" />
+	<text name="hud_productionInspector_tooYoung"              text="Моложе репродуктивного возраста" />
+	
+	<text name="title_productionInspector"                     text="Production Inspector" />
+	
+	<text name="setting_productionInspector_ProdVisible"       text="Показать HUD производств" />
+	<text name="toolTip_productionInspector_ProdVisible"       text="При включении отображается дисплей производств" />
+	<text name="setting_productionInspector_AnimVisible"       text="Показать HUD животных" />
+	<text name="toolTip_productionInspector_AnimVisible"       text="При включении отображается дисплей информации о животных" />
+	<text name="setting_productionInspector_SiloVisible"       text="Показать HUD хранилищ" />
+	<text name="toolTip_productionInspector_SiloVisible"       text="При включении отображается дисплей хранилищ" />
+
+	<text name="setting_productionInspector_ForceProdJustify"  text="Выравнивание текста производств" />
+	<text name="toolTip_productionInspector_ForceProdJustify"  text="Принудительное выравнивание текста по левому или правому краю, по умолчанию зависит от размещения" />
+	<text name="setting_productionInspector_ForceAnimJustify"  text="Выравнивание текста животных" />
+	<text name="toolTip_productionInspector_ForceAnimJustify"  text="Принудительное выравнивание текста по левому или правому краю, по умолчанию зависит от размещения" />
+	<text name="setting_productionInspector_ForceSiloJustify"  text="Выравнивание текста хранилищ" />
+	<text name="toolTip_productionInspector_ForceSiloJustify"  text="Принудительное выравнивание текста по левому или правому краю, по умолчанию зависит от размещения" />
+
+	<text name="setting_productionInspector_ProdMax"           text="Предельное количество показываемых производств" />
+	<text name="toolTip_productionInspector_ProdMax"           text="Ограничить на это количество производств (или без ограничений)" />
+	<text name="setting_productionInspector_AnimMax"           text="Предельное количество показываемых загонов для животных" />
+	<text name="toolTip_productionInspector_AnimMax"           text="Ограничить на это количество загонов для животных (или без ограничения)" />
+	<text name="setting_productionInspector_SiloMax"           text="Предельное количество показываемых хранилищ" />
+	<text name="toolTip_productionInspector_SiloMax"           text="Ограничить на это количество хранилищ (или без ограничений)" />
+
+	<text name="setting_productionInspector_AnimCount"         text="Показывать количество животных" />
+	<text name="toolTip_productionInspector_AnimCount"         text="Если включено, показывается количество животных и общее пространство для животных" />
+	<text name="setting_productionInspector_AnimFood"          text="Показывать общее количество корма для животных" />
+	<text name="toolTip_productionInspector_AnimFood"          text="Если включено, показывается общее количество доступных кормов в процентах" />
+	<text name="setting_productionInspector_AnimFoodTypes"     text="Показывать типы кормов для животных" />
+	<text name="toolTip_productionInspector_AnimFoodTypes"     text="Если включено, показываются отдельные типы кормов отдельно" />
+	<text name="setting_productionInspector_AnimProductivity"  text="Показывать продуктивность животных" />
+	<text name="toolTip_productionInspector_AnimProductivity"  text="Если включено, показывается средняя производительность" />
+	<text name="setting_productionInspector_AnimReproduction"  text="Показывать среднее воспроизводство животных" />
+	<text name="toolTip_productionInspector_AnimReproduction"  text="Если включено, показывается средний уровень воспроизводства животных репродуктивного возраста" />
+	<text name="setting_productionInspector_AnimOutputs"       text="Показывать продукты животноводства и требуемые ресурсы" />
+	<text name="toolTip_productionInspector_AnimOutputs"       text="Если включено, показываются продукты животноводства и требуемые ресурсы (например, солома)" />
+	<text name="setting_productionInspector_AnimPuberty"       text="Показывать незрелых животных" />
+	<text name="toolTip_productionInspector_AnimPuberty"       text="Если включено, показывается процент неполовозрелых (не размножающихся) животных" />
+	<text name="setting_productionInspector_AnimHealth"        text="Показывать среднее здоровье животных" />
+	<text name="toolTip_productionInspector_AnimHealth"        text="Если включено, показывается среднее состояние здоровья животных" />
+	
+	<text name="setting_productionInspector_ProdOnlyOwned"     text="Показывать только собственные производства" />
+	<text name="toolTip_productionInspector_ProdOnlyOwned"     text="Если включено, отображение ограничивается только теми производственными объектами, которыми вы владеете" />
+	<text name="setting_productionInspector_ProdInactivePoint" text="Показывать неактивные производства" />
+	<text name="toolTip_productionInspector_ProdInactivePoint" text="Если включено, показываются производственные объекты без работающих производственных линий" />
+	<text name="setting_productionInspector_ProdInactiveProd"  text="Показывать неактивные производственные линии" />
+	<text name="toolTip_productionInspector_ProdInactiveProd"  text="Если включено, показываются неактивные производственные линии" />
+	<text name="setting_productionInspector_ProdOutPercent"    text="Показывать процент заполнения вывода" />
+	<text name="toolTip_productionInspector_ProdOutPercent"    text="Если включено, показывается процент заполнения производственного объекта готовыми продуктами" />
+	<text name="setting_productionInspector_ProdOutFillLevel"  text="Показывать уровень заполнения вывода" />
+	<text name="toolTip_productionInspector_ProdOutFillLevel"  text="Если включено, показывается уровень заполнения производственного объекта готовыми продуктами в литрах" />
+	<text name="setting_productionInspector_ProdInPercent"     text="Показывать процент заполнения ввода" />
+	<text name="toolTip_productionInspector_ProdInPercent"     text="Если включено, показывается процентная доля уровня заполнения производственного объекта входным материалом" />
+	<text name="setting_productionInspector_ProdInFillLevel"   text="Показывать уровень заполнения ввода" />
+	<text name="toolTip_productionInspector_ProdInFillLevel"   text="Если включено, показывается уровень заполнения производственного объекта входным материалом в литрах" />
+	<text name="setting_productionInspector_ProdInputs"        text="Показывать входящие материалы" />
+	<text name="toolTip_productionInspector_ProdInputs"        text="Если включено, показываются входные материалы производственного объекта" />
+	<text name="setting_productionInspector_ProdEmptyInput"    text="Показывать пустые входы" />
+	<text name="toolTip_productionInspector_ProdEmptyInput"    text="Если включено, показываются входные материалы производственного объекта, даже если входы пусты" />
+	<text name="setting_productionInspector_ProdOutputs"       text="Показывать готовую продукцию" />
+	<text name="toolTip_productionInspector_ProdOutputs"       text="Если включено, показывается продукция, выпускаемая производственным объектом" />
+	<text name="setting_productionInspector_ProdEmptyOutput"   text="Показывать пустые выходы" />
+	<text name="toolTip_productionInspector_ProdEmptyOutput"   text="Если включено, показываются выходные продукты производственного объекта, даже если выходы пусты" />
+	<text name="setting_productionInspector_ProdShortEmptyOut" text="Сократить пустые входы" />
+	<text name="toolTip_productionInspector_ProdShortEmptyOut" text="Если включено, пустые входные материалы показываются в виде двойного тире (--) вместо 0 (0%)" />
+	<text name="setting_productionInspector_ProdOutputMode"    text="Показывать режим вывода" />
+	<text name="toolTip_productionInspector_ProdOutputMode"    text="Если включено, показывается режим вывода (по умолчанию: стрелка вверх - продажа, стрелка вниз - хранение, стрелка вправо - распространение)" />
+
+	<text name="setting_productionInspector_TextSize"          text="Размер шрифта" />
+	<text name="toolTip_productionInspector_TextSize"          text="Размер шрифта для отображения в относительных пикселях" />
+	<text name="setting_productionInspector_TextBold"          text="Жирный шрифт" />
+	<text name="toolTip_productionInspector_TextBold"          text="Если включено, будет использоваться жирный шрифт для всего дисплея" />
+
+	<text name="setting_productionInspector_DisplayModeProd"   text="Размещение дисплея - Производства" />
+	<text name="toolTip_productionInspector_DisplayModeProd"   text="Место размещения дисплея на экране" />
+	<text name="setting_productionInspector_DisplayModeAnim"   text="Размещение дисплея - Животные" />
+	<text name="toolTip_productionInspector_DisplayModeAnim"   text="Место размещения дисплея на экране" />
+	<text name="setting_productionInspector_DisplayModeSilo"   text="Размещение дисплея - Хранилища" />
+	<text name="toolTip_productionInspector_DisplayModeSilo"   text="Место размещения дисплея на экране" />
+
+	<text name="setting_productionInspector_DisplayMode1"      text="Вверху слева" />
+	<text name="setting_productionInspector_DisplayMode2"      text="Вверху справа" />
+	<text name="setting_productionInspector_DisplayMode3"      text="Внизу слева" />
+	<text name="setting_productionInspector_DisplayMode4"      text="Внизу справа" />
+  </texts>
+</l10n>

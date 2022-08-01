@@ -38,6 +38,7 @@ ProductionInspector.isEnabledProdEmptyInput    = true
 ProductionInspector.isEnabledProdShortEmptyOut = true
 ProductionInspector.isEnabledProdOutputMode    = true
 ProductionInspector.isEnabledProdMax           = 0
+ProductionInspector.isEnabledProdFullInput     = true
 
 ProductionInspector.isEnabledAnimCount         = true
 ProductionInspector.isEnabledAnimFood          = true
@@ -211,6 +212,7 @@ function ProductionInspector:new(mission, i18n, modDirectory, modName)
 		{"isEnabledProdOutputs", "bool" },
 		{"isEnabledProdEmptyOutput", "bool" },
 		{"isEnabledProdEmptyInput", "bool" },
+		{"isEnabledProdFullInput", "bool"},
 		{"isEnabledProdShortEmptyOut", "bool" },
 		{"isEnabledProdOutputMode", "bool" },
 		{"isEnabledProdMax", "int" },
@@ -360,7 +362,9 @@ function ProductionInspector:updateProductions()
 				local fillPerc  = MathUtil.getFlooredPercent(fillLevel, fillCap)
 
 				if ( fillLevel > 0 or g_productionInspector.isEnabledProdEmptyInput ) then
-					table.insert(inputTable, { fillType, fillLevel, fillCap, fillPerc })
+					if ( fillPerc < 84 or g_productionInspector.isEnabledProdFullInput ) then
+						table.insert(inputTable, { fillType, fillLevel, fillCap, fillPerc })
+					end
 				end
 			end
 
@@ -1479,7 +1483,7 @@ function ProductionInspector.initGui(self)
 		"ProdOnlyOwned", "ProdInactivePoint", "ProdInactiveProd", "ProdOutPercent",
 		"ProdOutFillLevel", "ProdInPercent", "ProdInFillLevel", "ProdInputs",
 		"ProdOutputs", "ProdEmptyOutput", "ProdEmptyInput", "ProdShortEmptyOut",
-		"ProdOutputMode",
+		"ProdFullInput","ProdOutputMode",
 
 		"AnimCount", "AnimFood", "AnimFoodTypes", "AnimProductivity", "AnimReproduction",
 		"AnimPuberty", "AnimHealth", "AnimOutputs",

@@ -70,6 +70,8 @@
 	<text name="toolTip_productionInspector_ProdInputs"        text="Если включено, показываются входные материалы производственного объекта." />
 	<text name="setting_productionInspector_ProdEmptyInput"    text="Показывать пустые входы" />
 	<text name="toolTip_productionInspector_ProdEmptyInput"    text="Если включено, показываются входные материалы производственного объекта, даже если входы пусты." />
+	<text name="setting_productionInspector_ProdFullInput"     text="Показать все входы" />
+	<text name="toolTip_productionInspector_ProdFullInput"     text="Если включено, показывать входные материалы производственного объекта, даже если они (почти) заполнены (85%+)" />
 	<text name="setting_productionInspector_ProdOutputs"       text="Показывать готовую продукцию" />
 	<text name="toolTip_productionInspector_ProdOutputs"       text="Если включено, показывается продукция, выпускаемая производственным объектом." />
 	<text name="setting_productionInspector_ProdEmptyOutput"   text="Показывать пустые выходы" />

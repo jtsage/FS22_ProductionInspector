@@ -70,6 +70,8 @@
 	<text name="toolTip_productionInspector_ProdInputs"        text="Wenn diese Option aktiviert ist, werden die Eingangsmaterialien der Produktionsanlage angezeigt." />
 	<text name="setting_productionInspector_ProdEmptyInput"    text="Leere Eingaben anzeigen" />
 	<text name="toolTip_productionInspector_ProdEmptyInput"    text="Wenn diese Option aktiviert ist, werden die Eingangsmaterialien der Produktionsanlage angezeigt, auch wenn sie leer sind." />
+	<text name="setting_productionInspector_ProdFullInput"     text="Vollständige Eingaben anzeigen" />
+	<text name="toolTip_productionInspector_ProdFullInput"     text="Wenn diese Option aktiviert ist, werden die Eingangsmaterialien der Produktionsstätte angezeigt, auch wenn sie (fast) voll sind (85%+)." />
 	<text name="setting_productionInspector_ProdOutputs"       text="Ausgaben anzeigen" />
 	<text name="toolTip_productionInspector_ProdOutputs"       text="Wenn diese Option aktiviert ist, werden die Ausgangsprodukte der Produktionsanlage angezeigt." />
 	<text name="setting_productionInspector_ProdEmptyOutput"   text="Leere Ausgänge anzeigen" />

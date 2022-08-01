@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="64">
+<modDesc descVersion="67">
     <title>
         <en>Production Inspector</en>
         <de>Produktions Inspektor</de>
@@ -29,12 +29,17 @@ Changelog:
 
 v1.1.0.0
  - Add key binds to toggle displays on and off
- - Add option to toggle display of percentages and fill levels independantly
- - Add option to show Prodcution output destination modes
+ - Add option to toggle display of percentages and fill levels independently
+ - Add option to show Production output destination modes
  - Add sorting by name, and hiding or Production Points, Animal Pens and Silos that end in an underscore ("_")
  - Add option to limit number of Production Points, Animal Pens and Silos
  - Add option to change text size
  - Add AnimalInspector and newly created Silo HUD to this inspector
+
+v1.1.1.0
+ - Add support for ProductionRevamp Production mods
+ - Add option to hide (nearly) full input materials (85%+)
+ - Add Russian translation
  ]]></en>
         <de><![CDATA[Production Inspector zeigt Ihre Produktionen, Tiere und/oder Lagersilos auf einen Blick
 
@@ -66,10 +71,15 @@ v1.1.0.0
  - Hinzufügen der Option zur Begrenzung der Anzahl von Produktionspunkten, Tierställen und Silos
  - Hinzufügen der Option zum Ändern der Textgröße
  - Hinzufügen des AnimalInspector und des neu erstellten Silo HUD zu diesem Inspektor
+
+ v1.1.1.0
+ - Unterstützung für ProductionRevamp Produktionen Mods hinzufügen
+ - Option zum Ausblenden von (fast) vollständigem Eingabematerial (85%+) hinzufügen
+ - Russische Übersetzung hinzufügen
  ]]></de>
     </description>
     <author>JTSage</author>
-    <version>1.1.0.0</version>
+    <version>1.1.1.0</version>
     <iconFilename>modIcon.dds</iconFilename>
     <multiplayer supported="true"/>
     <extraSourceFiles>

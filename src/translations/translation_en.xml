@@ -70,6 +70,8 @@
 	<text name="toolTip_productionInspector_ProdInputs"        text="When enabled, show production facility input materials" />
 	<text name="setting_productionInspector_ProdEmptyInput"    text="Show Empty Inputs" />
 	<text name="toolTip_productionInspector_ProdEmptyInput"    text="When enabled, show production facility input materials, even if they are empty" />
+	<text name="setting_productionInspector_ProdFullInput"     text="Show Full Inputs" />
+	<text name="toolTip_productionInspector_ProdFullInput"     text="When enabled, show production facility input materials, even they are (nearly) full (85%+)" />
 	<text name="setting_productionInspector_ProdOutputs"       text="Show Outputs" />
 	<text name="toolTip_productionInspector_ProdOutputs"       text="When enabled, show production facility output products" />
 	<text name="setting_productionInspector_ProdEmptyOutput"   text="Show Empty Outputs" />

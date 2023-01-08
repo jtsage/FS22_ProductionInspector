@@ -39,6 +39,9 @@ local function startMission(mission)
 	modEnvironment:onStartMission(mission)
 end
 
+local function save()
+	modEnvironment:save()
+end
 
 local function init()
 	FSBaseMission.delete = Utils.appendedFunction(FSBaseMission.delete, unload)
@@ -48,7 +51,7 @@ local function init()
 
 	InGameMenuGeneralSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuGeneralSettingsFrame.onFrameOpen, ProductionInspector.initGui)
 
-	FSCareerMissionInfo.saveToXMLFile = Utils.appendedFunction(FSCareerMissionInfo.saveToXMLFile, ProductionInspector.saveSettings) -- Settings are saved live, but we need to do it here too, since the old save directory (with our xml) is now a backup
+	FSCareerMissionInfo.saveToXMLFile = Utils.appendedFunction(FSCareerMissionInfo.saveToXMLFile, save)
 end
 
 init()

@@ -8,106 +8,6 @@ ProductionInspector= {}
 
 local ProductionInspector_mt = Class(ProductionInspector)
 
-
--- default options
-ProductionInspector.displayModeProd = 1
-ProductionInspector.displayModeAnim = 1
-ProductionInspector.displayModeSilo = 1
-
-ProductionInspector.debugMode       = false
-
-ProductionInspector.isEnabledProdVisible        = true
-ProductionInspector.isEnabledAnimVisible        = false
-ProductionInspector.isEnabledSiloVisible        = false
-
-ProductionInspector.isEnabledForceProdJustify   = 1
-ProductionInspector.isEnabledForceAnimJustify   = 1
-ProductionInspector.isEnabledForceSiloJustify   = 1
-
-ProductionInspector.isEnabledProdOnlyOwned     = true
-ProductionInspector.isEnabledProdInactivePoint = false
-ProductionInspector.isEnabledProdInactiveProd  = false
-ProductionInspector.isEnabledProdOutPercent    = true
-ProductionInspector.isEnabledProdOutFillLevel  = true
-ProductionInspector.isEnabledProdInPercent     = true
-ProductionInspector.isEnabledProdInFillLevel   = true
-ProductionInspector.isEnabledProdInputs        = true
-ProductionInspector.isEnabledProdOutputs       = true
-ProductionInspector.isEnabledProdEmptyOutput   = false
-ProductionInspector.isEnabledProdEmptyInput    = true
-ProductionInspector.isEnabledProdShortEmptyOut = true
-ProductionInspector.isEnabledProdOutputMode    = true
-ProductionInspector.isEnabledProdMax           = 0
-ProductionInspector.isEnabledProdFullInput     = true
-
-ProductionInspector.isEnabledAnimCount         = true
-ProductionInspector.isEnabledAnimFood          = true
-ProductionInspector.isEnabledAnimFoodTypes     = true
-ProductionInspector.isEnabledAnimProductivity  = true
-ProductionInspector.isEnabledAnimReproduction  = true
-ProductionInspector.isEnabledAnimPuberty       = true
-ProductionInspector.isEnabledAnimHealth        = true
-ProductionInspector.isEnabledAnimOutputs       = true
-ProductionInspector.isEnabledAnimMax           = 0
-
-ProductionInspector.isEnabledSiloMax           = 0
-
-ProductionInspector.setValueTimerFrequency  = 60
-ProductionInspector.setValueTextMarginX     = 15
-ProductionInspector.setValueTextMarginY     = 10
-ProductionInspector.setValueTextSize        = 12
-ProductionInspector.setTotalMaxProductions  = 40
-ProductionInspector.setTotalMaxAnimals      = 20
-ProductionInspector.setTotalMaxSilos        = 10
-ProductionInspector.isEnabledTextBold       = false
-
-ProductionInspector.colorPointOwned    = {0.182, 0.493, 0.875, 1}
-ProductionInspector.colorPointNotOwned = {0.738, 0.738, 0.738, 1}
-ProductionInspector.colorProdName      = {0.991, 0.399, 0.038, 1}
-ProductionInspector.colorFillType      = {0.700, 0.700, 0.700, 1}
-ProductionInspector.colorCaption       = {0.550, 0.550, 0.550, 1}
-ProductionInspector.colorSep           = {1.000, 1.000, 1.000, 1}
-ProductionInspector.colorEmpty         = {0.830, 0.019, 0.033, 1}
-ProductionInspector.colorEmptyInput    = {1.000, 0.200, 0.200, 1}
-ProductionInspector.colorAniHome       = {0.182, 0.493, 0.875, 1}
-ProductionInspector.colorAniData       = {0.850, 0.850, 0.850, 1}
-ProductionInspector.colorSep           = {1.000, 1.000, 1.000, 1}
-
-ProductionInspector.colorStatusInactive = {0.600, 0.600, 0.600, 1}
-ProductionInspector.colorStatusRunning  = {1.000, 1.000, 1.000, 1}
-ProductionInspector.colorStatusMissing  = {1.000, 0.200, 0.200, 1}
-ProductionInspector.colorStatusNoSpace  = {1.000, 0.200, 0.200, 1}
-
-ProductionInspector.setStringTextSep         = " | "
-ProductionInspector.setStringTextIndent      = "    "
-ProductionInspector.setStringTextEmptyInput  = "--"
-ProductionInspector.setStringTextSelling     = "↑"
-ProductionInspector.setStringTextStoring     = "↓"
-ProductionInspector.setStringTextDistribute  = "→"
-ProductionInspector.setStringTextRealStore   = "←"
-
-ProductionInspector.menuTextSizes = { 8, 10, 12, 14, 16 }
-
-ProductionInspector.statusColorsMap = {
-	[ProductionPoint.PROD_STATUS.INACTIVE]        = "colorStatusInactive",
-	[ProductionPoint.PROD_STATUS.RUNNING]         = "colorStatusRunning",
-	[ProductionPoint.PROD_STATUS.MISSING_INPUTS]  = "colorStatusMissing",
-	[ProductionPoint.PROD_STATUS.NO_OUTPUT_SPACE] = "colorStatusNoSpace"
-}
-
-ProductionInspector.outputModeMap = {
-	[ProductionPoint.OUTPUT_MODE.KEEP]         = "setStringTextStoring",
-	[ProductionPoint.OUTPUT_MODE.DIRECT_SELL]  = "setStringTextSelling",
-	[ProductionPoint.OUTPUT_MODE.AUTO_DELIVER] = "setStringTextDistribute",
-	[3]                                        = "setStringTextRealStore",
-}
-
-ProductionInspector.lastCoords = {
-	prod = {},
-	anim = {},
-	silo = {}
-}
-
 function ProductionInspector:new(mission, modDirectory, modName, logger)
 	local self = setmetatable({}, ProductionInspector_mt)
 
@@ -122,10 +22,100 @@ function ProductionInspector:new(mission, modDirectory, modName, logger)
 	self.speedMeterDisplay = mission.hud.speedMeter
 	self.ingameMap         = mission.hud.ingameMap
 
+	source(modDirectory .. 'lib/fs22ModPrefSaver.lua')
+
+	self.settings = FS22PrefSaver:new(
+		"FS22_ProductionInspector",
+		"productionInspector.xml",
+		true,
+		{
+			displayModeProd = { 1, "int" },
+			displayModeAnim = { 1, "int" },
+			displayModeSilo = { 1, "int" },
+
+			isEnabledProdVisible = true,
+			isEnabledAnimVisible = false,
+			isEnabledSiloVisible = false,
+
+			isEnabledForceProdJustify = { 1, "int" },
+			isEnabledForceAnimJustify = { 1, "int" },
+			isEnabledForceSiloJustify = { 1, "int" },
+
+			isEnabledProdOnlyOwned     = true,
+			isEnabledProdInactivePoint = false,
+			isEnabledProdInactiveProd  = false,
+			isEnabledProdOutPercent    = true,
+			isEnabledProdOutFillLevel  = true,
+			isEnabledProdInPercent     = true,
+			isEnabledProdInFillLevel   = true,
+			isEnabledProdInputs        = true,
+			isEnabledProdOutputs       = true,
+			isEnabledProdEmptyOutput   = false,
+			isEnabledProdEmptyInput    = true,
+			isEnabledProdShortEmptyOut = true,
+			isEnabledProdOutputMode    = true,
+			isEnabledProdMax           = { 0, "int" },
+			isEnabledProdFullInput     = true,
+
+			isEnabledAnimCount         = true,
+			isEnabledAnimFood          = true,
+			isEnabledAnimFoodTypes     = true,
+			isEnabledAnimProductivity  = true,
+			isEnabledAnimReproduction  = true,
+			isEnabledAnimPuberty       = true,
+			isEnabledAnimHealth        = true,
+			isEnabledAnimOutputs       = true,
+			isEnabledAnimMax           = { 0, "int" },
+
+			isEnabledSiloMax           = { 0, "int" },
+
+			setValueTextMarginX     = { 15, "int" },
+			setValueTextMarginY     = { 10, "int" },
+			setValueTextSize        = { 12, "int" },
+			setTotalMaxProductions  = { 40, "int" },
+			setTotalMaxAnimals      = { 20, "int" },
+			setTotalMaxSilos        = { 10, "int" },
+			isEnabledTextBold       = false,
+
+			colorPointOwned    = { {0.182, 0.493, 0.875, 1}, "color" },
+			colorPointNotOwned = { {0.738, 0.738, 0.738, 1}, "color" },
+			colorProdName      = { {0.991, 0.399, 0.038, 1}, "color" },
+			colorFillType      = { {0.700, 0.700, 0.700, 1}, "color" },
+			colorCaption       = { {0.550, 0.550, 0.550, 1}, "color" },
+			colorSep           = { {1.000, 1.000, 1.000, 1}, "color" },
+			colorEmpty         = { {0.830, 0.019, 0.033, 1}, "color" },
+			colorEmptyInput    = { {1.000, 0.200, 0.200, 1}, "color" },
+			colorAniHome       = { {0.182, 0.493, 0.875, 1}, "color" },
+			colorAniData       = { {0.850, 0.850, 0.850, 1}, "color" },
+
+			colorStatusInactive = { {0.600, 0.600, 0.600, 1}, "color" },
+			colorStatusRunning  = { {1.000, 1.000, 1.000, 1}, "color" },
+			colorStatusMissing  = { {1.000, 0.200, 0.200, 1}, "color" },
+			colorStatusNoSpace  = { {1.000, 0.200, 0.200, 1}, "color" },
+
+			setStringTextSep         = " | ",
+			setStringTextIndent      = "    ",
+			setStringTextEmptyInput  = "--",
+			setStringTextSelling     = "↑",
+			setStringTextStoring     = "↓",
+			setStringTextDistribute  = "→",
+			setStringTextRealStore   = "←",
+		},
+		function ()
+			self.inspectBox_prod.size = self.gameInfoDisplay:scalePixelToScreenHeight(self.settings:getValue("setValueTextSize"))
+			self.inspectBox_anim.size = self.gameInfoDisplay:scalePixelToScreenHeight(self.settings:getValue("setValueTextSize"))
+			self.inspectBox_silo.size = self.gameInfoDisplay:scalePixelToScreenHeight(self.settings:getValue("setValueTextSize"))
+		end,
+		nil,
+		self.logger
+	)
+
+	self.setValueTimerFrequency  = 60
 	self.debugTimerRuns = 0
 	self.inspectText    = {}
 	self.boxBGColor     = { 544, 20, 200, 44 }
 	self.bgName         = 'dataS/menu/blank.png'
+	self.menuTextSizes          = { 8, 10, 12, 14, 16 }
 
 	local modDesc       = loadXMLFile("modDesc", modDirectory .. "modDesc.xml");
 	self.version        = getXMLString(modDesc, "modDesc.version");
@@ -135,147 +125,32 @@ function ProductionInspector:new(mission, modDirectory, modName, logger)
 	self.display_data_anim = { }
 	self.display_data_silo = { }
 
-	self.fill_color_CB = {
-		{ 1.00, 0.76, 0.04, 1 },
-		{ 0.98, 0.75, 0.15, 1 },
-		{ 0.96, 0.73, 0.20, 1 },
-		{ 0.94, 0.72, 0.25, 1 },
-		{ 0.92, 0.71, 0.29, 1 },
-		{ 0.90, 0.69, 0.33, 1 },
-		{ 0.87, 0.68, 0.37, 1 },
-		{ 0.85, 0.67, 0.40, 1 },
-		{ 0.83, 0.66, 0.43, 1 },
-		{ 0.81, 0.65, 0.46, 1 },
-		{ 0.78, 0.64, 0.49, 1 },
-		{ 0.76, 0.62, 0.52, 1 },
-		{ 0.73, 0.61, 0.55, 1 },
-		{ 0.70, 0.60, 0.57, 1 },
-		{ 0.67, 0.59, 0.60, 1 },
-		{ 0.64, 0.58, 0.63, 1 },
-		{ 0.61, 0.56, 0.65, 1 },
-		{ 0.57, 0.55, 0.68, 1 },
-		{ 0.53, 0.54, 0.71, 1 },
-		{ 0.49, 0.53, 0.73, 1 },
-		{ 0.45, 0.52, 0.76, 1 },
-		{ 0.39, 0.51, 0.78, 1 },
-		{ 0.33, 0.50, 0.81, 1 },
-		{ 0.24, 0.49, 0.84, 1 },
-		{ 0.05, 0.48, 0.86, 1 }
-	}
-	self.fill_color = {
-		{ 1.00, 0.00, 0.00, 1 },
-		{ 1.00, 0.15, 0.00, 1 },
-		{ 1.00, 0.22, 0.00, 1 },
-		{ 0.99, 0.29, 0.00, 1 },
-		{ 0.98, 0.34, 0.00, 1 },
-		{ 0.98, 0.38, 0.00, 1 },
-		{ 0.96, 0.43, 0.00, 1 },
-		{ 0.95, 0.47, 0.00, 1 },
-		{ 0.93, 0.51, 0.00, 1 },
-		{ 0.91, 0.55, 0.00, 1 },
-		{ 0.89, 0.58, 0.00, 1 },
-		{ 0.87, 0.62, 0.00, 1 },
-		{ 0.84, 0.65, 0.00, 1 },
-		{ 0.81, 0.69, 0.00, 1 },
-		{ 0.78, 0.72, 0.00, 1 },
-		{ 0.75, 0.75, 0.00, 1 },
-		{ 0.71, 0.78, 0.00, 1 },
-		{ 0.67, 0.81, 0.00, 1 },
-		{ 0.63, 0.84, 0.00, 1 },
-		{ 0.58, 0.87, 0.00, 1 },
-		{ 0.53, 0.89, 0.00, 1 },
-		{ 0.46, 0.92, 0.00, 1 },
-		{ 0.38, 0.95, 0.00, 1 },
-		{ 0.27, 0.98, 0.00, 1 },
-		{ 0.00, 1.00, 0.00, 1 }
+	
+	self.statusColorsMap = {
+		[ProductionPoint.PROD_STATUS.INACTIVE]        = "colorStatusInactive",
+		[ProductionPoint.PROD_STATUS.RUNNING]         = "colorStatusRunning",
+		[ProductionPoint.PROD_STATUS.MISSING_INPUTS]  = "colorStatusMissing",
+		[ProductionPoint.PROD_STATUS.NO_OUTPUT_SPACE] = "colorStatusNoSpace"
 	}
 
-	self.settingsNames = {
-		{"displayModeProd", "int" },
-		{"displayModeAnim", "int" },
-		{"displayModeSilo", "int" },
-		{"isEnabledForceProdJustify", "int"},
-		{"isEnabledForceAnimJustify", "int"},
-		{"isEnabledForceSiloJustify", "int"},
-		{"debugMode", "bool" },
-		{"isEnabledProdVisible", "bool" },
-		{"isEnabledAnimVisible", "bool" },
-		{"isEnabledSiloVisible", "bool" },
-		{"isEnabledProdOnlyOwned", "bool" },
-		{"isEnabledProdInactivePoint", "bool" },
-		{"isEnabledProdInactiveProd", "bool" },
-		{"isEnabledProdOutPercent", "bool" },
-		{"isEnabledProdOutFillLevel", "bool" },
-		{"isEnabledProdInPercent", "bool" },
-		{"isEnabledProdInFillLevel", "bool" },
-		{"isEnabledProdInputs", "bool" },
-		{"isEnabledProdOutputs", "bool" },
-		{"isEnabledProdEmptyOutput", "bool" },
-		{"isEnabledProdEmptyInput", "bool" },
-		{"isEnabledProdFullInput", "bool"},
-		{"isEnabledProdShortEmptyOut", "bool" },
-		{"isEnabledProdOutputMode", "bool" },
-		{"isEnabledProdMax", "int" },
-		{"isEnabledSiloMax", "int" },
-		{"isEnabledAnimMax", "int" },
-		{"isEnabledAnimCount", "bool" },
-		{"isEnabledAnimFood", "bool" },
-		{"isEnabledAnimFoodTypes", "bool" },
-		{"isEnabledAnimProductivity", "bool" },
-		{"isEnabledAnimReproduction", "bool" },
-		{"isEnabledAnimPuberty", "bool" },
-		{"isEnabledAnimHealth", "bool" },
-		{"isEnabledAnimOutputs", "bool" },
-		{"setValueTimerFrequency", "int" },
-		{"setValueTextMarginX", "int" },
-		{"setValueTextMarginY", "int" },
-		{"setValueTextSize", "int" },
-		{"setTotalMaxProductions", "int" },
-		{"setTotalMaxAnimals", "int" },
-		{"setTotalMaxSilos", "int" },
-		{"isEnabledTextBold", "bool" },
-		{"colorPointOwned", "color" },
-		{"colorPointNotOwned", "color" },
-		{"colorProdName", "color" },
-		{"colorFillType", "color" },
-		{"colorCaption", "color" },
-		{"colorSep", "color" },
-		{"colorEmpty", "color" },
-		{"colorEmptyInput", "color" },
-		{"colorAniHome", "color" },
-		{"colorAniData", "color" },
-		{"colorSep", "color" },
-		{"colorStatusInactive", "color" },
-		{"colorStatusRunning", "color" },
-		{"colorStatusMissing", "color" },
-		{"colorStatusNoSpace", "color" },
-		{"setStringTextSep", "string" },
-		{"setStringTextIndent", "string" },
-		{"setStringTextEmptyInput", "string" },
-		{"setStringTextSelling", "string" },
-		{"setStringTextStoring", "string" },
-		{"setStringTextDistribute", "string" },
-		{"setStringTextRealStore", "string"}
+	self.outputModeMap = {
+		[ProductionPoint.OUTPUT_MODE.KEEP]         = "setStringTextStoring",
+		[ProductionPoint.OUTPUT_MODE.DIRECT_SELL]  = "setStringTextSelling",
+		[ProductionPoint.OUTPUT_MODE.AUTO_DELIVER] = "setStringTextDistribute",
+		[3]                                        = "setStringTextRealStore",
+	}
+
+	self.lastCoords = {
+		prod = {},
+		anim = {},
+		silo = {}
 	}
 
 	return self
 end
 
-function ProductionInspector:makeFillColor(percentage, flip)
-	local colorIndex = math.floor(percentage/4) + 1
-	local colorTab   = nil
-
-	if percentage == 100 then colorIndex = 25 end
-
-	if not flip then colorIndex = 26 - colorIndex end
-
-	if g_gameSettings:getValue('useColorblindMode') then
-		colorTab = self.fill_color_CB[colorIndex]
-	else
-		colorTab = self.fill_color[colorIndex]
-	end
-
-	return Utils.getNoNil(colorTab, {1,1,1,1})
+function ProductionInspector:save()
+	self.settings:saveSettings()
 end
 
 function ProductionInspector:updateSilos()
@@ -283,7 +158,7 @@ function ProductionInspector:updateSilos()
 	local theseSilos     = {}
 	local myFarmID       = self.mission:getFarmId()
 
-	if not g_productionInspector.isEnabledSiloVisible then
+	if not self.settings:getValue("isEnabledSiloVisible") then
 		self.display_data_silo = {}
 		return
 	end
@@ -317,7 +192,10 @@ function ProductionInspector:updateSilos()
 			for fillType, fillLevel in pairs(rawFillLevels) do
 				if fillLevel > 0 then
 					local roundFillLevel = MathUtil.round(fillLevel)
-					table.insert(cleanFillLevels, {fillType, roundFillLevel})
+					table.insert(cleanFillLevels, {
+						fillType  = fillType,
+						fillLevel = roundFillLevel
+					})
 					totalFill = totalFill + roundFillLevel
 				end
 			end
@@ -328,6 +206,8 @@ function ProductionInspector:updateSilos()
 				fillLevels = cleanFillLevels
 			})
 		end
+
+		self.logger:printVariable(new_data_table, FS22Log.LOG_LEVEL.VERBOSE, "display_data_silo", 3)
 	end
 
 	self.display_data_silo = {unpack(new_data_table)}
@@ -336,7 +216,7 @@ end
 function ProductionInspector:updateProductions()
 	local new_data_table = {}
 
-	if not g_productionInspector.isEnabledProdVisible then
+	if not self.settings:getValue("isEnabledProdVisible") then
 		self.display_data_prod = {}
 		return
 	end
@@ -361,9 +241,14 @@ function ProductionInspector:updateProductions()
 				local fillCap   = thisProd.storage:getCapacity(fillType)
 				local fillPerc  = MathUtil.getFlooredPercent(fillLevel, fillCap)
 
-				if ( fillLevel > 0 or g_productionInspector.isEnabledProdEmptyInput ) then
-					if ( fillPerc < 84 or g_productionInspector.isEnabledProdFullInput ) then
-						table.insert(inputTable, { fillType, fillLevel, fillCap, fillPerc })
+				if ( fillLevel > 0 or self.settings:getValue("isEnabledProdEmptyInput") ) then
+					if ( fillPerc < 84 or self.settings:getValue("isEnabledProdFullInput") ) then
+						table.insert(inputTable, {
+							fillTypeIdx  = fillType,
+							level        = fillLevel,
+							capacity     = fillCap,
+							wholePercent = fillPerc
+						})
 					end
 				end
 			end
@@ -375,8 +260,14 @@ function ProductionInspector:updateProductions()
 				local fillPerc  = MathUtil.getFlooredPercent(fillLevel, fillCap)
 				local fillDest  = thisProd:getOutputDistributionMode(fillType)
 
-				if ( fillLevel > 0 or g_productionInspector.isEnabledProdEmptyOutput) then
-					table.insert(outputTable, { fillType, fillLevel, fillCap, fillPerc, fillDest })
+				if ( fillLevel > 0 or self.settings:getValue("isEnabledProdEmptyOutput") ) then
+					table.insert(outputTable, {
+						fillTypeIdx  = fillType,
+						level        = fillLevel,
+						capacity     = fillCap,
+						wholePercent = fillPerc,
+						destination  = fillDest
+					})
 				end
 			end
 
@@ -384,35 +275,34 @@ function ProductionInspector:updateProductions()
 				for _, thisProcess in ipairs(thisProd.productions) do
 					local prRunning   = thisProd:getIsProductionEnabled(thisProcess.id)
 					local prStatus    = thisProd:getProductionStatus(thisProcess.id)
-					local prStatusCol = g_productionInspector.statusColorsMap[prStatus] or "colorStatusInactive"
-					local prStatusTxt = g_i18n:getText(ProductionPoint.PROD_STATUS_TO_L10N[prStatus]) or "unknown"
+					local prStatusCol = Utils.getNoNil(g_productionInspector.statusColorsMap[prStatus], "colorStatusInactive")
+					local prStatusTxt = Utils.getNoNil(g_i18n:getText(ProductionPoint.PROD_STATUS_TO_L10N[prStatus]), "unknown")
 
 					if not weAreWorkingHere and prRunning then
 						-- Something in this production point is running
 						weAreWorkingHere = true
 					end
 
-					if prRunning or g_productionInspector.isEnabledProdInactiveProd then
-						table.insert(procTable, {thisProcess.name, prRunning, prStatusTxt, prStatusCol})
+					if prRunning or self.settings:getValue("isEnabledProdInactiveProd") then
+						table.insert(procTable, {
+							name        = thisProcess.name,
+							isRunning   = prRunning,
+							statusText  = prStatusTxt,
+							statusColor = prStatusCol
+						})
 					end
 
 				end
 			end
 
-			local prodStatusTxt = g_i18n:getText("ui_production_status_inactive")
-
-			if weAreWorkingHere then
-				prodStatusTxt = g_i18n:getText("ui_production_status_running")
-			end
-
-			if isMine or not g_productionInspector.isEnabledProdOnlyOwned then
-				if weAreWorkingHere or g_productionInspector.isEnabledProdInactivePoint then
+			if isMine or not self.settings:getValue("isEnabledProdOnlyOwned") then
+				if weAreWorkingHere or self.settings:getValue("isEnabledProdInactivePoint") then
 
 					table.insert(new_data_table, {
 						name       = thisProd:getName(),
 						isMine     = isMine,
 						prodActive = weAreWorkingHere,
-						prodStatus = prodStatusTxt,
+						prodStatus = weAreWorkingHere and g_i18n:getText("ui_production_status_running") or g_i18n:getText("ui_production_status_inactive"),
 						inputs     = inputTable,
 						outputs    = outputTable,
 						products   = procTable
@@ -422,13 +312,15 @@ function ProductionInspector:updateProductions()
 		end
 	end
 
+	self.logger:printVariable(new_data_table, FS22Log.LOG_LEVEL.VERBOSE, "display_data_prod", 3)
+
 	self.display_data_prod = {unpack(new_data_table)}
 end
 
 function ProductionInspector:updateAnimals()
 	local new_data_table = {}
 
-	if not g_productionInspector.isEnabledAnimVisible or g_currentMission == nil or g_currentMission.husbandrySystem == nil then
+	if not self.settings:getValue("isEnabledAnimVisible") or g_currentMission == nil or g_currentMission.husbandrySystem == nil then
 		-- This is in case you sell your last animal placeable, otherwise it'll display old stats forever? (also hidden)
 		self.display_data_anim = {}
 		return
@@ -528,6 +420,8 @@ function ProductionInspector:updateAnimals()
 		end
 	end
 
+	self.logger:printVariable(new_data_table, FS22Log.LOG_LEVEL.VERBOSE, "display_data_anim", 3)
+
 	self.display_data_anim = {unpack(new_data_table)}
 end
 
@@ -540,9 +434,28 @@ end
 
 function ProductionInspector:buildSeperator(doSeperate, currentLineTable, currentLineText)
 	if doSeperate then
-		currentLineTable, currentLineText = self:buildLine(currentLineTable, currentLineText, "colorSep", g_productionInspector.setStringTextSep)
+		currentLineTable, currentLineText = self:buildLine(
+			currentLineTable,
+			currentLineText,
+			"colorSep",
+			self.settings:getValue("setStringTextSep")
+		)
 	end
 	return true, currentLineTable, currentLineText
+end
+
+function ProductionInspector:buildLinePerc(beginSeperate, currentLineTable, currentLineText, labelText, labelColor, wholePercentage, percentFlip)
+	local thisTextAdditon = JTSUtil.qConcat(labelText, ": ", wholePercentage, "%")
+
+	if beginSeperate then
+		table.insert(currentLineTable, { self:getColorQuad("colorSep"), self.settings:getValue("setStringTextSep") })
+		thisTextAdditon = self.settings:getValue("setStringTextSep") .. thisTextAdditon
+	end
+
+	table.insert(currentLineTable, { self:getColorQuad(labelColor), JTSUtil.qConcat(labelText, ": ") })
+	table.insert(currentLineTable, { JTSUtil.colorPercent(wholePercentage, percentFlip), JTSUtil.qConcat(wholePercentage, "%")})
+
+	return beginSeperate, currentLineTable, currentLineText .. thisTextAdditon
 end
 
 function ProductionInspector:buildLine(currentLineTable, currentLineText, newColor, newText)
@@ -572,23 +485,27 @@ function ProductionInspector:buildDisplay_anim()
 	}
 
 	for _, thisDisplay in ipairs(working_table) do
-		if ( g_productionInspector.isEnabledAnimMax == 0 or currentCount < g_productionInspector.isEnabledAnimMax ) then
+		if ( self.settings:getValue("isEnabledAnimMax") == 0 or currentCount < self.settings:getValue("isEnabledAnimMax") ) then
 			local doSeperate = false
 
 			currentCount = currentCount + 1
 
 			currentLine, currentText = self:buildLine({}, "", "colorAniHome", thisDisplay.name .. ": ")
 
-			if ( g_productionInspector.isEnabledAnimProductivity ) then
-				local fillColor   = self:makeFillColor(thisDisplay.productivity, true)
-				doSeperate        = true
-
-				currentLine, currentText = self:buildLine(currentLine, currentText, "colorAniData", g_i18n:getText("statistic_productivity") .. ": ")
-				currentLine, currentText = self:buildLine(currentLine, currentText, fillColor, tostring(thisDisplay.productivity) .. "%")
+			if ( self.settings:getValue("isEnabledAnimProductivity") ) then
+				doSeperate, currentLine, currentText = self:buildLinePerc(
+					doSeperate,
+					currentLine,
+					currentText,
+					g_i18n:getText("statistic_productivity"),
+					"colorAniData",
+					thisDisplay.productivity,
+					true
+				)
 			end
 
-			if ( g_productionInspector.isEnabledAnimCount ) then
-				local fillColor    = self:makeFillColor(math.ceil((thisDisplay.totalAnimals / thisDisplay.maxAnimals) * 100), false)
+			if ( self.settings:getValue("isEnabledAnimCount") ) then
+				local fillColor    = JTSUtil.colorPercent(math.ceil((thisDisplay.totalAnimals / thisDisplay.maxAnimals) * 100), false)
 
 				doSeperate, currentLine, currentText = self:buildSeperator(doSeperate, currentLine, currentText)
 
@@ -598,61 +515,67 @@ function ProductionInspector:buildDisplay_anim()
 				currentLine, currentText = self:buildLine(currentLine, currentText, fillColor, thisDisplay.maxAnimals)
 			end
 
-			if ( g_productionInspector.isEnabledAnimFood ) then
-				local fillColor    = self:makeFillColor(thisDisplay.totalFood, true)
-
-				doSeperate, currentLine, currentText = self:buildSeperator(doSeperate, currentLine, currentText)
-
-				currentLine, currentText = self:buildLine(currentLine, currentText, "colorAniData", g_i18n:getText("ui_animalFood") .. ": ")
-				currentLine, currentText = self:buildLine(currentLine, currentText, fillColor, tostring(thisDisplay.totalFood) .. "%")
+			if ( self.settings:getValue("isEnabledAnimFood") ) then
+				doSeperate, currentLine, currentText = self:buildLinePerc(
+					doSeperate,
+					currentLine,
+					currentText,
+					g_i18n:getText("ui_animalFood"),
+					"colorAniData",
+					thisDisplay.totalFood,
+					true
+				)
 			end
 
 			table.insert(display_table.displayLines, currentLine)
 			table.insert(display_table.fullLines, currentText)
 
 			doSeperate = false
-			tempWidth  = getTextWidth(self.inspectText.size, currentText)
-			if tempWidth > display_table.maxLength then
-				display_table.maxLength = tempWidth
-			end
+			display_table.maxLength = math.max(display_table.maxLength, getTextWidth(self.inspectText.size, currentText))
 
-			if ( g_productionInspector.isEnabledAnimHealth or g_productionInspector.isEnabledAnimReproduction or g_productionInspector.isEnabledAnimPuberty ) then
+			if ( self.settings:getValue("isEnabledAnimHealth") or self.settings:getValue("isEnabledAnimReproduction") or self.settings:getValue("isEnabledAnimPuberty") ) then
 				currentLine, currentText = self:buildLine({}, "", nil, nil)
 
-				if g_productionInspector.isEnabledAnimHealth then
-					local fillColor    = self:makeFillColor(thisDisplay.healthFactor, true)
-
-					doSeperate, currentLine, currentText = self:buildSeperator(doSeperate, currentLine, currentText)
-
-					currentLine, currentText = self:buildLine(currentLine, currentText, "colorAniData", g_i18n:getText("hud_productionInspector_avgHealth") .. ": ")
-					currentLine, currentText = self:buildLine(currentLine, currentText, fillColor, tostring(thisDisplay.healthFactor) .. "%")
+				if self.settings:getValue("isEnabledAnimHealth") then
+					doSeperate, currentLine, currentText = self:buildLinePerc(
+						doSeperate,
+						currentLine,
+						currentText,
+						g_i18n:getText("hud_productionInspector_avgHealth"),
+						"colorAniData",
+						thisDisplay.healthFactor,
+						true
+					)
 				end
 
-				if g_productionInspector.isEnabledAnimPuberty then
-					local fillColor    = self:makeFillColor(thisDisplay.underageFactor, false)
-
-					doSeperate, currentLine, currentText = self:buildSeperator(doSeperate, currentLine, currentText)
-
-					currentLine, currentText = self:buildLine(currentLine, currentText, "colorAniData", g_i18n:getText("hud_productionInspector_tooYoung") .. ": ")
-					currentLine, currentText = self:buildLine(currentLine, currentText, fillColor, tostring(thisDisplay.underageFactor) .. "%")
+				if self.settings:getValue("isEnabledAnimPuberty") then
+					doSeperate, currentLine, currentText = self:buildLinePerc(
+						doSeperate,
+						currentLine,
+						currentText,
+						g_i18n:getText("hud_productionInspector_tooYoung"),
+						"colorAniData",
+						thisDisplay.underageFactor,
+						false
+					)
 				end
 
-				if g_productionInspector.isEnabledAnimReproduction then
-					local fillColor    = self:makeFillColor(thisDisplay.breedFactor, true)
-
-					doSeperate, currentLine, currentText = self:buildSeperator(doSeperate, currentLine, currentText)
-
-					currentLine, currentText = self:buildLine(currentLine, currentText, "colorAniData", g_i18n:getText("hud_productionInspector_avgBreed") .. ": ")
-					currentLine, currentText = self:buildLine(currentLine, currentText, fillColor, tostring(thisDisplay.breedFactor) .. "%")
+				if self.settings:getValue("isEnabledAnimReproduction") then
+					doSeperate, currentLine, currentText = self:buildLinePerc(
+						doSeperate,
+						currentLine,
+						currentText,
+						g_i18n:getText("hud_productionInspector_avgBreed"),
+						"colorAniData",
+						thisDisplay.breedFactor,
+						true
+					)
 				end
 
 				table.insert(display_table.displayLines, currentLine)
 				table.insert(display_table.fullLines, currentText)
 
-				tempWidth  = getTextWidth(self.inspectText.size, currentText .. g_productionInspector.setStringTextIndent)
-				if tempWidth > display_table.maxLength then
-					display_table.maxLength = tempWidth
-				end
+				display_table.maxLength = math.max(display_table.maxLength, getTextWidth(self.inspectText.size, currentText .. g_productionInspector.setStringTextIndent))
 			end
 
 			if ( g_productionInspector.isEnabledAnimFoodTypes ) then

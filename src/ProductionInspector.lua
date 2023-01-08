@@ -108,13 +108,13 @@ ProductionInspector.lastCoords = {
 	silo = {}
 }
 
-function ProductionInspector:new(mission, i18n, modDirectory, modName)
+function ProductionInspector:new(mission, modDirectory, modName, logger)
 	local self = setmetatable({}, ProductionInspector_mt)
 
 	self.myName            = "ProductionInspector"
+	self.logger            = logger
 	self.isClient          = mission:getIsClient()
 	self.mission           = mission
-	self.i18n              = i18n
 	self.modDirectory      = modDirectory
 	self.modName           = modName
 	self.gameInfoDisplay   = mission.hud.gameInfoDisplay
@@ -765,6 +765,7 @@ function ProductionInspector:buildDisplay_prod()
 
 				for idx, inputs in ipairs(thisDisplay.inputs) do
 					local thisFillType = g_fillTypeManager:getFillTypeByIndex(inputs[1])
+					--local fillColor    = JTSUtil.colorPercent(inputs[4], true)
 					local fillColor    = self:makeFillColor(inputs[4], true)
 
 					if idx > 1 then
@@ -819,7 +820,7 @@ function ProductionInspector:buildDisplay_prod()
 					local fillTypeString = thisFillType.title
 
 					if g_productionInspector.isEnabledProdOutputMode then
-						fillTypeString = fillTypeString .. " " .. g_productionInspector[g_productionInspector.outputModeMap[outputs[5]]] .. " "
+						fillTypeString = fillTypeString .. " " .. Utils.getNoNil(g_productionInspector[g_productionInspector.outputModeMap[outputs[5]]],"") .. " "
 					else
 						fillTypeString = fillTypeString .. ": "
 					end

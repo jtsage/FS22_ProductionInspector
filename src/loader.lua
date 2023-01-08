@@ -1,14 +1,23 @@
 
+local debug        = true
 local modDirectory = g_currentModDirectory or ""
-local modName = g_currentModName or "unknown"
+local modName      = g_currentModName or "unknown"
 local modEnvironment
 
 source(g_currentModDirectory .. 'ProductionInspector.lua')
+source(g_currentModDirectory .. 'lib/fs22Logger.lua')
+source(g_currentModDirectory .. 'lib/fs22SimpleUtils.lua')
 
 local function load(mission)
 	assert(g_productionInspector == nil)
 
-	modEnvironment = ProductionInspector:new(mission, g_i18n, modDirectory, modName)
+	local piLogger = FS22Log:new(
+		"productionInspector",
+		debug and FS22Log.DEBUG_MODE.VERBOSE or FS22Log.DEBUG_MODE.WARNINGS
+		,{ "getValue", "setValue"}--, "display_data", "outputTextLines" }
+	)
+
+	modEnvironment = ProductionInspector:new(mission, modDirectory, modName, piLogger)
 
 	getfenv(0)["g_productionInspector"] = modEnvironment
 

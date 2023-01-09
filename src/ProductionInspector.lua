@@ -444,18 +444,47 @@ function ProductionInspector:buildSeperator(doSeperate, currentLineTable, curren
 	return true, currentLineTable, currentLineText
 end
 
-function ProductionInspector:buildLinePerc(beginSeperate, currentLineTable, currentLineText, labelText, labelColor, wholePercentage, percentFlip)
-	local thisTextAdditon = JTSUtil.qConcat(labelText, ": ", wholePercentage, "%")
+function ProductionInspector:buildLine2Part(beginSeperate, currentLineTable, currentLineText, part1Text, part1ColorTab, part2Text, part2ColorTab)
+	local thisTextAdditon = JTSUtil.qConcat(part1Text, part2Text)
 
 	if beginSeperate then
 		table.insert(currentLineTable, { self:getColorQuad("colorSep"), self.settings:getValue("setStringTextSep") })
 		thisTextAdditon = self.settings:getValue("setStringTextSep") .. thisTextAdditon
 	end
 
-	table.insert(currentLineTable, { self:getColorQuad(labelColor), JTSUtil.qConcat(labelText, ": ") })
-	table.insert(currentLineTable, { JTSUtil.colorPercent(wholePercentage, percentFlip), JTSUtil.qConcat(wholePercentage, "%")})
+	table.insert(currentLineTable, { part1ColorTab, part1Text})
+
+	if ( part2Text ~= nil ) then
+		table.insert(currentLineTable, { part2ColorTab, part2Text})
+	end
 
 	return beginSeperate, currentLineTable, currentLineText .. thisTextAdditon
+end
+
+function ProductionInspector:buildLineLabelValue(beginSeperate, currentLineTable, currentLineText, labelText, labelColor, valueText, valueColor)
+	return self:buildLine2Part(
+		beginSeperate,
+		currentLineTable,
+		currentLineText,
+		JTSUtil.qConcat(labelText, ": "),
+		self:getColorQuad(labelColor),
+		valueText,
+		self:getColorQuad(valueColor)
+	)
+end
+
+function ProductionInspector:buildLinePerc(beginSeperate, currentLineTable, currentLineText, labelText, labelColor, wholePercentage, percentFlip, withFill)
+	local thisPercText = withFill ~= nil and JTSUtil.qConcat(withFill, " (", wholePercentage, ")") or JTSUtil.qConcat(wholePercentage, "%")
+
+	return self:buildLine2Part(
+		beginSeperate,
+		currentLineTable,
+		currentLineText,
+		JTSUtil.qConcat(labelText, ": "),
+		self:getColorQuad(labelColor),
+		thisPercText,
+		JTSUtil.colorPercent(wholePercentage, percentFlip)
+	)
 end
 
 function ProductionInspector:buildLine(currentLineTable, currentLineText, newColor, newText)
@@ -575,59 +604,59 @@ function ProductionInspector:buildDisplay_anim()
 				table.insert(display_table.displayLines, currentLine)
 				table.insert(display_table.fullLines, currentText)
 
-				display_table.maxLength = math.max(display_table.maxLength, getTextWidth(self.inspectText.size, currentText .. g_productionInspector.setStringTextIndent))
+				display_table.maxLength = math.max(display_table.maxLength, getTextWidth(self.inspectText.size, currentText .. self.settings:getValue("setStringTextIndent")))
 			end
 
-			if ( g_productionInspector.isEnabledAnimFoodTypes ) then
+			if self.settings:getValue("isEnabledAnimFoodTypes") then
 				currentLine, currentText = self:buildLine({}, "", nil, nil)
 
 				for idx, foodType in ipairs(thisDisplay.foodTypes) do
-					if idx > 1 then
-						_, currentLine, currentText = self:buildSeperator(true, currentLine, currentText)
-					end
-
-					local fillColor    = self:makeFillColor(foodType.percent, true)
-
-					currentLine, currentText = self:buildLine(currentLine, currentText, "colorAniData", foodType.title .. ": ")
-					currentLine, currentText = self:buildLine(currentLine, currentText, fillColor, tostring(foodType.percent) .. "%")
+					_, currentLine, currentText = self:buildLinePerc(
+						idx > 1,
+						currentLine,
+						currentText,
+						foodType.title,
+						"colorAniData",
+						foodType.percent,
+						true
+					)
 				end
 
 				table.insert(display_table.displayLines, currentLine)
 				table.insert(display_table.fullLines, currentText)
 
-				tempWidth  = getTextWidth(self.inspectText.size, currentText .. g_productionInspector.setStringTextIndent)
-				if tempWidth > display_table.maxLength then
-					display_table.maxLength = tempWidth
-				end
+				display_table.maxLength = math.max(display_table.maxLength, getTextWidth(self.inspectText.size, currentText .. self.settings:getValue("setStringTextIndent")))
 			end
 
-			if ( g_productionInspector.isEnabledAnimOutputs ) then
+			if self.settings:getValue("isEnabledAnimOutputs") then
 				currentLine, currentText = self:buildLine({}, "", nil, nil)
 
 				for idx, outType in ipairs(thisDisplay.outTypes) do
-					if idx > 1 then
-						_, currentLine, currentText = self:buildSeperator(true, currentLine, currentText)
-					end
-
-					local fillColor    = self:makeFillColor(outType.percent, (not outType.invert))
-
-					currentLine, currentText = self:buildLine(currentLine, currentText, "colorAniData", outType.title .. ": ")
-					currentLine, currentText = self:buildLine(currentLine, currentText, fillColor, tostring(outType.fillLevel) .. " (" .. tostring(outType.percent) .. "%)")
+					_, currentLine, currentText = self:buildLinePerc(
+						idx > 1,
+						currentLine,
+						currentText,
+						outType.title,
+						"colorAniData",
+						outType.percent,
+						not outType.invert,
+						outType.fillLevel
+					)
 				end
 
 				table.insert(display_table.displayLines, currentLine)
 				table.insert(display_table.fullLines, currentText)
 
-				tempWidth  = getTextWidth(self.inspectText.size, currentText .. g_productionInspector.setStringTextIndent)
-				if tempWidth > display_table.maxLength then
-					display_table.maxLength = tempWidth
-				end
+				display_table.maxLength = math.max(display_table.maxLength, getTextWidth(self.inspectText.size, currentText .. self.settings:getValue("setStringTextIndent")))
 			end
 
 			table.insert(display_table.displayLines, false)
 			table.insert(display_table.fullLines, false)
 		end
 	end
+
+	self.logger:printVariable(display_table, FS22Log.LOG_LEVEL.VERBOSE, "display_table_anim", 3)
+
 	return display_table
 end
 
@@ -644,7 +673,7 @@ function ProductionInspector:buildDisplay_prod()
 	}
 
 	for _, thisDisplay in ipairs(working_table) do
-		if ( g_productionInspector.isEnabledProdMax == 0 or currentCount < g_productionInspector.isEnabledProdMax ) then
+		if ( self.settings:getValue("isEnabledProdMax") == 0 or currentCount < self.settings:getValue("isEnabledProdMax") ) then
 			currentCount = currentCount + 1
 
 			-- Production point Name
@@ -661,12 +690,15 @@ function ProductionInspector:buildDisplay_prod()
 			currentLine, currentText = self:buildLine(currentLine, currentText, "colorCaption", g_i18n:getText("ui_productions_production") .. " - ")
 
 			for idx, prodLine in ipairs(thisDisplay.products) do
-				if idx > 1 then
-					_, currentLine, currentText = self:buildSeperator(true, currentLine, currentText)
-				end
-
-				currentLine, currentText = self:buildLine(currentLine, currentText, "colorProdName", prodLine[1] .. ": ")
-				currentLine, currentText = self:buildLine(currentLine, currentText, prodLine[4], prodLine[3])
+				_, currentLine, currentText = self:buildLineLabelValue(
+					idx > 1,
+					currentLine,
+					currentText,
+					prodLine.name,
+					"colorProdName",
+					prodLine.statusText,
+					not prodLine.statusColor
+				)
 			end
 
 			if thisDisplay.products == nil or #thisDisplay.products == 0 then
@@ -676,10 +708,7 @@ function ProductionInspector:buildDisplay_prod()
 			table.insert(display_table.displayLines, currentLine)
 			table.insert(display_table.fullLines, currentText)
 
-			tempWidth = getTextWidth(self.inspectText.size, currentText .. g_productionInspector.setStringTextIndent)
-			if tempWidth > display_table.maxLength then
-				display_table.maxLength = tempWidth
-			end
+			display_table.maxLength = math.max(display_table.maxLength, getTextWidth(self.inspectText.size, currentText .. self.settings:getValue("setStringTextIndent")))
 
 			-- Production point inputs
 			if g_productionInspector.isEnabledProdInputs then
@@ -687,32 +716,30 @@ function ProductionInspector:buildDisplay_prod()
 				currentLine, currentText = self:buildLine(currentLine, currentText, "colorCaption", g_i18n:getText("ui_productions_incomingMaterials") .. " - ")
 
 				for idx, inputs in ipairs(thisDisplay.inputs) do
-					local thisFillType = g_fillTypeManager:getFillTypeByIndex(inputs[1])
-					--local fillColor    = JTSUtil.colorPercent(inputs[4], true)
-					local fillColor    = self:makeFillColor(inputs[4], true)
+					local thisFillType = g_fillTypeManager:getFillTypeByIndex(inputs.fillTypeIdx)
+					local levelText    = nil
 
-					if idx > 1 then
-						_, currentLine, currentText = self:buildSeperator(true, currentLine, currentText)
-					end
-
-					currentLine, currentText = self:buildLine(currentLine, currentText, "colorFillType", thisFillType.title .. ": ")
-
-					if ( inputs[2] == 0 and g_productionInspector.isEnabledProdShortEmptyOut ) then
-						currentLine, currentText = self:buildLine(currentLine, currentText, "colorEmptyInput", g_productionInspector.setStringTextEmptyInput)
+					if self.settings:getValue("isEnabledProdInPercent") then
+						if self.settings:getValue("isEnabledProdInFillLevel") then
+							levelText = JTSUtil.qConcat(inputs.level, " (", inputs.wholePercent, "%)")
+						else
+							levelText = JTSUtil.qConcat(inputs.wholePercent, "%")
+						end
 					else
-						local levelString = ""
-						if g_productionInspector.isEnabledProdInFillLevel then
-							levelString = levelString .. tostring(inputs[2])
+						if self.settings:getValue("isEnabledProdInFillLevel") then
+							levelText = JTSUtil.qConcat("", inputs.level)
 						end
-						if g_productionInspector.isEnabledProdInPercent then
-							if g_productionInspector.isEnabledProdInFillLevel then
-								levelString = levelString .. " (" .. tostring(inputs[4]) .. "%)"
-							else
-								levelString = levelString .. tostring(inputs[4]) .. "%"
-							end
-						end
-						currentLine, currentText = self:buildLine(currentLine, currentText, fillColor, levelString)
 					end
+
+					_, currentLine, currentText = self:buildLine2Part(
+						idx > 1,
+						currentLine,
+						currentText,
+						JTSUtil.qConcat(thisFillType.title,": "),
+						self:getColorQuad("colorFillType"),
+						levelText,
+						JTSUtil.colorPercent(inputs.wholePercent, true)
+					)
 				end
 
 				if thisDisplay.inputs == nil or #thisDisplay.inputs == 0 then
@@ -722,10 +749,7 @@ function ProductionInspector:buildDisplay_prod()
 				table.insert(display_table.displayLines, currentLine)
 				table.insert(display_table.fullLines, currentText)
 
-				tempWidth = getTextWidth(self.inspectText.size, currentText .. g_productionInspector.setStringTextIndent)
-				if tempWidth > display_table.maxLength then
-					display_table.maxLength = tempWidth
-				end
+				display_table.maxLength = math.max(display_table.maxLength, getTextWidth(self.inspectText.size, currentText .. self.settings:getValue("setStringTextIndent")))
 			end
 
 			if g_productionInspector.isEnabledProdOutputs then

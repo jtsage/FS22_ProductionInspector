@@ -275,7 +275,7 @@ function ProductionInspector:updateProductions()
 				for _, thisProcess in ipairs(thisProd.productions) do
 					local prRunning   = thisProd:getIsProductionEnabled(thisProcess.id)
 					local prStatus    = thisProd:getProductionStatus(thisProcess.id)
-					local prStatusCol = Utils.getNoNil(g_productionInspector.statusColorsMap[prStatus], "colorStatusInactive")
+					local prStatusCol = Utils.getNoNil(self.statusColorsMap[prStatus], "colorStatusInactive")
 					local prStatusTxt = Utils.getNoNil(g_i18n:getText(ProductionPoint.PROD_STATUS_TO_L10N[prStatus]), "unknown")
 
 					if not weAreWorkingHere and prRunning then
@@ -432,6 +432,15 @@ function ProductionInspector:openConstructionScreen()
 	g_productionInspector.inspectBox_silo:setVisible(false)
 end
 
+function ProductionInspector:getMaxLength(display_table, currentText, useIndent)
+	local thisText = currentText
+
+	if ( useIndent ~= nil and useIndent == true ) then
+		thisText = thisText .. self.settings:getValue("setStringTextIndent")
+	end
+	return math.max(display_table.maxLength, getTextWidth(self.inspectText.size, thisText))
+end
+
 function ProductionInspector:buildSeperator(doSeperate, currentLineTable, currentLineText)
 	if doSeperate then
 		currentLineTable, currentLineText = self:buildLine(
@@ -501,10 +510,12 @@ function ProductionInspector:buildLine(currentLineTable, currentLineText, newCol
 	return currentLineTable, currentLineText .. tostring(newText)
 end
 
+function ProductionInspector:checkDisplayCount(num, config)
+	return self.settings:getValue(config) == 0 or num < self.settings:getValue(config)
+end
+
 function ProductionInspector:buildDisplay_anim()
 	local working_table = self.display_data_anim
-	local currentCount  = 0
-	local tempWidth     = 0
 	local currentLine   = {}
 	local currentText   = ""
 	local display_table = {
@@ -513,11 +524,9 @@ function ProductionInspector:buildDisplay_anim()
 		fullLines     = {}
 	}
 
-	for _, thisDisplay in ipairs(working_table) do
-		if ( self.settings:getValue("isEnabledAnimMax") == 0 or currentCount < self.settings:getValue("isEnabledAnimMax") ) then
+	for animIdx, thisDisplay in ipairs(working_table) do
+		if self:checkDisplayCount(animIdx, "isEnabledAnimMax") then
 			local doSeperate = false
-
-			currentCount = currentCount + 1
 
 			currentLine, currentText = self:buildLine({}, "", "colorAniHome", thisDisplay.name .. ": ")
 
@@ -560,7 +569,7 @@ function ProductionInspector:buildDisplay_anim()
 			table.insert(display_table.fullLines, currentText)
 
 			doSeperate = false
-			display_table.maxLength = math.max(display_table.maxLength, getTextWidth(self.inspectText.size, currentText))
+			display_table.maxLength = self:getMaxLength(display_table, currentText, false)
 
 			if ( self.settings:getValue("isEnabledAnimHealth") or self.settings:getValue("isEnabledAnimReproduction") or self.settings:getValue("isEnabledAnimPuberty") ) then
 				currentLine, currentText = self:buildLine({}, "", nil, nil)
@@ -604,7 +613,7 @@ function ProductionInspector:buildDisplay_anim()
 				table.insert(display_table.displayLines, currentLine)
 				table.insert(display_table.fullLines, currentText)
 
-				display_table.maxLength = math.max(display_table.maxLength, getTextWidth(self.inspectText.size, currentText .. self.settings:getValue("setStringTextIndent")))
+				display_table.maxLength = self:getMaxLength(display_table, currentText, true)
 			end
 
 			if self.settings:getValue("isEnabledAnimFoodTypes") then
@@ -625,7 +634,7 @@ function ProductionInspector:buildDisplay_anim()
 				table.insert(display_table.displayLines, currentLine)
 				table.insert(display_table.fullLines, currentText)
 
-				display_table.maxLength = math.max(display_table.maxLength, getTextWidth(self.inspectText.size, currentText .. self.settings:getValue("setStringTextIndent")))
+				display_table.maxLength = self:getMaxLength(display_table, currentText, true)
 			end
 
 			if self.settings:getValue("isEnabledAnimOutputs") then
@@ -647,7 +656,7 @@ function ProductionInspector:buildDisplay_anim()
 				table.insert(display_table.displayLines, currentLine)
 				table.insert(display_table.fullLines, currentText)
 
-				display_table.maxLength = math.max(display_table.maxLength, getTextWidth(self.inspectText.size, currentText .. self.settings:getValue("setStringTextIndent")))
+				display_table.maxLength = self:getMaxLength(display_table, currentText, true)
 			end
 
 			table.insert(display_table.displayLines, false)
@@ -662,8 +671,6 @@ end
 
 function ProductionInspector:buildDisplay_prod()
 	local working_table = self.display_data_prod
-	local currentCount  = 0
-	local tempWidth     = 0
 	local currentLine   = {}
 	local currentText   = ""
 	local display_table = {
@@ -672,10 +679,8 @@ function ProductionInspector:buildDisplay_prod()
 		fullLines     = {}
 	}
 
-	for _, thisDisplay in ipairs(working_table) do
-		if ( self.settings:getValue("isEnabledProdMax") == 0 or currentCount < self.settings:getValue("isEnabledProdMax") ) then
-			currentCount = currentCount + 1
-
+	for prodIdx, thisDisplay in ipairs(working_table) do
+		if self:checkDisplayCount(prodIdx, "isEnabledProdMax") then
 			-- Production point Name
 			if thisDisplay.isMine then
 				table.insert(display_table.displayLines, {{ self:getColorQuad("colorPointOwned"), thisDisplay.name }})
@@ -708,10 +713,10 @@ function ProductionInspector:buildDisplay_prod()
 			table.insert(display_table.displayLines, currentLine)
 			table.insert(display_table.fullLines, currentText)
 
-			display_table.maxLength = math.max(display_table.maxLength, getTextWidth(self.inspectText.size, currentText .. self.settings:getValue("setStringTextIndent")))
+			display_table.maxLength = self:getMaxLength(display_table, currentText, true)
 
 			-- Production point inputs
-			if g_productionInspector.isEnabledProdInputs then
+			if self.settings:getValue("isEnabledProdInputs") then
 				currentLine, currentText = self:buildLine({}, "", nil, nil)
 				currentLine, currentText = self:buildLine(currentLine, currentText, "colorCaption", g_i18n:getText("ui_productions_incomingMaterials") .. " - ")
 
@@ -749,16 +754,16 @@ function ProductionInspector:buildDisplay_prod()
 				table.insert(display_table.displayLines, currentLine)
 				table.insert(display_table.fullLines, currentText)
 
-				display_table.maxLength = math.max(display_table.maxLength, getTextWidth(self.inspectText.size, currentText .. self.settings:getValue("setStringTextIndent")))
+				display_table.maxLength = self:getMaxLength(display_table, currentText, true)
 			end
 
-			if g_productionInspector.isEnabledProdOutputs then
+			if self.settings:getValue("isEnabledProdOutputs") then
 				currentLine, currentText = self:buildLine({}, "", nil, nil)
 				currentLine, currentText = self:buildLine(currentLine, currentText, "colorCaption", g_i18n:getText("ui_productions_outgoingProducts") .. " - ")
 
 				for idx, outputs in ipairs(thisDisplay.outputs) do
-					local thisFillType = g_fillTypeManager:getFillTypeByIndex(outputs[1])
-					local fillColor    = self:makeFillColor(outputs[4], false)
+					local thisFillType = g_fillTypeManager:getFillTypeByIndex(outputs.fillTypeIdx)
+					local fillColor    = JTSUtil.colorPercent(outputs.wholePercent, false)
 
 					if idx > 1 then
 						_, currentLine, currentText = self:buildSeperator(true, currentLine, currentText)
@@ -766,27 +771,34 @@ function ProductionInspector:buildDisplay_prod()
 
 					local fillTypeString = thisFillType.title
 
-					if g_productionInspector.isEnabledProdOutputMode then
-						fillTypeString = fillTypeString .. " " .. Utils.getNoNil(g_productionInspector[g_productionInspector.outputModeMap[outputs[5]]],"") .. " "
+					if self.settings:getValue("isEnabledProdOutputMode") then
+						fillTypeString = JTSUtil.qConcat(fillTypeString, " ", self.settings:getValue(self.outputModeMap[outputs.destination]), " ")
 					else
-						fillTypeString = fillTypeString .. ": "
+						fillTypeString = JTSUtil.qConcat(fillTypeString, ": ")
 					end
 
-					currentLine, currentText = self:buildLine(currentLine, currentText, "colorFillType", fillTypeString)
-
-					local levelString = ""
-					if g_productionInspector.isEnabledProdOutFillLevel then
-						levelString = levelString .. tostring(outputs[2])
-					end
-
-					if g_productionInspector.isEnabledProdOutPercent then
-						if g_productionInspector.isEnabledProdOutFillLevel then
-							levelString = levelString .. " (" .. tostring(outputs[4]) .. "%)"
+					local levelText = ""
+					if self.settings:getValue("isEnabledProdOutPercent") then
+						if self.settings:getValue("isEnabledProdOutFillLevel") then
+							levelText = JTSUtil.qConcat(outputs.level, " (", outputs.wholePercent, "%)")
 						else
-							levelString = levelString .. tostring(outputs[4]) .. "%"
+							levelText = JTSUtil.qConcat(outputs.wholePercent, "%")
+						end
+					else
+						if self.settings:getValue("isEnabledProdOutFillLevel") then
+							levelText = JTSUtil.qConcat("", outputs.level)
 						end
 					end
-					currentLine, currentText = self:buildLine(currentLine, currentText, fillColor, levelString)
+
+					_, currentLine, currentText = self:buildLine2Part(
+						idx > 1,
+						currentLine,
+						currentText,
+						fillTypeString,
+						self:getColorQuad("colorFillType"),
+						levelText,
+						fillColor
+					)
 				end
 
 				if thisDisplay.outputs == nil or #thisDisplay.outputs == 0 then
@@ -796,16 +808,16 @@ function ProductionInspector:buildDisplay_prod()
 				table.insert(display_table.displayLines, currentLine)
 				table.insert(display_table.fullLines, currentText)
 
-				tempWidth = getTextWidth(self.inspectText.size, currentText .. g_productionInspector.setStringTextIndent)
-				if tempWidth > display_table.maxLength then
-					display_table.maxLength = tempWidth
-				end
+				display_table.maxLength = self:getMaxLength(display_table, currentText, true)
 			end
 
 			table.insert(display_table.displayLines, false)
 			table.insert(display_table.fullLines, false)
 		end
 	end
+
+	self.logger:printVariable(display_table, FS22Log.LOG_LEVEL.VERBOSE, "display_table_prod", 3)
+
 	return display_table
 end
 

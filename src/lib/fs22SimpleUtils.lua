@@ -72,6 +72,16 @@ function JTSUtil.calcPercent(level, capacity, text)
 	return percent
 end
 
+function JTSUtil.nilOrEmptyTable(checkTable)
+	return checkTable == nil or #checkTable == 0
+end
+
+function JTSUtil.logicStringBuild(testCondition, valueAlways, appendIfTrue, appendIfFalse)
+	if testCondition then
+		return JTSUtil.qConcat(valueAlways, appendIfTrue)
+	end
+	return JTSUtil.qConcat(valueAlways, appendIfFalse)
+end
 
 function JTSUtil.qConcatS(...)
 	return JTSUtil.qConcatFull(true, unpack({...}))

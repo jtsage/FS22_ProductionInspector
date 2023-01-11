@@ -13,8 +13,17 @@ local function load(mission)
 
 	local piLogger = FS22Log:new(
 		"productionInspector",
-		debug and FS22Log.DEBUG_MODE.VERBOSE or FS22Log.DEBUG_MODE.WARNINGS
-		,{ "getValue", "setValue"}--, "display_data", "outputTextLines" }
+		debug and FS22Log.DEBUG_MODE.VERBOSE or FS22Log.DEBUG_MODE.WARNINGS,
+		{
+			"getValue",
+			"setValue",
+			"display_table_prod",
+			"display_table_anim",
+			"display_table_silo",
+			"display_data_prod",
+			"display_data_anim",
+			"display_data_silo",
+		}
 	)
 
 	modEnvironment = ProductionInspector:new(mission, modDirectory, modName, piLogger)

@@ -102,9 +102,7 @@ function ProductionInspector:new(mission, modDirectory, modName, logger)
 			setStringTextRealStore   = "←",
 		},
 		function ()
-			self.inspectBox_prod.size = self.gameInfoDisplay:scalePixelToScreenHeight(self.settings:getValue("setValueTextSize"))
-			self.inspectBox_anim.size = self.gameInfoDisplay:scalePixelToScreenHeight(self.settings:getValue("setValueTextSize"))
-			self.inspectBox_silo.size = self.gameInfoDisplay:scalePixelToScreenHeight(self.settings:getValue("setValueTextSize"))
+			self.inspectText.size = self.gameInfoDisplay:scalePixelToScreenHeight(self.settings:getValue("setValueTextSize"))
 		end,
 		nil,
 		self.logger
@@ -208,7 +206,7 @@ function ProductionInspector:updateSilos()
 			})
 		end
 
-		self.logger:printVariable(new_data_table, FS22Log.LOG_LEVEL.VERBOSE, "display_data_silo", 3)
+		self.logger:printVariable(new_data_table, FS22Log.LOG_LEVEL.VERBOSE, "display_data_silo", 4)
 	end
 
 	self.display_data_silo = {unpack(new_data_table)}
@@ -484,7 +482,7 @@ function ProductionInspector:buildLine2Part(beginSeperate, currentLineTable, cur
 		table.insert(currentLineTable, { part2ColorTab, part2Text})
 	end
 
-	return beginSeperate, currentLineTable, currentLineText .. thisTextAdditon
+	return true, currentLineTable, currentLineText .. thisTextAdditon
 end
 
 function ProductionInspector:buildLineLabelValue(beginSeperate, currentLineTable, currentLineText, labelText, labelColor, valueText, valueColor)
@@ -500,7 +498,7 @@ function ProductionInspector:buildLineLabelValue(beginSeperate, currentLineTable
 end
 
 function ProductionInspector:buildLinePerc(beginSeperate, currentLineTable, currentLineText, labelText, labelColor, wholePercentage, percentFlip, withFill)
-	local thisPercText = withFill ~= nil and JTSUtil.qConcat(withFill, " (", wholePercentage, ")") or JTSUtil.qConcat(wholePercentage, "%")
+	local thisPercText = withFill ~= nil and JTSUtil.qConcat(withFill, " (", wholePercentage, "%)") or JTSUtil.qConcat(wholePercentage, "%")
 
 	return self:buildLine2Part(
 		beginSeperate,
@@ -827,7 +825,7 @@ function ProductionInspector:buildDisplay_silo()
 	for siloIdx, thisDisplay in ipairs(working_table) do
 		if self:checkDisplayCount(siloIdx, "isEnabledSiloMax") then
 			currentLine, currentText = self:buildLine({}, "", "colorAniHome", thisDisplay.name .. ": ")
-			currentLine, currentText = self:buildLine(currentLine, currentText, self:makeFillColor(thisDisplay.percent, false), tostring(thisDisplay.percent) .. "%")
+			currentLine, currentText = self:buildLine(currentLine, currentText, JTSUtil.colorPercent(thisDisplay.percent, false), tostring(thisDisplay.percent) .. "%")
 
 			table.insert(display_table.displayLines, currentLine)
 			table.insert(display_table.fullLines, currentText)
@@ -846,7 +844,7 @@ function ProductionInspector:buildDisplay_silo()
 					currentText,
 					thisFillType.title,
 					"colorAniData",
-					thisFillType.level,
+					tostring(thisFill.level),
 					"colorFillType"
 				)
 			end
@@ -1039,11 +1037,11 @@ function ProductionInspector:draw_variant(thisDisplayTable, dataType)
 					dispTextY,
 					fullTextSoFar,
 					thisPart[2],
-					self.settings.getValue(settingDisplayMode),
+					self.settings:getValue(settingDisplayMode),
 					indentLine,
 					fullTextLine,
 					dispTextW,
-					self.settings.getValue(settingForceJustify)
+					self.settings:getValue(settingForceJustify)
 				)
 			end
 			dispTextY = dispTextY - self.inspectText.size
@@ -1188,6 +1186,11 @@ function ProductionInspector:findOrigin(dataType)
 		if g_currentMission.inGameMenu.hud.inputHelp.overlay.visible then
 			tmpY = tmpY - self.inputHelpDisplay:getHeight() - 0.012
 		end
+		
+		self.logger:printVariable(g_currentMission.inGameMenu.hud, FS22Log.LOG_LEVEL.VERBOSE, "inGameMenu.hud", 1)
+		--self.logger:printVariable(g_precisionFarming.inputHelpDisplayExtension, FS22Log.LOG_LEVEL.VERBOSE, "inputHelpDisplay", 2)
+		
+		
 	end
 
 	-- at this point, we've not adjusted for multiples.
@@ -1396,7 +1399,7 @@ function ProductionInspector.initGui(self)
 				thisOptionList = textsByType[optNameType[2]]
 			end
 
-			self[fullOptionName] = SimpleInspector.addMenuOption(
+			self[fullOptionName] = ProductionInspector.addMenuOption(
 				self.checkInvertYLook,
 				g_productionInspector,
 				"productionInspector_" .. optNameType[1],

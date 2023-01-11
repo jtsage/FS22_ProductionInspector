@@ -1186,11 +1186,6 @@ function ProductionInspector:findOrigin(dataType)
 		if g_currentMission.inGameMenu.hud.inputHelp.overlay.visible then
 			tmpY = tmpY - self.inputHelpDisplay:getHeight() - 0.012
 		end
-		
-		self.logger:printVariable(g_currentMission.inGameMenu.hud, FS22Log.LOG_LEVEL.VERBOSE, "inGameMenu.hud", 1)
-		--self.logger:printVariable(g_precisionFarming.inputHelpDisplayExtension, FS22Log.LOG_LEVEL.VERBOSE, "inputHelpDisplay", 2)
-		
-		
 	end
 
 	-- at this point, we've not adjusted for multiples.

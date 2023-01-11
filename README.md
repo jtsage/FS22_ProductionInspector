@@ -124,8 +124,7 @@ Fill type levels are color coded from empty (green) to full (red) unless it is a
 
 ### dev, debug and extras
 
-* __setValueTimerFrequency__ - timer update frequency. We probably don't need to query every vehicle on every tick for performance reasons
-* __debugMode__ - show debug output.  Mostly garbage.
+* __setValueTimerFrequency__ - timer update frequency. We probably don't need to query every vehicle on every tick for performance reasons.
 
 ## Sample
 

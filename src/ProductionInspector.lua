@@ -1432,8 +1432,10 @@ function ProductionInspector.initGui(self)
 end
 
 function ProductionInspector:onMenuOptionChanged_dispOpt(state, info)
+	local realOptName = string.sub(info.id, (#"productionInspector_"+1))
+
 	self.settings:setValue(
-		string.sub(info.id, (#"productionInspector_"+1),1):lower() .. string.sub(info.id, (#"productionInspector_"+2)) ,
+		realOptName:sub(1,1):lower() .. realOptName:sub(2),
 		state
 	)
 	self.settings:saveSettings()

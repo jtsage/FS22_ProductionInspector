@@ -1,14 +1,32 @@
 
+local debug        = false
 local modDirectory = g_currentModDirectory or ""
-local modName = g_currentModName or "unknown"
+local modName      = g_currentModName or "unknown"
 local modEnvironment
 
 source(g_currentModDirectory .. 'ProductionInspector.lua')
+source(g_currentModDirectory .. 'lib/fs22Logger.lua')
+source(g_currentModDirectory .. 'lib/fs22SimpleUtils.lua')
 
 local function load(mission)
 	assert(g_productionInspector == nil)
 
-	modEnvironment = ProductionInspector:new(mission, g_i18n, modDirectory, modName)
+	local piLogger = FS22Log:new(
+		"productionInspector",
+		debug and FS22Log.DEBUG_MODE.VERBOSE or FS22Log.DEBUG_MODE.WARNINGS,
+		{
+			"getValue",
+			"setValue",
+			"display_table_prod",
+			"display_table_anim",
+			"display_table_silo",
+			"display_data_prod",
+			"display_data_anim",
+			"display_data_silo",
+		}
+	)
+
+	modEnvironment = ProductionInspector:new(mission, modDirectory, modName, piLogger)
 
 	getfenv(0)["g_productionInspector"] = modEnvironment
 
@@ -30,6 +48,9 @@ local function startMission(mission)
 	modEnvironment:onStartMission(mission)
 end
 
+local function save()
+	modEnvironment:save()
+end
 
 local function init()
 	FSBaseMission.delete = Utils.appendedFunction(FSBaseMission.delete, unload)
@@ -39,7 +60,7 @@ local function init()
 
 	InGameMenuGeneralSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuGeneralSettingsFrame.onFrameOpen, ProductionInspector.initGui)
 
-	FSCareerMissionInfo.saveToXMLFile = Utils.appendedFunction(FSCareerMissionInfo.saveToXMLFile, ProductionInspector.saveSettings) -- Settings are saved live, but we need to do it here too, since the old save directory (with our xml) is now a backup
+	FSCareerMissionInfo.saveToXMLFile = Utils.appendedFunction(FSCareerMissionInfo.saveToXMLFile, save)
 end
 
 init()

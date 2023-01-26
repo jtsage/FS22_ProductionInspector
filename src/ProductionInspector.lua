@@ -569,12 +569,12 @@ function ProductionInspector:buildDisplay_anim()
 					g_i18n:getText("statistic_productivity"),
 					"colorAniData",
 					thisDisplay.productivity,
-					true
+					false
 				)
 			end
 
 			if ( self.settings:getValue("isEnabledAnimCount") ) then
-				local fillColor    = JTSUtil.colorPercent(math.ceil((thisDisplay.totalAnimals / thisDisplay.maxAnimals) * 100), false)
+				local fillColor    = JTSUtil.colorPercent(math.ceil((thisDisplay.totalAnimals / thisDisplay.maxAnimals) * 100), true)
 
 				doSeperate, currentLine, currentText = self:buildSeperator(doSeperate, currentLine, currentText)
 
@@ -592,7 +592,7 @@ function ProductionInspector:buildDisplay_anim()
 					g_i18n:getText("ui_animalFood"),
 					"colorAniData",
 					thisDisplay.totalFood,
-					true
+					false
 				)
 			end
 
@@ -613,7 +613,7 @@ function ProductionInspector:buildDisplay_anim()
 						g_i18n:getText("hud_productionInspector_avgHealth"),
 						"colorAniData",
 						thisDisplay.healthFactor,
-						true
+						false
 					)
 				end
 
@@ -625,7 +625,7 @@ function ProductionInspector:buildDisplay_anim()
 						g_i18n:getText("hud_productionInspector_tooYoung"),
 						"colorAniData",
 						thisDisplay.underageFactor,
-						false
+						true
 					)
 				end
 
@@ -637,7 +637,7 @@ function ProductionInspector:buildDisplay_anim()
 						g_i18n:getText("hud_productionInspector_avgBreed"),
 						"colorAniData",
 						thisDisplay.breedFactor,
-						true
+						false
 					)
 				end
 
@@ -658,7 +658,7 @@ function ProductionInspector:buildDisplay_anim()
 						foodType.title,
 						"colorAniData",
 						foodType.percent,
-						true
+						false
 					)
 				end
 
@@ -783,7 +783,7 @@ function ProductionInspector:buildDisplay_prod()
 							"isEnabledProdInFillLevel",
 							"isEnabledProdInPercent"
 						),
-						JTSUtil.colorPercent(inputs.wholePercent, true)
+						JTSUtil.colorPercent(inputs.wholePercent, false)
 					)
 				end
 
@@ -826,7 +826,7 @@ function ProductionInspector:buildDisplay_prod()
 							"isEnabledProdOutFillLevel",
 							"isEnabledProdOutPercent"
 						),
-						JTSUtil.colorPercent(outputs.wholePercent, false)
+						JTSUtil.colorPercent(outputs.wholePercent, true)
 					)
 				end
 
@@ -863,7 +863,7 @@ function ProductionInspector:buildDisplay_silo()
 	for siloIdx, thisDisplay in ipairs(working_table) do
 		if self:checkDisplayCount(siloIdx, "isEnabledSiloMax") then
 			currentLine, currentText = self:buildLine({}, "", "colorAniHome", thisDisplay.name .. ": ")
-			currentLine, currentText = self:buildLine(currentLine, currentText, JTSUtil.colorPercent(thisDisplay.percent, false), tostring(thisDisplay.percent) .. "%")
+			currentLine, currentText = self:buildLine(currentLine, currentText, JTSUtil.colorPercent(thisDisplay.percent, true), tostring(thisDisplay.percent) .. "%")
 
 			table.insert(display_table.displayLines, currentLine)
 			table.insert(display_table.fullLines, currentText)

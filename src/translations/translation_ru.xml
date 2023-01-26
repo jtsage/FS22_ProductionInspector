@@ -97,5 +97,10 @@
 	<text name="setting_productionInspector_DisplayMode2"      text="Вверху справа" />
 	<text name="setting_productionInspector_DisplayMode3"      text="Внизу слева" />
 	<text name="setting_productionInspector_DisplayMode4"      text="Внизу справа" />
+
+	<text name="setting_productionInspector_SolidUnit"       text="Единица измерения: твердые вещества" />
+	<text name="toolTip_productionInspector_SolidUnit"       text="Используйте эту единицу измерения для отображения твердых продуктов" />
+	<text name="setting_productionInspector_LiquidUnit"      text="Единица измерения: Жидкости" />
+	<text name="toolTip_productionInspector_LiquidUnit"      text="Используйте эту единицу измерения для отображения жидких продуктов" />
   </texts>
 </l10n>

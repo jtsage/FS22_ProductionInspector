@@ -23,6 +23,9 @@ function ProductionInspector:new(mission, modDirectory, modName, logger)
 	self.ingameMap         = mission.hud.ingameMap
 
 	source(modDirectory .. 'lib/fs22ModPrefSaver.lua')
+	source(modDirectory .. 'lib/fs22FSGUnitConvert.lua')
+
+	self.convert  = FS22FSGUnits:new(self.logger)
 
 	self.settings = FS22PrefSaver:new(
 		"FS22_ProductionInspector",
@@ -32,6 +35,9 @@ function ProductionInspector:new(mission, modDirectory, modName, logger)
 			displayModeProd = { 1, "int" },
 			displayModeAnim = { 1, "int" },
 			displayModeSilo = { 1, "int" },
+
+			isEnabledSolidUnit       = { 1, "int" },
+			isEnabledLiquidUnit      = { 1, "int" },
 
 			isEnabledProdVisible = true,
 			isEnabledAnimVisible = false,
@@ -114,7 +120,6 @@ function ProductionInspector:new(mission, modDirectory, modName, logger)
 	self.boxBGColor     = { 544, 20, 200, 44 }
 	self.bgName         = 'dataS/menu/blank.png'
 	self.menuTextSizes          = { 8, 10, 12, 14, 16 }
-	
 
 	local modDesc       = loadXMLFile("modDesc", modDirectory .. "modDesc.xml");
 	self.version        = getXMLString(modDesc, "modDesc.version");
@@ -369,7 +374,7 @@ function ProductionInspector:updateAnimals()
 							title     = thisCondInfo.title,
 							percent   = math.ceil(thisCondInfo.ratio * 100),
 							fillLevel = math.floor(thisCondInfo.value),
-							invert    = thisCondInfo.invertedBar
+							invert    = not thisCondInfo.invertedBar
 						})
 					end
 
@@ -454,6 +459,17 @@ function ProductionInspector:levelWithPercent(level, wholePercent, configShowLev
 	end
 
 	return ""
+end
+
+function ProductionInspector:fillTypeFromTitle(title)
+	local allFillTypes = g_fillTypeManager:getFillTypes()
+
+	for _, fillType in ipairs(allFillTypes) do
+		if fillType.title == title then
+			return fillType.index
+		end
+	end
+	return nil
 end
 
 function ProductionInspector:buildSeperator(doSeperate, currentLineTable, currentLineText)
@@ -656,6 +672,18 @@ function ProductionInspector:buildDisplay_anim()
 				currentLine, currentText = self:buildLine({}, "", nil, nil)
 
 				for idx, outType in ipairs(thisDisplay.outTypes) do
+					local fillTypeIdx = self:fillTypeFromTitle(outType.title)
+					local fillLevel   = outType.fillLevel
+
+					if fillTypeIdx ~= nil then
+						fillLevel = self.convert:scaleFillTypeLevel(
+							fillTypeIdx,
+							outType.fillLevel,
+							self.settings:getValue("isEnabledSolidUnit"),
+							self.settings:getValue("isEnabledLiquidUnit")
+						)
+					end
+
 					_, currentLine, currentText = self:buildLinePerc(
 						idx > 1,
 						currentLine,
@@ -664,7 +692,7 @@ function ProductionInspector:buildDisplay_anim()
 						"colorAniData",
 						outType.percent,
 						not outType.invert,
-						outType.fillLevel
+						fillLevel
 					)
 				end
 
@@ -745,7 +773,12 @@ function ProductionInspector:buildDisplay_prod()
 						JTSUtil.qConcat(thisFillType.title,": "),
 						self:getColorQuad("colorFillType"),
 						self:levelWithPercent(
-							inputs.level,
+							self.convert:scaleFillTypeLevel(
+								inputs.fillTypeIdx,
+								inputs.level,
+								self.settings:getValue("isEnabledSolidUnit"),
+								self.settings:getValue("isEnabledLiquidUnit")
+							),
 							inputs.wholePercent,
 							"isEnabledProdInFillLevel",
 							"isEnabledProdInPercent"
@@ -783,7 +816,12 @@ function ProductionInspector:buildDisplay_prod()
 						),
 						self:getColorQuad("colorFillType"),
 						self:levelWithPercent(
-							outputs.level,
+							self.convert:scaleFillTypeLevel(
+								outputs.fillTypeIdx,
+								outputs.level,
+								self.settings:getValue("isEnabledSolidUnit"),
+								self.settings:getValue("isEnabledLiquidUnit")
+							),
 							outputs.wholePercent,
 							"isEnabledProdOutFillLevel",
 							"isEnabledProdOutPercent"
@@ -844,7 +882,12 @@ function ProductionInspector:buildDisplay_silo()
 					currentText,
 					thisFillType.title,
 					"colorAniData",
-					tostring(thisFill.level),
+					self.convert:scaleFillTypeLevel(
+						thisFill.fillTypeIdx,
+						thisFill.level,
+						self.settings:getValue("isEnabledSolidUnit"),
+						self.settings:getValue("isEnabledLiquidUnit")
+					),
 					"colorFillType"
 				)
 			end
@@ -931,11 +974,11 @@ function ProductionInspector:getSizes(dataType, display_table)
 
 	if dataType == "anim" and self.settings:getValue("displayModeProd") == self.settings:getValue("displayModeAnim") and self.settings:getValue("isEnabledProdVisible") then
 		if ( thisDisplayMode < 3 ) then
-			overlayY  = overlayY - self.lastCoords.prod[3] - (self.marginHeight * 2)
-			dispTextY = dispTextY - self.lastCoords.prod[3] - (self.marginHeight * 2)
+			overlayY  = overlayY - Utils.getNoNil(self.lastCoords.prod[3], 0) - (self.marginHeight * 2)
+			dispTextY = dispTextY - Utils.getNoNil(self.lastCoords.prod[3], 0) - (self.marginHeight * 2)
 		else
-			overlayY  = overlayY + self.lastCoords.prod[3] + (self.marginHeight * 2)
-			dispTextY = dispTextY + self.lastCoords.prod[3] + (self.marginHeight * 2)
+			overlayY  = overlayY + Utils.getNoNil(self.lastCoords.prod[3], 0) + (self.marginHeight * 2)
+			dispTextY = dispTextY + Utils.getNoNil(self.lastCoords.prod[3], 0) + (self.marginHeight * 2)
 		end
 	end
 	if dataType == "silo" then
@@ -944,28 +987,28 @@ function ProductionInspector:getSizes(dataType, display_table)
 
 		if sameAsAnimal and sameAsProd then
 			if ( thisDisplayMode < 3 ) then
-				overlayY  = overlayY - self.lastCoords.prod[3] - self.lastCoords.anim[3] - (self.marginHeight * 4)
-				dispTextY = dispTextY - self.lastCoords.prod[3] - self.lastCoords.anim[3] - (self.marginHeight * 4)
+				overlayY  = overlayY - Utils.getNoNil(self.lastCoords.prod[3], 0) - Utils.getNoNil(self.lastCoords.anim[3], 0) - (self.marginHeight * 4)
+				dispTextY = dispTextY - Utils.getNoNil(self.lastCoords.prod[3], 0) - Utils.getNoNil(self.lastCoords.anim[3], 0) - (self.marginHeight * 4)
 			else
-				overlayY  = overlayY + self.lastCoords.prod[3] + self.lastCoords.anim[3] + (self.marginHeight * 4)
-				dispTextY = dispTextY + self.lastCoords.prod[3] + self.lastCoords.anim[3] + (self.marginHeight * 4)
+				overlayY  = overlayY + Utils.getNoNil(self.lastCoords.prod[3], 0) + Utils.getNoNil(self.lastCoords.anim[3], 0) + (self.marginHeight * 4)
+				dispTextY = dispTextY + Utils.getNoNil(self.lastCoords.prod[3], 0) + Utils.getNoNil(self.lastCoords.anim[3], 0) + (self.marginHeight * 4)
 			end
 		elseif sameAsAnimal then
 			-- adjust for silo & anim in same
 			if ( thisDisplayMode < 3 ) then
-				overlayY  = overlayY - self.lastCoords.anim[3] - (self.marginHeight * 2)
-				dispTextY = dispTextY - self.lastCoords.anim[3] - (self.marginHeight * 2)
+				overlayY  = overlayY - Utils.getNoNil(self.lastCoords.anim[3], 0) - (self.marginHeight * 2)
+				dispTextY = dispTextY - Utils.getNoNil(self.lastCoords.anim[3], 0) - (self.marginHeight * 2)
 			else
-				overlayY  = overlayY + self.lastCoords.anim[3] + (self.marginHeight * 2)
-				dispTextY = dispTextY + self.lastCoords.anim[3] + (self.marginHeight * 2)
+				overlayY  = overlayY + Utils.getNoNil(self.lastCoords.anim[3], 0) + (self.marginHeight * 2)
+				dispTextY = dispTextY + Utils.getNoNil(self.lastCoords.anim[3], 0) + (self.marginHeight * 2)
 			end
 		elseif sameAsProd then
 			if ( thisDisplayMode < 3 ) then
-				overlayY  = overlayY - self.lastCoords.prod[3] - (self.marginHeight * 2)
-				dispTextY = dispTextY - self.lastCoords.prod[3] - (self.marginHeight * 2)
+				overlayY  = overlayY - Utils.getNoNil(self.lastCoords.prod[3], 0) - (self.marginHeight * 2)
+				dispTextY = dispTextY - Utils.getNoNil(self.lastCoords.prod[3], 0) - (self.marginHeight * 2)
 			else
-				overlayY  = overlayY + self.lastCoords.prod[3] + (self.marginHeight * 2)
-				dispTextY = dispTextY + self.lastCoords.prod[3] + (self.marginHeight * 2)
+				overlayY  = overlayY + Utils.getNoNil(self.lastCoords.prod[3], 0) + (self.marginHeight * 2)
+				dispTextY = dispTextY + Utils.getNoNil(self.lastCoords.prod[3], 0) + (self.marginHeight * 2)
 			end
 		end
 	end
@@ -1185,6 +1228,16 @@ function ProductionInspector:findOrigin(dataType)
 		tmpY = 0.945
 		if g_currentMission.inGameMenu.hud.inputHelp.overlay.visible then
 			tmpY = tmpY - self.inputHelpDisplay:getHeight() - 0.012
+		else
+			if g_currentMission.controlledVehicle ~= nil and _G['FS22_precisionFarming'] ~= nil then
+				for _, extension in ipairs(self.mission.hud.inputHelp.vehicleHudExtensions) do
+					if extension.extendedSowingMachine ~= nil then
+						tmpY = tmpY - (Utils.getNoNil(extension.displayHeight , 0) + 0.012)
+					elseif extension.extendedSprayer ~= nil then
+						tmpY = tmpY - (Utils.getNoNil(extension.displayHeight , 0) - 0.012)
+					end
+				end
+			end
 		end
 	end
 
@@ -1309,6 +1362,8 @@ end
 
 function ProductionInspector.initGui(self)
 	local optsByType = {
+		{ "SolidUnit", "unit"},
+		{ "LiquidUnit", "unit"},
 		{ "DisplayModeProd", "disp"},
 		{ "ProdVisible", "bool"},
 		{ "ProdMax", "max"},
@@ -1390,6 +1445,14 @@ function ProductionInspector.initGui(self)
 				for i=1, g_productionInspector.settings:getValue(maxOptToSetting[optNameType[1]]) do
 					table.insert(thisOptionList, tostring(i))
 				end
+			elseif ( optNameType[2] == "unit" ) then
+				local unitType        = g_productionInspector.convert.unit_types.SOLID
+
+				if optNameType[1] == "LiquidUnit" then
+					unitType = g_productionInspector.convert.unit_types.LIQUID
+				end
+			
+				thisOptionList = g_productionInspector.convert:getSettingsTexts(unitType)
 			else
 				thisOptionList = textsByType[optNameType[2]]
 			end
@@ -1436,6 +1499,14 @@ function ProductionInspector:onMenuOptionChanged_dispOpt(state, info)
 
 	self.settings:setValue(
 		realOptName:sub(1,1):lower() .. realOptName:sub(2),
+		state
+	)
+	self.settings:saveSettings()
+end
+
+function ProductionInspector:onMenuOptionChanged_unitOpt(state, info)
+	self.settings:setValue(
+		"isEnabled" .. string.sub(info.id, (#"productionInspector_"+1)),
 		state
 	)
 	self.settings:saveSettings()

@@ -97,5 +97,10 @@
 	<text name="setting_productionInspector_DisplayMode2"      text="Top Right, Under Clock" />
 	<text name="setting_productionInspector_DisplayMode3"      text="Bottom Left, Above Map" />
 	<text name="setting_productionInspector_DisplayMode4"      text="Bottom Right, Above Speedometer" />
+
+	<text name="setting_productionInspector_SolidUnit"       text="Unit of measure: Solids" />
+	<text name="toolTip_productionInspector_SolidUnit"       text="Use this unit of measure to display solid products" />
+	<text name="setting_productionInspector_LiquidUnit"      text="Unit of measure: Liquids" />
+	<text name="toolTip_productionInspector_LiquidUnit"      text="Use this unit of measure to display liquid products" />
   </texts>
 </l10n>

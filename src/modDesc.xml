@@ -27,6 +27,10 @@ Left Alt + Num Pad 6 : Toggle silo display on and off
 
 Changelog:
 
+v1.2.0.1
+- Fix top-left display to play nice with Precision Farming
+- Add option to convert units for display
+
 v1.2.0.0
  - Fix support for ProductionRevamp mods
  - Re-write some internals for better performance
@@ -67,6 +71,10 @@ Left Alt + Num Pad 6 : Siloanzeige ein- und ausschalten
 
 Changelog:
 
+v1.2.0.1
+- Reparieren Sie die Anzeige oben links, damit sie mit Precision Farming kompatibel ist.
+- Option zum Umrechnen von Einheiten für die Anzeige hinzufügen
+
 v1.2.0.0
  - Unterstützung für ProductionRevamp-Mods beheben
  - Überarbeitung einiger Interna für bessere Leistung
@@ -87,7 +95,7 @@ v1.1.0.0
  ]]></de>
     </description>
     <author>JTSage</author>
-    <version>1.2.0.0</version>
+    <version>1.2.0.1</version>
     <iconFilename>modIcon.dds</iconFilename>
     <multiplayer supported="true"/>
     <extraSourceFiles>

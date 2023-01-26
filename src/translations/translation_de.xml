@@ -97,5 +97,10 @@
 	<text name="setting_productionInspector_DisplayMode2"      text="Oben rechts, unter der Uhr" />
 	<text name="setting_productionInspector_DisplayMode3"      text="Unten links, über Karte" />
 	<text name="setting_productionInspector_DisplayMode4"      text="Unten rechts, über dem Tachometer" />
+
+	<text name="setting_productionInspector_SolidUnit"       text="Maßeinheit: Feststoffe" />
+	<text name="toolTip_productionInspector_SolidUnit"       text="Verwenden Sie diese Maßeinheit, um feste Produkte anzuzeigen" />
+	<text name="setting_productionInspector_LiquidUnit"      text="Maßeinheit: Flüssigkeiten" />
+	<text name="toolTip_productionInspector_LiquidUnit"      text="Verwenden Sie diese Maßeinheit, um flüssige Produkte anzuzeigen" />
   </texts>
 </l10n>

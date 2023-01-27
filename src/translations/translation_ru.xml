@@ -98,10 +98,10 @@
 	<text name="setting_productionInspector_DisplayMode3"      text="Внизу слева" />
 	<text name="setting_productionInspector_DisplayMode4"      text="Внизу справа" />
 
-	<text name="setting_productionInspector_SolidUnit"       text="Единица измерения: твердые вещества" />
-	<text name="toolTip_productionInspector_SolidUnit"       text="Используйте эту единицу измерения для отображения твердых продуктов" />
-	<text name="setting_productionInspector_LiquidUnit"      text="Единица измерения: Жидкости" />
-	<text name="toolTip_productionInspector_LiquidUnit"      text="Используйте эту единицу измерения для отображения жидких продуктов" />
+	<text name="setting_productionInspector_SolidUnit"       text="Ед. измер. тв./сыпучих продуктов" />
+	<text name="toolTip_productionInspector_SolidUnit"       text="Использовать эту единицу измерения для твёрдых/сыпучих продуктов" />
+	<text name="setting_productionInspector_LiquidUnit"      text="Ед. измерения жидкостей" />
+	<text name="toolTip_productionInspector_LiquidUnit"      text="Использовать эту единицу измерения для жидкостей" />
 	<text name="unit_fsgUnitConvert_Volume"             text="Ед. измерения объёма" />
 	<text name="unit_fsgUnitConvert_Weight"             text="Ед. измерения массы" />
 	<text name="unit_fsgUnitConvert_cubicFoot"          text="ft³" />

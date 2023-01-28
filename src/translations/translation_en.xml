@@ -21,6 +21,9 @@
 	<text name="setting_productionInspector_SiloVisible"       text="Silos HUD Visible" />
 	<text name="toolTip_productionInspector_SiloVisible"       text="When enabled, the silo overlay is shown" />
 
+	<text name="setting_productionInspector_SiloShowEmpty"     text="Show Empty Silos" />
+	<text name="toolTip_productionInspector_SiloShowEmpty"     text="When enabled, show silos when they are empty" />
+
 	<text name="setting_productionInspector_ForceProdJustify"  text="Force Productions Text Justification" />
 	<text name="toolTip_productionInspector_ForceProdJustify"  text="Force rendering of text left or right justified, default is based on placement" />
 	<text name="setting_productionInspector_ForceAnimJustify"  text="Force Animals Text Justification" />

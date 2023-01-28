@@ -74,6 +74,7 @@ function ProductionInspector:new(mission, modDirectory, modName, logger)
 			isEnabledAnimMax           = { 0, "int" },
 
 			isEnabledSiloMax           = { 0, "int" },
+			isEnabledSiloShowEmpty     = true,
 
 			setValueTextMarginX     = { 15, "int" },
 			setValueTextMarginY     = { 10, "int" },
@@ -204,11 +205,13 @@ function ProductionInspector:updateSilos()
 				end
 			end
 
-			table.insert(new_data_table, {
-				name       = thisSilo:getName(),
-				percent    = MathUtil.getFlooredPercent(totalFill, capacity),
-				fillLevels = cleanFillLevels
-			})
+			if self.settings:getValue("isEnabledSiloShowEmpty") or totalFill > 1 then
+				table.insert(new_data_table, {
+					name       = thisSilo:getName(),
+					percent    = MathUtil.getFlooredPercent(totalFill, capacity),
+					fillLevels = cleanFillLevels
+				})
+			end
 		end
 
 		self.logger:printVariable(new_data_table, FS22Log.LOG_LEVEL.VERBOSE, "display_data_silo", 4)
@@ -1396,6 +1399,7 @@ function ProductionInspector.initGui(self)
 		{ "ForceAnimJustify", "just"},
 		{ "DisplayModeSilo", "disp"},
 		{ "SiloVisible", "bool"},
+		{ "SiloShowEmpty", "bool"},
 		{ "SiloMax", "max"},
 		{ "ForceSiloJustify", "just"},
 		{ "TextBold", "bool"},

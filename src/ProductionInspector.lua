@@ -107,6 +107,7 @@ function ProductionInspector:new(mission, modDirectory, modName, logger)
 			setStringTextStoring     = "↓",
 			setStringTextDistribute  = "→",
 			setStringTextRealStore   = "←",
+			setStringTextUnknown     = " ",
 		},
 		function ()
 			self.inspectText.size = self.gameInfoDisplay:scalePixelToScreenHeight(self.settings:getValue("setValueTextSize"))
@@ -806,6 +807,7 @@ function ProductionInspector:buildDisplay_prod()
 
 				for idx, outputs in ipairs(thisDisplay.outputs) do
 					local thisFillType   = g_fillTypeManager:getFillTypeByIndex(outputs.fillTypeIdx)
+					local outputTextKey  = Utils.getNoNil(self.outputModeMap[outputs.destination], "setStringTextUnknown")
 
 					_, currentLine, currentText = self:buildLine2Part(
 						idx > 1,
@@ -814,7 +816,7 @@ function ProductionInspector:buildDisplay_prod()
 						JTSUtil.logicStringBuild(
 							self.settings:getValue("isEnabledProdOutputMode"),
 							thisFillType.title,
-							JTSUtil.qConcat(" ", self.settings:getValue(self.outputModeMap[outputs.destination]), " "),
+							JTSUtil.qConcat(" ", self.settings:getValue(outputTextKey), " "),
 							": "
 						),
 						self:getColorQuad("colorFillType"),

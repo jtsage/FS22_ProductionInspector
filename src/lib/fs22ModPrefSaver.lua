@@ -60,6 +60,10 @@ function FS22PrefSaver:dumpDefaults()
 end
 
 function FS22PrefSaver:getValue(name)
+	if name == nil then
+		self.debugger:print("Empty setting request", FS22Log.LOG_LEVEL.VERBOSE, "getValue")
+		return nil
+	end
 	if self.settings[name] == nil then
 		if self.defaults[name] == nil or self.defaults[name][1] == nil then
 			self.debugger:print("UnKnown Setting: " .. name, FS22Log.LOG_LEVEL.VERBOSE, "getValue")

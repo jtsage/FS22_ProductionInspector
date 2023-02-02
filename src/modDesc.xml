@@ -27,7 +27,8 @@ Left Alt + Num Pad 6 : Toggle silo display on and off
 
 Changelog:
 
-v1.2.0.2
+v1.2.0.3
+- Another fix for ProductionRevamp
 - Format numbers with localization
 - Add option to hide empty silos
 - Fix top-left display to play nice with Precision Farming
@@ -73,7 +74,8 @@ Left Alt + Num Pad 6 : Siloanzeige ein- und ausschalten
 
 Changelog:
 
-v1.2.0.2
+v1.2.0.3
+- Eine weitere Korrektur für ProductionRevamp
 - Zahlen mit Lokalisierung formatieren
 - Option zum Ausblenden leerer Silos hinzufügen
 - Reparieren Sie die Anzeige oben links, damit sie mit Precision Farming kompatibel ist.
@@ -99,7 +101,7 @@ v1.1.0.0
  ]]></de>
     </description>
     <author>JTSage</author>
-    <version>1.2.0.2</version>
+    <version>1.2.0.3</version>
     <iconFilename>modIcon.dds</iconFilename>
     <multiplayer supported="true"/>
     <extraSourceFiles>
